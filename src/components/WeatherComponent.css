@@ -1,0 +1,68 @@
+@value unit, font, font-size, dark-gray-color, error-color from "@jetbrains/ring-ui/components/global/global.css";
+
+.weather {
+    display: flex;
+    flex-flow: column wrap;
+    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    overflow: hidden;
+}
+
+.weatherCurrent {
+    display: flex;
+    flex-flow: row wrap;
+    /*background-image: url("/Content/images/shared/misc/london-view.png");*/
+    /*background-repeat: repeat-x;*/
+    /*color: white;*/
+    color: #AAA;
+    padding: 20px;
+    /*text-shadow: 1px 1px #F68D2E;*/
+}
+
+.weatherCurrentInfo {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    flex-grow: 2;
+}
+
+.weatherCurrentInfoCity {
+    font-size: 26px;
+}
+
+.weatherCurrentInfoTemp {
+    font-size: 56px;
+}
+
+.weatherCurrentInfoCityWind {
+    font-size: 24px;
+}
+
+.weatherCurrentIcon {
+    text-align: center;
+    font-size: 64px;
+    flex-grow: 1;
+}
+
+.weatherFuture {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.weatherFutureDay {
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.weatherFutureDay:hover {
+    color: #fff;
+    background-color: #F68D2E;
+}
+
+.weatherFutureDayH3 {
+    text-transform: uppercase;
+}
+
+.weatherFutureDayP {
+    font-size: 28px;
+}

@@ -1,0 +1,24 @@
+{
+  "key": "jb-hub-weather",
+  "version": "0.0.0",
+  "name": "JB Hub Weather",
+  "description": "A widget to do something",
+  "author": "Aleksey Troynikov <aleksey@troynikov.com>",
+  "homeUrl": "https://localhost.troynikov.com:8443/",
+  "applicationName": "JB Hub Weather",
+  "dependencies": {
+    "Hub": ">3.0"
+  },
+  "products": {
+    "Hub": ">=2018.1"
+  },
+  "view": {
+    "fadeOut": true,
+    "defaultWidth": 3,
+    "defaultHeight": 2
+  },
+  "capabilities": {
+    "popups": true,
+    "topNavigation": true
+  }
+}
