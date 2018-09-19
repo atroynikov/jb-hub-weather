@@ -6,7 +6,8 @@ import {
 import {fetchGeolocation} from '../actions/GeolocationActions';
 import {
     fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
-    fetchCache, receiveFetchCache, requestFetchCacheFailed
+    fetchCache, receiveFetchCache, requestFetchCacheFailed,
+    setLoadingAnimation, setLoadingAnimationFinished
 } from '../actions/DashboardApiActions';
 import {
     fetchWeather, receiveWeather, requestWeatherFailed,
@@ -26,6 +27,8 @@ export function* bootstrapWidgetSaga() {
             onConfigure: () => dispatch(enterConfigMode()),
             onRefresh: () => dispatch(refreshWidget())
         });
+        //yield put(setLoadingAnimation(true));
+        //yield take(setLoadingAnimationFinished.getType());
         yield all([
             put(fetchConfiguration()),
             put(fetchCache())
@@ -52,6 +55,9 @@ export function* bootstrapWidgetSaga() {
                 //take([receiveForecast.getType(), requestForecastFailed.getType()])
             ]);
         }
+
+        //yield put(setLoadingAnimation(false));
+        //yield take(setLoadingAnimationFinished.getType());
         yield put(bootstrapWidgetFinished());
     } catch(error) {
         yield put(bootstrapWidgetFailed());
@@ -61,6 +67,8 @@ export function* bootstrapWidgetSaga() {
 export function* refreshWidgetSaga() {
     try {
         yield put(refreshWidgetStarted());
+        yield put(setLoadingAnimation(true));
+        yield take(setLoadingAnimationFinished.getType());
         yield all([
             put(fetchWeather()),
             //put(fetchForecast())
@@ -69,6 +77,8 @@ export function* refreshWidgetSaga() {
             take([receiveWeather.getType(), requestWeatherFailed.getType()])
             //take([receiveForecast.getType(), requestForecastFailed.getType()])
         ]);
+        yield put(setLoadingAnimation(false));
+        yield take(setLoadingAnimationFinished.getType());
         yield put(refreshWidgetFinished());
     } catch(error) {
         yield put(refreshWidgetFailed());

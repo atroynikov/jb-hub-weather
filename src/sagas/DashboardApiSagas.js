@@ -4,13 +4,15 @@ import {
     requestFetchConfiguration, receiveFetchConfiguration, requestFetchConfigurationFailed,
     requestStoreConfiguration, receiveStoreConfiguration, requestStoreConfigurationFailed,
     requestFetchCache, receiveFetchCache, requestFetchCacheFailed,
-    requestStoreCache, receiveStoreCache, requestStoreCacheFailed
+    requestStoreCache, receiveStoreCache, requestStoreCacheFailed,
+    setTitleStarted, setTitleFinished, setTitleFailed,
+    setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed
 } from '../actions/DashboardApiActions';
 
 export function* fetchConfigurationSaga() {
-    const dashboardApi = yield getContext('dashboardApi');
     try {
         yield put(requestFetchConfiguration());
+        const dashboardApi = yield getContext('dashboardApi');
         const config = yield call(dashboardApi.readConfig);
         yield put(receiveFetchConfiguration(config));
     } catch (error) {
@@ -19,9 +21,9 @@ export function* fetchConfigurationSaga() {
 }
 
 export function* storeConfigurationSaga(action) {
-    const dashboardApi = yield getContext('dashboardApi');
     try {
         yield put(requestStoreConfiguration());
+        const dashboardApi = yield getContext('dashboardApi');
         yield call(dashboardApi.storeConfig, action.payload);
         yield put(receiveStoreConfiguration());
     } catch (error) {
@@ -30,9 +32,9 @@ export function* storeConfigurationSaga(action) {
 }
 
 export function* fetchCacheSaga() {
-    const dashboardApi = yield getContext('dashboardApi');
     try {
         yield put(requestFetchCache());
+        const dashboardApi = yield getContext('dashboardApi');
         const cache = yield call(dashboardApi.readCache);
         yield put(receiveFetchCache(cache));
     } catch (error) {
@@ -40,10 +42,11 @@ export function* fetchCacheSaga() {
     }
 }
 
-export function* storeCacheSaga(cache) {
+export function* storeCacheSaga(action) {
     try {
-        const {weather, forecast} = yield select();
         yield put(requestStoreCache());
+        const dashboardApi = yield getContext('dashboardApi');
+        const {weather, forecast} = yield select();
         yield call(dashboardApi.storeCache, {
             weather: weather,
             forecast: forecast
@@ -51,5 +54,28 @@ export function* storeCacheSaga(cache) {
         yield put(receiveStoreCache());
     } catch (error) {
         yield put(requestStoreCacheFailed(error.toString()));
+    }
+}
+
+export function* setTitleSaga({payload: payload}) {
+    try {
+        yield put(setTitleStarted());
+        const dashboardApi = yield getContext('dashboardApi');
+        const args = payload.split("\0");
+        yield call(dashboardApi.setTitle, args[0], args[1]||null);
+        yield put(setTitleFinished());
+    } catch (error) {
+        yield put(setTitleFailed(error.toString()));
+    }
+}
+
+export function* setLoadingAnimationSaga({payload: payload}) {
+    try {
+        yield put(setLoadingAnimationStarted());
+        const dashboardApi = yield getContext('dashboardApi');
+        yield call(dashboardApi.setLoadingAnimationEnabled, payload);
+        yield put(setLoadingAnimationFinished());
+    } catch (error) {
+        yield put(setLoadingAnimationFailed(error.toString()));
     }
 }

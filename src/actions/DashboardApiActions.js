@@ -19,3 +19,13 @@ export const storeConfiguration = createAction('Store widget configuration');
 export const requestStoreConfiguration = createAction('Request store widget configuration');
 export const receiveStoreConfiguration= createAction('Receive store widget configuration');
 export const requestStoreConfigurationFailed = createAction('Request store widget configuration failed');
+
+export const setTitle = createAction('Set widget title', (...args) => args.join("\0"));
+export const setTitleStarted = createAction('Started setting widget title');
+export const setTitleFinished = createAction('Finished setting widget title');
+export const setTitleFailed = createAction('Failed setting widget title');
+
+export const setLoadingAnimation = createAction('Set loading animation');
+export const setLoadingAnimationStarted = createAction('Started setting loading animation');
+export const setLoadingAnimationFinished = createAction('Finished setting loading animation');
+export const setLoadingAnimationFailed = createAction('Failed setting loading animation');

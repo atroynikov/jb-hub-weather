@@ -6,7 +6,7 @@ import {
     saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed
 } from '../actions/ConfigurationActions';
 import {
-    storeConfiguration, receiveStoreConfiguration
+    storeConfiguration, receiveStoreConfiguration, setTitle
 } from "../actions/DashboardApiActions";
 
 export function* enterConfigModeSaga() {
@@ -14,6 +14,7 @@ export function* enterConfigModeSaga() {
     try {
         yield put(enterConfigModeStarted());
         yield call(dashboardApi.enterConfigMode);
+        yield put(setTitle('Jetbrains Hub weather configuration'));
         yield put(enterConfigModeFinished());
     } catch (error) {
         yield put(enterConfigModeFailed(error.toString()));
@@ -25,6 +26,7 @@ export function* exitConfigModeSaga() {
     try {
         yield put(exitConfigModeStarted());
         yield call(dashboardApi.exitConfigMode);
+        yield put(setTitle('Jetbrains Hub weather'));
         yield put(exitConfigModeFinished());
     } catch (error) {
         yield put(exitConfigModeFailed(error.toString()));
