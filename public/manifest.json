@@ -1,8 +1,8 @@
 {
   "key": "jb-hub-weather",
   "version": "0.0.0",
-  "name": "JB Hub Weather",
-  "description": "A widget to do something",
+  "name": "JetBrains Hub Weather Widget",
+  "description": "Widget plugins for JetBrains Hub",
   "author": "Aleksey Troynikov <aleksey@troynikov.com>",
   "homeUrl": "https://localhost.troynikov.com:8443/",
   "applicationName": "JB Hub Weather",

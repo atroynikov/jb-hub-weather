@@ -6,12 +6,9 @@ import Button from '@jetbrains/ring-ui/components/button/button';
 import Input from '@jetbrains/ring-ui/components/input/input';
 import Radio from '@jetbrains/ring-ui/components/radio/radio';
 import RadioItem from '@jetbrains/ring-ui/components/radio/radio__item';
+import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
 
 import '@jetbrains/ring-ui/components/form/form.scss';
-import '@jetbrains/ring-ui/components/panel/panel.scss';
-import '@jetbrains/ring-ui/components/button/button.scss';
-import '@jetbrains/ring-ui/components/input/input.scss';
-import '@jetbrains/ring-ui/components/input-size/input-size.scss';
 
 const ConfigurationComponent = ({
     scale,
@@ -62,6 +59,12 @@ const ConfigurationComponent = ({
                         </div>
                     </div>
                     <div className="ring-form__group">
+                        <div className="ring-form__label">Show forecast</div>
+                        <div className="ring-form__control">
+                            <Checkbox/>
+                        </div>
+                    </div>
+                    <div className="ring-form__group">
                         <div className="ring-form__label">Forecast days</div>
                         <div className="ring-form__control">
 
@@ -84,8 +87,8 @@ const ConfigurationComponent = ({
                     </div>
                     <div className="ring-form__footer">
                         <Panel>
-                            <Button blue={true} onClick={() => onSave()}>Save</Button>
-                            <Button blue={false} onClick={() => onCancel()}>Cancel</Button>
+                            <Button primary onClick={() => onSave()}>Save</Button>
+                            <Button onClick={() => onCancel()}>Cancel</Button>
                         </Panel>
                     </div>
                 </form>
