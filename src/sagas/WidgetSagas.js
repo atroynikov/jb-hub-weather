@@ -7,7 +7,8 @@ import {fetchGeolocation} from '../actions/GeolocationActions';
 import {
     fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
     fetchCache, receiveFetchCache, requestFetchCacheFailed,
-    setLoadingAnimation, setLoadingAnimationFinished
+    setLoadingAnimation, setLoadingAnimationFinished,
+    alert, alertFinished
 } from '../actions/DashboardApiActions';
 import {
     fetchWeather, receiveWeather, requestWeatherFailed,
@@ -27,8 +28,7 @@ export function* bootstrapWidgetSaga() {
             onConfigure: () => dispatch(enterConfigMode()),
             onRefresh: () => dispatch(refreshWidget())
         });
-        //yield put(setLoadingAnimation(true));
-        //yield take(setLoadingAnimationFinished.getType());
+
         yield all([
             put(fetchConfiguration()),
             put(fetchCache())
@@ -56,8 +56,6 @@ export function* bootstrapWidgetSaga() {
             ]);
         }
 
-        //yield put(setLoadingAnimation(false));
-        //yield take(setLoadingAnimationFinished.getType());
         yield put(bootstrapWidgetFinished());
     } catch(error) {
         yield put(bootstrapWidgetFailed());

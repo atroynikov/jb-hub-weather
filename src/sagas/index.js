@@ -3,7 +3,7 @@ import {all, takeLatest, setContext} from 'redux-saga/effects'
 import {
     fetchConfiguration, storeConfiguration,
     fetchCache, storeCache,
-    setTitle, setLoadingAnimation
+    setTitle, setLoadingAnimation, alert
 } from '../actions/DashboardApiActions';
 import {
     enterConfigMode, exitConfigMode, saveConfiguration
@@ -16,7 +16,7 @@ import {fetchTeleport} from '../actions/TeleportActions';
 import {
     fetchConfigurationSaga, storeConfigurationSaga,
     fetchCacheSaga, storeCacheSaga,
-    setTitleSaga, setLoadingAnimationSaga
+    setTitleSaga, setLoadingAnimationSaga, alertSaga
 } from './DashboardApiSagas';
 import {
     enterConfigModeSaga, exitConfigModeSaga, saveConfigurationSaga
@@ -43,6 +43,7 @@ const rootSaga = function* (dispatch, dashboardApi, registerWidgetApi) {
         takeLatest(storeCache, storeCacheSaga),
         takeLatest(setTitle, setTitleSaga),
         takeLatest(setLoadingAnimation, setLoadingAnimationSaga),
+        takeLatest(alert, alertSaga),
 
         takeLatest(enterConfigMode, enterConfigModeSaga),
         takeLatest(exitConfigMode, exitConfigModeSaga),

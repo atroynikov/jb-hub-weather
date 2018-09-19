@@ -6,7 +6,8 @@ import {
     requestFetchCache, receiveFetchCache, requestFetchCacheFailed,
     requestStoreCache, receiveStoreCache, requestStoreCacheFailed,
     setTitleStarted, setTitleFinished, setTitleFailed,
-    setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed
+    setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed,
+    alertStarted, alertFinished, alertFailed
 } from '../actions/DashboardApiActions';
 
 export function* fetchConfigurationSaga() {
@@ -77,5 +78,17 @@ export function* setLoadingAnimationSaga({payload: payload}) {
         yield put(setLoadingAnimationFinished());
     } catch (error) {
         yield put(setLoadingAnimationFailed(error.toString()));
+    }
+}
+
+export function* alertSaga({payload: payload}) {
+    try {
+        yield put(alertStarted());
+        const dashboardApi = yield getContext('dashboardApi');
+        const args = payload.split("\0");
+        yield call(dashboardApi.alert, args[0], args[1]||[]._, args[2] ? parseInt(args[2]) : []._);
+        yield put(alertFinished());
+    } catch (error) {
+        yield put(alertFailed(error.toString()));
     }
 }

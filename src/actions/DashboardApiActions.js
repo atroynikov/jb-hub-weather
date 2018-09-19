@@ -29,3 +29,8 @@ export const setLoadingAnimation = createAction('Set loading animation');
 export const setLoadingAnimationStarted = createAction('Started setting loading animation');
 export const setLoadingAnimationFinished = createAction('Finished setting loading animation');
 export const setLoadingAnimationFailed = createAction('Failed setting loading animation');
+
+export const alert = createAction("Show alert", (...args) => args.join("\0"));
+export const alertStarted = createAction("Started triggering alert");
+export const alertFinished= createAction("Finished triggering alert");
+export const alertFailed = createAction("Failed triggering alert");
