@@ -11,6 +11,7 @@ import {
 
 const ConfigurationContainer = compose(
     withState('locSource', 'setLocSource', 'geo'),
+    withState('placeName', 'setPlaceName', ''),
     withState('tempScale','setTempScale', 'C'),
     withState('showForecast', 'setShowForecast', false),
     withState('forecastDays', 'setForecastDays', '5'),
@@ -28,6 +29,7 @@ const ConfigurationContainer = compose(
             ...ownProps,
             onSave: () => dispatchProps.save({
                 locSource: ownProps.locSource,
+                placeName: ownProps.placeName,
                 tempScale: ownProps.tempScale,
                 showForecast: ownProps.showForecast,
                 forecastDays: parseInt(ownProps.forecastDays, 10),

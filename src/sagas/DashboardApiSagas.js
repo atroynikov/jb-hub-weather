@@ -1,16 +1,16 @@
-import {call, put, select, getContext} from 'redux-saga/effects';
+import {call, put, select, getContext, takeLatest} from 'redux-saga/effects';
 
 import {
-    requestFetchConfiguration, receiveFetchConfiguration, requestFetchConfigurationFailed,
-    requestStoreConfiguration, receiveStoreConfiguration, requestStoreConfigurationFailed,
-    requestFetchCache, receiveFetchCache, requestFetchCacheFailed,
-    requestStoreCache, receiveStoreCache, requestStoreCacheFailed,
-    setTitleStarted, setTitleFinished, setTitleFailed,
-    setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed,
-    alertStarted, alertFinished, alertFailed
+    fetchConfiguration, requestFetchConfiguration, receiveFetchConfiguration, requestFetchConfigurationFailed,
+    storeConfiguration, requestStoreConfiguration, receiveStoreConfiguration, requestStoreConfigurationFailed,
+    fetchCache, requestFetchCache, receiveFetchCache, requestFetchCacheFailed,
+    storeCache, requestStoreCache, receiveStoreCache, requestStoreCacheFailed,
+    setTitle, setTitleStarted, setTitleFinished, setTitleFailed,
+    setLoadingAnimation, setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed,
+    alert,alertStarted, alertFinished, alertFailed
 } from '../actions/DashboardApiActions';
 
-export function* fetchConfigurationSaga() {
+function* fetchConfigurationSaga() {
     try {
         yield put(requestFetchConfiguration());
         const dashboardApi = yield getContext('dashboardApi');
@@ -21,18 +21,18 @@ export function* fetchConfigurationSaga() {
     }
 }
 
-export function* storeConfigurationSaga(action) {
+function* storeConfigurationSaga({payload}) {
     try {
         yield put(requestStoreConfiguration());
         const dashboardApi = yield getContext('dashboardApi');
-        yield call(dashboardApi.storeConfig, action.payload);
+        yield call(dashboardApi.storeConfig, payload);
         yield put(receiveStoreConfiguration());
     } catch (error) {
         yield put(requestStoreConfigurationFailed(error.toString()));
     }
 }
 
-export function* fetchCacheSaga() {
+function* fetchCacheSaga() {
     try {
         yield put(requestFetchCache());
         const dashboardApi = yield getContext('dashboardApi');
@@ -43,22 +43,19 @@ export function* fetchCacheSaga() {
     }
 }
 
-export function* storeCacheSaga(action) {
+function* storeCacheSaga({payload}) {
     try {
         yield put(requestStoreCache());
         const dashboardApi = yield getContext('dashboardApi');
         const {weather, forecast} = yield select();
-        yield call(dashboardApi.storeCache, {
-            weather: weather,
-            forecast: forecast
-        });
+        yield call(dashboardApi.storeCache, payload);
         yield put(receiveStoreCache());
     } catch (error) {
         yield put(requestStoreCacheFailed(error.toString()));
     }
 }
 
-export function* setTitleSaga({payload: payload}) {
+function* setTitleSaga({payload}) {
     try {
         yield put(setTitleStarted());
         const dashboardApi = yield getContext('dashboardApi');
@@ -70,7 +67,7 @@ export function* setTitleSaga({payload: payload}) {
     }
 }
 
-export function* setLoadingAnimationSaga({payload: payload}) {
+function* setLoadingAnimationSaga({payload}) {
     try {
         yield put(setLoadingAnimationStarted());
         const dashboardApi = yield getContext('dashboardApi');
@@ -81,7 +78,7 @@ export function* setLoadingAnimationSaga({payload: payload}) {
     }
 }
 
-export function* alertSaga({payload: payload}) {
+function* alertSaga({payload}) {
     try {
         yield put(alertStarted());
         const dashboardApi = yield getContext('dashboardApi');
@@ -92,3 +89,13 @@ export function* alertSaga({payload: payload}) {
         yield put(alertFailed(error.toString()));
     }
 }
+
+export default [
+    takeLatest(fetchConfiguration, fetchConfigurationSaga),
+    takeLatest(storeConfiguration, storeConfigurationSaga),
+    takeLatest(fetchCache, fetchCacheSaga),
+    takeLatest(storeCache, storeCacheSaga),
+    takeLatest(setTitle, setTitleSaga),
+    takeLatest(setLoadingAnimation, setLoadingAnimationSaga),
+    takeLatest(alert, alertSaga)
+];

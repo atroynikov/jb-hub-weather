@@ -1,11 +1,9 @@
-import {call, put} from "redux-saga/effects";
+import {call, put, takeLatest} from "redux-saga/effects";
 import {
-    requestGeolocation,
-    receiveGeolocation,
-    requestGeolocationFailed
+    fetchGeolocation, requestGeolocation, receiveGeolocation, requestGeolocationFailed
 } from '../actions/GeolocationActions';
 
-export function* fetchGeolocationSaga() {
+function* fetchGeolocationSaga() {
     if (!navigator.geolocation) {
         yield put(requestGeolocationFailed(null));
     }
@@ -23,3 +21,7 @@ export function* fetchGeolocationSaga() {
         yield put(requestGeolocationFailed(error.message||error.toString()));
     }
 }
+
+export default [
+    takeLatest(fetchGeolocation, fetchGeolocationSaga),
+];

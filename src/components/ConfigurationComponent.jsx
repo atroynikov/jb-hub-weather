@@ -12,6 +12,7 @@ import '@jetbrains/ring-ui/components/form/form.scss';
 
 const ConfigurationComponent = ({
     tempScale, setTempScale,
+    placeName, setPlaceName,
     locSource, setLocSource,
     showForecast, setShowForecast,
     forecastDays, setForecastDays,
@@ -38,7 +39,7 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Place name</div>
                         <div className="ring-form__control">
-                            <Input/>
+                            <Input value={placeName} onChange={ev => setPlaceName(ev.target.value)}/>
                         </div>
                     </div>
                     }
@@ -69,7 +70,7 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Forecast days</div>
                         <div className="ring-form__control">
-                            <Input value={forecastDays} onChange={setShowForecast}/>
+                            <Input value={forecastDays} onChange={ev => setShowForecast(ev.target.value)}/>
                         </div>
                     </div>
                     }

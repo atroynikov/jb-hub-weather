@@ -1,17 +1,17 @@
-import {call, put, take, getContext} from 'redux-saga/effects';
+import {call, put, take, getContext, takeLatest} from 'redux-saga/effects';
 
 import {
     enterConfigMode, enterConfigModeStarted, enterConfigModeFinished, enterConfigModeFailed,
     exitConfigMode, exitConfigModeStarted, exitConfigModeFinished, exitConfigModeFailed,
     openConfigurationStarted, openConfigurationFinished, openConfigurationFailed,
-    saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed
+    saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed, openConfiguration, saveConfiguration
 } from '../actions/ConfigurationActions';
 import {
     storeConfiguration, receiveStoreConfiguration, setTitle
 } from '../actions/DashboardApiActions';
 import {refreshWidget} from '../actions/WidgetActions';
 
-export function* enterConfigModeSaga() {
+function* enterConfigModeSaga() {
     const dashboardApi = yield getContext('dashboardApi');
     try {
         yield put(enterConfigModeStarted());
@@ -23,7 +23,7 @@ export function* enterConfigModeSaga() {
     }
 }
 
-export function* exitConfigModeSaga() {
+function* exitConfigModeSaga() {
     const dashboardApi = yield getContext('dashboardApi');
     try {
         yield put(exitConfigModeStarted());
@@ -35,7 +35,7 @@ export function* exitConfigModeSaga() {
     }
 }
 
-export function* openConfigurationSaga() {
+function* openConfigurationSaga() {
     try {
         yield put(openConfigurationStarted());
         yield put(enterConfigMode());
@@ -46,7 +46,7 @@ export function* openConfigurationSaga() {
     }
 }
 
-export function* saveConfigurationSaga({payload}) {
+function* saveConfigurationSaga({payload}) {
     try {
         yield put(saveConfigurationStarted());
         yield put(storeConfiguration(payload));
@@ -59,3 +59,10 @@ export function* saveConfigurationSaga({payload}) {
         yield put(saveConfigurationFailed(error.toString()));
     }
 }
+
+export default [
+    takeLatest(enterConfigMode, enterConfigModeSaga),
+    takeLatest(exitConfigMode, exitConfigModeSaga),
+    takeLatest(openConfiguration, openConfigurationSaga),
+    takeLatest(saveConfiguration, saveConfigurationSaga)
+];

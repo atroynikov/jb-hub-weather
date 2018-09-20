@@ -1,4 +1,4 @@
-import {call, put, take, all, select, getContext} from 'redux-saga/effects';
+import {call, put, take, all, select, getContext, takeLatest} from 'redux-saga/effects';
 
 import {openConfiguration} from '../actions/ConfigurationActions';
 //import {fetchGeolocation} from '../actions/GeolocationActions';
@@ -9,15 +9,15 @@ import {
     alert, alertFinished
 } from '../actions/DashboardApiActions';
 import {
-    fetchWeather, receiveWeather, requestWeatherFailed,
-    fetchForecast, receiveForecast, requestForecastFailed
-} from '../actions/OpenWeatherMapActions';
+    fetchWeather, fetchWeatherFinished,
+    fetchForecast, fetchForecastFinished
+} from '../actions/MeteoActions';
 import {
     bootstrapWidget, bootstrapWidgetStarted, bootstrapWidgetFinished, bootstrapWidgetFailed,
     refreshWidget, refreshWidgetStarted, refreshWidgetFinished, refreshWidgetFailed,
 } from '../actions/WidgetActions';
 
-export function* bootstrapWidgetSaga() {
+function* bootstrapWidgetSaga() {
     try {
         yield put(bootstrapWidgetStarted());
         const dispatch = yield getContext('dispatch');
@@ -49,7 +49,7 @@ export function* bootstrapWidgetSaga() {
                 //put(fetchForecast())
             ]);
             const [weatherActType, forecastActType] = yield all([
-                take([receiveWeather.getType(), requestWeatherFailed.getType()])
+                take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])
                 //take([receiveForecast.getType(), requestForecastFailed.getType()])
             ]);
         }
@@ -60,7 +60,7 @@ export function* bootstrapWidgetSaga() {
     }
 }
 
-export function* refreshWidgetSaga() {
+function* refreshWidgetSaga() {
     try {
         yield put(refreshWidgetStarted());
         yield put(setLoadingAnimation(true));
@@ -70,7 +70,7 @@ export function* refreshWidgetSaga() {
             //put(fetchForecast())
         ]);
         const [weatherActType, forecastActType] = yield all([
-            take([receiveWeather.getType(), requestWeatherFailed.getType()])
+            take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])
             //take([receiveForecast.getType(), requestForecastFailed.getType()])
         ]);
         yield put(setLoadingAnimation(false));
@@ -81,3 +81,8 @@ export function* refreshWidgetSaga() {
     }
 
 }
+
+export default [
+    takeLatest(bootstrapWidget, bootstrapWidgetSaga),
+    takeLatest(refreshWidget, refreshWidgetSaga)
+];

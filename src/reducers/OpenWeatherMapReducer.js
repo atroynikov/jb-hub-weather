@@ -1,31 +1,37 @@
 import { createReducer } from 'redux-act';
 
 import {
-    requestWeather, receiveWeather, requestWeatherFailed,
-    requestForecast, receiveForecast, requestForecastFailed
+    requestOwmWeather, receiveOwmWeather, requestOwmWeatherFailed,
+    requestOwmForecast, receiveOwmForecast, requestOwmForecastFailed
 } from '../actions/OpenWeatherMapActions';
 
 const openWeatherMapReducer = createReducer({
-    [requestWeather]: (state) => Object.assign({}, state, {
+    [requestOwmWeather]: (state) => ({
+        ...state,
         isWeatherFetching: true,
     }),
-    [receiveWeather]: (state, payload) => Object.assign({}, state, {
+    [receiveOwmWeather]: (state, payload) => ({
+        ...state,
         isWeatherFetching: false,
         weather: payload
     }),
-    [requestWeatherFailed]: (state, payload) => Object.assign({}, state, {
+    [requestOwmWeatherFailed]: (state, payload) => ({
+        ...state,
         isWeatherFetching: false,
         error: payload.error
     }),
 
-    [requestForecast]: (state) => Object.assign({}, state, {
+    [requestOwmForecast]: (state) => ({
+        ...state,
         isForecastFetching: true,
     }),
-    [receiveForecast]: (state, payload) => Object.assign({}, state, {
+    [receiveOwmForecast]: (state, payload) => ({
+        ...state,
         isForecastFetching: false,
         data: payload.json
     }),
-    [requestForecastFailed]: (state, payload) => Object.assign({}, state, {
+    [requestOwmForecastFailed]: (state, payload) => ({
+        ...state,
         isForecastFetching: false,
         error: payload.error
     })

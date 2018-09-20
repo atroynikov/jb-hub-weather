@@ -7,7 +7,7 @@ import WeatherComponent from '../components/WeatherComponent';
 const WeatherContainer = compose(
     connect(
         (state) => ({
-            weather: state.owmAPI.weather
+            weather: state.meteo.weather
         }),
         (dispatch) => ({
 

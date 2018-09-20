@@ -1,13 +1,13 @@
-import {call, put} from 'redux-saga/effects';
+import {call, put, takeLatest} from 'redux-saga/effects';
 import fetch from 'isomorphic-fetch';
 
 import {
-    receiveTeleport, requestTeleport, requestTeleportFailed
+    fetchTeleport, receiveTeleport, requestTeleport, requestTeleportFailed
 } from '../actions/TeleportActions';
 
 const BASE_URL = 'https://api.teleport.org/api/';
 
-export function* fetchTeleportSaga(params) {
+function* fetchTeleportSaga({payload}) {
     const url = `${BASE_URL}/cities/?Sankt-Peterburg`;
 
     try {
@@ -18,3 +18,7 @@ export function* fetchTeleportSaga(params) {
         yield put(requestTeleportFailed(error.toString()));
     }
 }
+
+export default [
+    takeLatest(fetchTeleport, fetchTeleportSaga)
+];
