@@ -11,8 +11,9 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 function* fetchOwmWeatherSaga() {
     try {
         yield put(requestOwmWeather());
-        const {owmAppId: APP_ID} = yield select(state => state.dashboardApi.config.data);
-        const url = `${BASE_URL}/weather?q=Sankt-Peterburg&units=metric&appid=${APP_ID}`;
+        const {owmAppId: appId, tempScale: scale} = yield select(state => state.dashboardApi.config.data);
+        const units = {C: 'metric', F: 'imperial', K: ''}[scale];
+        const url = `${BASE_URL}/weather?q=Sankt-Peterburg&units=${units}&appid=${appId}`;
         const json = yield call(() => fetch(url).then(res => res.json()));
         yield put(receiveOwmWeather(json));
     } catch (error) {

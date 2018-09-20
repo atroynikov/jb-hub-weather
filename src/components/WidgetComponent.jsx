@@ -23,7 +23,6 @@ const WidgetComponent = ({
 );
 
 // WidgetComponent.propTypes = {
-//     isConfiguring: PropTypes.bool.isRequired,
 //     Configuration: PropTypes.func.isRequired,
 //     Weather: PropTypes.func.isRequired,
 //     Forecast: PropTypes.func.isRequired

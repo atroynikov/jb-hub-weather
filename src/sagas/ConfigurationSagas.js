@@ -9,7 +9,9 @@ import {
 import {
     storeConfiguration, receiveStoreConfiguration, setTitle
 } from '../actions/DashboardApiActions';
-import {refreshWidget} from '../actions/WidgetActions';
+import {
+    refreshWidget, refreshWidgetFinished
+} from '../actions/WidgetActions';
 
 function* enterConfigModeSaga() {
     const dashboardApi = yield getContext('dashboardApi');
@@ -42,7 +44,7 @@ function* openConfigurationSaga() {
         yield take(enterConfigModeFinished.getType());
         yield put(openConfigurationFinished());
     } catch (error) {
-        yield put(openConfigurationFailedcomponentDidMount(error.toString()));
+        yield put(openConfigurationFailed(error.toString()));
     }
 }
 
@@ -54,6 +56,7 @@ function* saveConfigurationSaga({payload}) {
         yield put(exitConfigMode());
         yield take(exitConfigModeFinished.getType());
         yield put(refreshWidget());
+        yield take(refreshWidgetFinished.getType());
         yield put(saveConfigurationFinished());
     } catch (error) {
         yield put(saveConfigurationFailed(error.toString()));

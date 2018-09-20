@@ -7,7 +7,8 @@ import WeatherComponent from '../components/WeatherComponent';
 const WeatherContainer = compose(
     connect(
         (state) => ({
-            weather: state.meteo.weather
+            weather: state.meteo.weather,
+            config: state.dashboardApi.config.data
         }),
         (dispatch) => ({
 

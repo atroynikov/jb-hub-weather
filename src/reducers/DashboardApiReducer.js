@@ -32,13 +32,20 @@ const dashboardApiReducer = createReducer({
         }
     }),
 
-    [requestStoreConfiguration]: (state) => ({
+    [requestStoreConfiguration]: (state, payload) => ({
         ...state,
-        isConfStoring: true
+        config: {
+            ...state.config,
+            isConfStoring: true,
+        }
     }),
     [receiveStoreConfiguration]: (state, payload) => ({
         ...state,
-        isConfStoring: false
+        config: {
+            ...state.config,
+            isConfStoring: false,
+            data: payload
+        }
     }),
     [requestStoreConfigurationFailed]: (state, payload) => ({
         ...state,
@@ -70,18 +77,28 @@ const dashboardApiReducer = createReducer({
         }
     }),
 
-    [requestStoreCache]: (state) => ({
+    [requestStoreCache]: (state, payload) => ({
         ...state,
-        isCacheStoring: true
+        cache: {
+            ...state.cache,
+            isStoring: true
+        }
     }),
     [receiveStoreCache]: (state, payload) => ({
         ...state,
-        isCacheStoring: false
+        cache: {
+            ...state.cache,
+            isStoring: false,
+            data: payload
+        }
     }),
     [requestStoreCacheFailed]: (state, payload) => ({
         ...state,
-        isCacheStoring: false,
-        error: payload.error
+        cache: {
+            ...state.cache,
+            isStoring: false,
+            error: payload.error
+        }
     })
 }, {
     config: {

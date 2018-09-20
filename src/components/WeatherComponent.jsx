@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import styles from './WeatherComponent.css';
 
 const WeatherComponent = ({
-    weather
+    weather,
+    config
 }) => (
     <div className={styles.weather}>
         <div className={styles.weatherCurrent}>
             <div className={styles.weatherCurrentInfo}>
-                {/*<pre>{JSON.stringify(weather, null, 4)}</pre>*/}
                 <div>&nbsp;</div>
                 <div className={styles.weatherCurrentInfoCity}>
                     <small>
@@ -19,7 +19,7 @@ const WeatherComponent = ({
                 </div>
                 <div className={styles.weatherCurrentInfoTemp}>
                     {weather && weather.main ? weather.main.temp : '?'}&deg;
-                    <small>C</small>
+                    <small>{config.tempScale}</small>
                 </div>
                 <div className={styles.weatherCurrentInfoCityWind}>
                     <small>

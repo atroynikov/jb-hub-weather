@@ -23,10 +23,10 @@ function* fetchConfigurationSaga() {
 
 function* storeConfigurationSaga({payload}) {
     try {
-        yield put(requestStoreConfiguration());
+        yield put(requestStoreConfiguration(payload));
         const dashboardApi = yield getContext('dashboardApi');
         yield call(dashboardApi.storeConfig, payload);
-        yield put(receiveStoreConfiguration());
+        yield put(receiveStoreConfiguration(payload));
     } catch (error) {
         yield put(requestStoreConfigurationFailed(error.toString()));
     }
@@ -45,11 +45,11 @@ function* fetchCacheSaga() {
 
 function* storeCacheSaga({payload}) {
     try {
-        yield put(requestStoreCache());
+        yield put(requestStoreCache(payload));
         const dashboardApi = yield getContext('dashboardApi');
         const {weather, forecast} = yield select();
         yield call(dashboardApi.storeCache, payload);
-        yield put(receiveStoreCache());
+        yield put(receiveStoreCache(payload));
     } catch (error) {
         yield put(requestStoreCacheFailed(error.toString()));
     }

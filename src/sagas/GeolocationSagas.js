@@ -4,14 +4,10 @@ import {
 } from '../actions/GeolocationActions';
 
 function* fetchGeolocationSaga() {
-    if (!navigator.geolocation) {
-        yield put(requestGeolocationFailed(null));
-    }
-
     try {
         yield put(requestGeolocation());
         const response = yield call(() => new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
+            window.navigator.geolocation.getCurrentPosition(
                 position => resolve(position),
                 error => reject(error)
             )

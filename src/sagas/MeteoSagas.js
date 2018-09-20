@@ -25,7 +25,7 @@ function* fetchWeatherSaga() {
         const {payload} = yield take([fetchWeatherFinishedAct.getType()]);
         yield put(fetchWeatherFinished(payload));
     } catch (error) {
-        yield put(fetchWeatherFailed());
+        yield put(fetchWeatherFailed(error.toString()));
     }
 }
 
@@ -35,7 +35,7 @@ function* fetchForecastSaga() {
 
         yield put(fetchForecastFinished());
     } catch (error) {
-        yield put(fetchForecastFailed());
+        yield put(fetchForecastFailed(error.t));
     }
 }
 

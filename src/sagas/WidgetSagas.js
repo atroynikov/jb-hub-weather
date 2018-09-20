@@ -1,7 +1,7 @@
 import {call, put, take, all, select, getContext, takeLatest} from 'redux-saga/effects';
 
 import {openConfiguration} from '../actions/ConfigurationActions';
-//import {fetchGeolocation} from '../actions/GeolocationActions';
+import {fetchGeolocation} from '../actions/GeolocationActions';
 import {
     fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
     fetchCache, receiveFetchCache, requestFetchCacheFailed,
@@ -29,7 +29,8 @@ function* bootstrapWidgetSaga() {
 
         yield all([
             put(fetchConfiguration()),
-            put(fetchCache())
+            put(fetchCache()),
+            put(fetchGeolocation())
         ]);
         const [{type: confActType}, {type: cacheActType}] = yield all([
             take(receiveFetchConfiguration.getType(), requestFetchCacheFailed.getType()),
@@ -56,7 +57,7 @@ function* bootstrapWidgetSaga() {
 
         yield put(bootstrapWidgetFinished());
     } catch(error) {
-        yield put(bootstrapWidgetFailed());
+        yield put(bootstrapWidgetFailed(error.toString()));
     }
 }
 
@@ -77,7 +78,7 @@ function* refreshWidgetSaga() {
         yield take(setLoadingAnimationFinished.getType());
         yield put(refreshWidgetFinished());
     } catch(error) {
-        yield put(refreshWidgetFailed());
+        yield put(refreshWidgetFailed(error.toString()));
     }
 
 }

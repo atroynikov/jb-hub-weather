@@ -10,7 +10,7 @@ import {
 } from '../actions/ConfigurationActions';
 
 const ConfigurationContainer = compose(
-    withState('locSource', 'setLocSource', 'geo'),
+    withState('locSource', 'setLocSource', 'name'),
     withState('placeName', 'setPlaceName', ''),
     withState('tempScale','setTempScale', 'C'),
     withState('showForecast', 'setShowForecast', false),

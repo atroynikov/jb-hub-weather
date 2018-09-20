@@ -14,44 +14,36 @@ const configurationReducer = createReducer({
 
     [enterConfigMode]: (state) => ({
         ...state,
-        configMode: false,
-        isConfiguring: true
+        configMode: false
     }),
     [enterConfigModeStarted]: (state) => ({
         ...state,
-        configMode: false,
-        isConfiguring: true
+        configMode: false
     }),
     [enterConfigModeFinished]: (state) => ({
         ...state,
-        configMode: true,
-        isConfiguring: true
+        configMode: true
     }),
     [enterConfigModeFailed]: (state) => ({
         ...state,
-        configMode: false,
-        isConfiguring: true
+        configMode: false
     }),
 
     [exitConfigMode]: (state) => ({
         ...state,
-        configMode: true,
-        isConfiguring: false
+        configMode: true
     }),
     [exitConfigModeStarted]: (state) => ({
         ...state,
-        configMode: true,
-        isConfiguring: true
+        configMode: true
     }),
     [exitConfigModeFinished]: (state) => ({
         ...state,
-        configMode: false,
-        isConfiguring: true
+        configMode: false
     }),
     [exitConfigModeFailed]: (state) => ({
         ...state,
-        configMode: true,
-        isConfiguring: true
+        configMode: true
     }),
 
     [saveConfiguration]: (state, payload) => ({
@@ -68,8 +60,7 @@ const configurationReducer = createReducer({
         ...state
     }),
 }, {
-    configMode: false,
-    isConfiguring: false
+    configMode: false
 });
 
 export default configurationReducer;

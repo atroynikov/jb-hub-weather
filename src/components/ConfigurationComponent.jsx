@@ -3,7 +3,7 @@ import React from 'react';
 import {Grid, Row, Col} from '@jetbrains/ring-ui/components/grid/grid';
 import Panel from '@jetbrains/ring-ui/components/panel/panel';
 import Button from '@jetbrains/ring-ui/components/button/button';
-import Input from '@jetbrains/ring-ui/components/input/input';
+import Input, {Size, Theme} from '@jetbrains/ring-ui/components/input/input';
 import Radio from '@jetbrains/ring-ui/components/radio/radio';
 import RadioItem from '@jetbrains/ring-ui/components/radio/radio__item';
 import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
@@ -39,7 +39,7 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Place name</div>
                         <div className="ring-form__control">
-                            <Input value={placeName} onChange={ev => setPlaceName(ev.target.value)}/>
+                            <Input size={Size.FULL} value={placeName} onChange={ev => setPlaceName(ev.target.value)}/>
                         </div>
                     </div>
                     }
@@ -47,7 +47,7 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Place coordinates</div>
                         <div className="ring-form__control">
-                            <Input/>
+                            <Input size={Size.FULL}/>
                         </div>
                     </div>
                     }
@@ -57,6 +57,7 @@ const ConfigurationComponent = ({
                             <Radio value={tempScale} onChange={setTempScale}>
                                 <RadioItem value="C">Celsius (&deg;C)</RadioItem>
                                 <RadioItem value="F">Farenheit (&deg;F)</RadioItem>
+                                <RadioItem value="K">Kelvin (&deg;K)</RadioItem>
                             </Radio>
                         </div>
                     </div>
@@ -87,7 +88,13 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">OWM APP ID</div>
                         <div className="ring-form__control">
-                            <Input value={owmAppId} onChange={ev => setOwmAppId(ev.target.value)}/>
+                            <Input
+                                borderless
+                                size={Size.FULL}
+                                value={owmAppId}
+                                onChange={ev => setOwmAppId(ev.target.value)}
+                                onClear={ev => setOwmAppId('')}
+                            />
                         </div>
                     </div>
                     }
@@ -95,7 +102,13 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Dark Sky secret key</div>
                         <div className="ring-form__control">
-                            <Input value={dsSecretKey} onChange={ev => setDsSecretKey(ev.target.value)}/>
+                            <Input
+                                borderless
+                                size={Size.FULL}
+                                value={dsSecretKey}
+                                onChange={ev => setDsSecretKey(ev.target.value)}
+                                onClear={ev => setDsSecretKey('')}
+                            />
                         </div>
                     </div>
                     }
