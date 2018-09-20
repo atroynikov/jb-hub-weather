@@ -11,7 +11,7 @@ import {
 
 const defaultConfig = {
     locSource: 'name',
-    placeName: '',
+    placeName: 'Sankt-Peterburg',
     tempScale: 'C',
     showForecast: false,
     forecastDays: '5',

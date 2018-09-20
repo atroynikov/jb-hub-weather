@@ -18,8 +18,8 @@ const WeatherComponent = ({
                     {weather.name || '?'}
                 </div>
                 <div className={styles.weatherCurrentInfoTemp}>
-                    {weather && weather.main ? weather.main.temp : '?'}&deg;
-                    <small>{config.tempScale}</small>
+                    {weather && weather.main ? weather.main.temp : '?'}
+                    {weather && weather.main && <small>&deg;{config.tempScale}</small>}
                 </div>
                 <div className={styles.weatherCurrentInfoCityWind}>
                     <small>
