@@ -9,36 +9,62 @@ import {
     saveConfiguration, exitConfigMode
 } from '../actions/ConfigurationActions';
 
+const defaultConfig = {
+    locSource: 'name',
+    placeName: '',
+    tempScale: 'C',
+    showForecast: false,
+    forecastDays: '5',
+    dataSource: 'owm',
+    owmAppId: '757dd97f4bcba5a5328ebb5395a61384',
+    dsSecretKey: ''
+};
+
 const ConfigurationContainer = compose(
-    withState('locSource', 'setLocSource', 'name'),
-    withState('placeName', 'setPlaceName', ''),
-    withState('tempScale','setTempScale', 'C'),
-    withState('showForecast', 'setShowForecast', false),
-    withState('forecastDays', 'setForecastDays', '5'),
-    withState('dataSource', 'setDataSource', 'owm'),
-    withState('owmAppId', 'setOwmAppId', '757dd97f4bcba5a5328ebb5395a61384'),
-    withState('dsSecretKey', 'setDsSecretKey', ''),
+    withState('locSource', 'setLocSource'),
+    withState('placeName', 'setPlaceName'),
+    withState('tempScale','setTempScale'),
+    withState('showForecast', 'setShowForecast'),
+    withState('forecastDays', 'setForecastDays'),
+    withState('dataSource', 'setDataSource'),
+    withState('owmAppId', 'setOwmAppId', ),
+    withState('dsSecretKey', 'setDsSecretKey'),
     connect(
-        state => ({...state.configuration}),
+        state => ({
+            ...defaultConfig,
+            ...state.dashboardApi.config.data
+        }),
         dispatch => ({
             save: (configuration) => dispatch(saveConfiguration(configuration)),
             cancel: () => dispatch(exitConfigMode())
         }),
-        (stateProps, dispatchProps, ownProps) => ({
-            ...stateProps,
-            ...ownProps,
-            onSave: () => dispatchProps.save({
-                locSource: ownProps.locSource,
-                placeName: ownProps.placeName,
-                tempScale: ownProps.tempScale,
-                showForecast: ownProps.showForecast,
-                forecastDays: parseInt(ownProps.forecastDays, 10),
-                dataSource: ownProps.dataSource,
-                owmAppId: ownProps.owmAppId,
-                dsSecretKey: ownProps.dsSecretKey
-            }),
-            onCancel: () => dispatchProps.cancel(),
-        })
+        (stateProps, dispatchProps, ownProps) => {
+            ownProps= {
+                ...ownProps,
+                locSource: ownProps.locSource !== []._ ? ownProps.locSource : stateProps.locSource,
+                placeName: ownProps.placeName !== []._ ? ownProps.placeName : stateProps.placeName,
+                tempScale: ownProps.tempScale !== []._ ? ownProps.tempScale : stateProps.tempScale,
+                showForecast: ownProps.showForecast !== []._ ? ownProps.showForecast : stateProps.showForecast,
+                forecastDays: ownProps.forecastDays !== []._ ? ownProps.forecastDays : stateProps.forecastDays,
+                dataSource: ownProps.dataSource !== []._ ? ownProps.dataSource : stateProps.dataSource,
+                owmAppId: ownProps.owmAppId !== []._ ? ownProps.owmAppId : stateProps.owmAppId,
+                dsSecretKey: ownProps.dsSecretKey !== []._ ? ownProps.dsSecretKey : stateProps.dsSecretKey
+            };
+            return ({
+                ...ownProps,
+                onSave: () => dispatchProps.save({
+                    locSource: ownProps.locSource,
+                    placeName: ownProps.placeName,
+                    tempScale: ownProps.tempScale,
+                    showForecast: ownProps.showForecast,
+                    forecastDays: parseInt(ownProps.forecastDays, 10),
+                    dataSource: ownProps.dataSource,
+                    owmAppId: ownProps.owmAppId,
+                    dsSecretKey: ownProps.dsSecretKey
+                }),
+                onCancel: () => dispatchProps.cancel(),
+            });
+        }
     ),
     setPropTypes({
 

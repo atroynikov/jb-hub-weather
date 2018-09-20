@@ -71,7 +71,7 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Forecast days</div>
                         <div className="ring-form__control">
-                            <Input value={forecastDays} onChange={ev => setShowForecast(ev.target.value)}/>
+                            <Input value={''+forecastDays} onChange={ev => setForecastDays(ev.target.value)}/>
                         </div>
                     </div>
                     }
@@ -89,7 +89,6 @@ const ConfigurationComponent = ({
                         <div className="ring-form__label">OWM APP ID</div>
                         <div className="ring-form__control">
                             <Input
-                                borderless
                                 size={Size.FULL}
                                 value={owmAppId}
                                 onChange={ev => setOwmAppId(ev.target.value)}
@@ -103,7 +102,6 @@ const ConfigurationComponent = ({
                         <div className="ring-form__label">Dark Sky secret key</div>
                         <div className="ring-form__control">
                             <Input
-                                borderless
                                 size={Size.FULL}
                                 value={dsSecretKey}
                                 onChange={ev => setDsSecretKey(ev.target.value)}
