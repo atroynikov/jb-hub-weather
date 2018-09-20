@@ -16,7 +16,7 @@ const ConfigurationContainer = compose(
     withState('showForecast', 'setShowForecast', false),
     withState('forecastDays', 'setForecastDays', '5'),
     withState('dataSource', 'setDataSource', 'owm'),
-    withState('owmAppId', 'setOwmAppId', ''),
+    withState('owmAppId', 'setOwmAppId', '757dd97f4bcba5a5328ebb5395a61384'),
     withState('dsSecretKey', 'setDsSecretKey', ''),
     connect(
         state => ({...state.configuration}),

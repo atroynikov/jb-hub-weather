@@ -22,13 +22,30 @@ const meteoReducer = createReducer({
     [fetchWeatherFailed]: (state, payload) => ({
         ...state,
         isWeatherFetching: false,
-    })
+    }),
+
+    [fetchForecast]: (state) => ({
+        ...state,
+        isForecastFetching: false,
+    }),
+    [fetchForecastStarted]: (state) => ({
+        ...state,
+        isForecastFetching: true,
+    }),
+    [fetchForecastFinished]: (state, payload) => ({
+        ...state,
+        isForecastFetching: false,
+        forecast: payload
+    }),
+    [fetchForecastFailed]: (state, payload) => ({
+        ...state,
+        isForecastFetching: false,
+    }),
 }, {
     isWeatherFetching: false,
     weather: {},
     isForecastFetching: false,
     forecast: {}
-
 });
 
 export default meteoReducer;
