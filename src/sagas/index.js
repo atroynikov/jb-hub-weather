@@ -6,7 +6,7 @@ import {
     setTitle, setLoadingAnimation, alert
 } from '../actions/DashboardApiActions';
 import {
-    enterConfigMode, exitConfigMode, saveConfiguration
+    enterConfigMode, exitConfigMode, openConfiguration, saveConfiguration
 } from '../actions/ConfigurationActions';
 import {bootstrapWidget, refreshWidget} from '../actions/WidgetActions';
 import {fetchGeolocation} from '../actions/GeolocationActions';
@@ -19,7 +19,7 @@ import {
     setTitleSaga, setLoadingAnimationSaga, alertSaga
 } from './DashboardApiSagas';
 import {
-    enterConfigModeSaga, exitConfigModeSaga, saveConfigurationSaga
+    enterConfigModeSaga, exitConfigModeSaga, openConfigurationSaga, saveConfigurationSaga
 } from './ConfigurationSagas';
 import {bootstrapWidgetSaga, refreshWidgetSaga} from './WidgetSagas';
 import {fetchGeolocationSaga} from './GeolocationSagas';
@@ -47,6 +47,7 @@ const rootSaga = function* (dispatch, dashboardApi, registerWidgetApi) {
 
         takeLatest(enterConfigMode, enterConfigModeSaga),
         takeLatest(exitConfigMode, exitConfigModeSaga),
+        takeLatest(openConfiguration, openConfigurationSaga),
         takeLatest(saveConfiguration, saveConfigurationSaga),
 
         takeLatest(fetchGeolocation, fetchGeolocationSaga),

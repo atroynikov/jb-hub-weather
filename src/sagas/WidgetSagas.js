@@ -1,9 +1,7 @@
 import {call, put, take, all, select, getContext} from 'redux-saga/effects';
 
-import {
-    initConfiguration, enterConfigMode
-} from '../actions/ConfigurationActions';
-import {fetchGeolocation} from '../actions/GeolocationActions';
+import {openConfiguration} from '../actions/ConfigurationActions';
+//import {fetchGeolocation} from '../actions/GeolocationActions';
 import {
     fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
     fetchCache, receiveFetchCache, requestFetchCacheFailed,
@@ -16,7 +14,7 @@ import {
 } from '../actions/OpenWeatherMapActions';
 import {
     bootstrapWidget, bootstrapWidgetStarted, bootstrapWidgetFinished, bootstrapWidgetFailed,
-    refreshWidget, refreshWidgetStarted, refreshWidgetFinished, refreshWidgetFailed
+    refreshWidget, refreshWidgetStarted, refreshWidgetFinished, refreshWidgetFailed,
 } from '../actions/WidgetActions';
 
 export function* bootstrapWidgetSaga() {
@@ -25,7 +23,7 @@ export function* bootstrapWidgetSaga() {
         const dispatch = yield getContext('dispatch');
         const registerWidgetApi = yield getContext('registerWidgetApi');
         registerWidgetApi({
-            onConfigure: () => dispatch(enterConfigMode()),
+            onConfigure: () => dispatch(openConfiguration()),
             onRefresh: () => dispatch(refreshWidget())
         });
 
@@ -44,7 +42,7 @@ export function* bootstrapWidgetSaga() {
 
         //yield put(initConfiguration(config));*/
         if (!config) {
-            yield put(enterConfigMode());
+            yield put(openConfiguration());
         } else {
             yield all([
                 put(fetchWeather())

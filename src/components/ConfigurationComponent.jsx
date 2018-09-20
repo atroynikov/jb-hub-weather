@@ -11,29 +11,30 @@ import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
 import '@jetbrains/ring-ui/components/form/form.scss';
 
 const ConfigurationComponent = ({
-    scale,
-    setScale,
-    source,
-    setSource,
-    onSave,
-    onCancel
+    tempScale, setTempScale,
+    locSource, setLocSource,
+    showForecast, setShowForecast,
+    forecastDays, setForecastDays,
+    dataSource, setDataSource,
+    owmAppId, setOwmAppId,
+    dsSecretKey, setDsSecretKey,
+    onSave, onCancel
 }) => (
      <Grid>
          <Row>
             <Col xs={12}>
                 <form className="ring-form">
-                    <span className="ring-form__title">Widget configuration</span>
                     <div className="ring-form__group">
                         <div className="ring-form__label">Location source</div>
                         <div className="ring-form__control">
-                            <Radio onChange={setSource}>
-                                <RadioItem value="geo" defaultChecked>Geolocation</RadioItem>
+                            <Radio value={locSource} onChange={setLocSource}>
+                                <RadioItem value="geo">Geolocation</RadioItem>
                                 <RadioItem value="name">Place name</RadioItem>
                                 <RadioItem value="coord">Place coordinates</RadioItem>
                             </Radio>
                         </div>
                     </div>
-                    {source === 'name' &&
+                    {locSource === 'name' &&
                     <div className="ring-form__group">
                         <div className="ring-form__label">Place name</div>
                         <div className="ring-form__control">
@@ -41,7 +42,7 @@ const ConfigurationComponent = ({
                         </div>
                     </div>
                     }
-                    {source === 'coord' &&
+                    {locSource === 'coord' &&
                     <div className="ring-form__group">
                         <div className="ring-form__label">Place coordinates</div>
                         <div className="ring-form__control">
@@ -52,39 +53,51 @@ const ConfigurationComponent = ({
                     <div className="ring-form__group">
                         <div className="ring-form__label">Scale</div>
                         <div className="ring-form__control">
-                            <Radio onChange={setScale}>
-                                <RadioItem value="C" defaultChecked>Celsius</RadioItem>
-                                <RadioItem value="F">Farenheit</RadioItem>
+                            <Radio value={tempScale} onChange={setTempScale}>
+                                <RadioItem value="C">Celsius (&deg;C)</RadioItem>
+                                <RadioItem value="F">Farenheit (&deg;F)</RadioItem>
                             </Radio>
                         </div>
                     </div>
                     <div className="ring-form__group">
                         <div className="ring-form__label">Show forecast</div>
                         <div className="ring-form__control">
-                            <Checkbox/>
+                            <Checkbox checked={showForecast} onChange={ev => setShowForecast(ev.target.checked)}/>
                         </div>
                     </div>
+                    {showForecast &&
                     <div className="ring-form__group">
                         <div className="ring-form__label">Forecast days</div>
                         <div className="ring-form__control">
-
+                            <Input value={forecastDays} onChange={setShowForecast}/>
                         </div>
                     </div>
+                    }
                     <div className="ring-form__group">
                         <div className="ring-form__label">Data source</div>
                         <div className="ring-form__control">
-                            <Radio>
-                                <RadioItem value="OpenWeatherMap" defaultChecked>OpenWeatherMap</RadioItem>
-                                <RadioItem value="DarkSky">DarkSky</RadioItem>
+                            <Radio value={dataSource} onChange={setDataSource}>
+                                <RadioItem value="owm">OpenWeatherMap</RadioItem>
+                                <RadioItem value="ds">Dark Sky</RadioItem>
                             </Radio>
                         </div>
                     </div>
+                    {dataSource === 'owm' &&
                     <div className="ring-form__group">
-                        <div className="ring-form__label">OpenWeatherMap key</div>
+                        <div className="ring-form__label">OWM APP ID</div>
                         <div className="ring-form__control">
-                            <Input/>
+                            <Input value={owmAppId} onChange={ev => setOwmAppId(ev.target.value)}/>
                         </div>
                     </div>
+                    }
+                    {dataSource === 'ds' &&
+                    <div className="ring-form__group">
+                        <div className="ring-form__label">Dark Sky secret key</div>
+                        <div className="ring-form__control">
+                            <Input value={dsSecretKey} onChange={ev => setDsSecretKey(ev.target.value)}/>
+                        </div>
+                    </div>
+                    }
                     <div className="ring-form__footer">
                         <Panel>
                             <Button primary onClick={() => onSave()}>Save</Button>

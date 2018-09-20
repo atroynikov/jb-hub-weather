@@ -1,17 +1,15 @@
 import { createReducer } from 'redux-act';
 
 import {
-    initConfiguration, saveConfiguration,
+    initConfiguration,
     enterConfigMode, enterConfigModeStarted, enterConfigModeFinished, enterConfigModeFailed,
-    exitConfigMode, exitConfigModeStarted, exitConfigModeFailed, exitConfigModeFinished
+    exitConfigMode, exitConfigModeStarted, exitConfigModeFailed, exitConfigModeFinished,
+    saveConfiguration, saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed
 } from '../actions/ConfigurationActions';
 
 const configurationReducer = createReducer({
     [initConfiguration]: (state, config) => ({
         scale: config.scale || 'C'
-    }),
-    [saveConfiguration]: (state) => ({
-        ...state
     }),
 
     [enterConfigMode]: (state) => ({
@@ -54,7 +52,21 @@ const configurationReducer = createReducer({
         ...state,
         configMode: true,
         isConfiguring: true
-    })
+    }),
+
+    [saveConfiguration]: (state, payload) => ({
+        ...state,
+        data: payload
+    }),
+    [saveConfigurationStarted]: (state, payload) => ({
+        ...state
+    }),
+    [saveConfigurationFinished]: (state, payload) => ({
+        ...state
+    }),
+    [saveConfigurationFailed]: (state, payload) => ({
+        ...state
+    }),
 }, {
     configMode: false,
     isConfiguring: false
