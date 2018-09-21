@@ -2,22 +2,58 @@ import { createReducer } from 'redux-act';
 
 import {
     requestGeolocation, receiveGeolocation, requestGeolocationFailed,
+    requestIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
 } from '../actions/GeolocationActions';
 
 const geolocationReducer = createReducer({
-    [requestGeolocation]: (state) => Object.assign({}, state, {
-        isFetching: true,
+    [requestGeolocation]: (state) => ({
+        ...state,
+        geo: {
+            isFetching: true
+        }
     }),
-    [receiveGeolocation]: (state, payload) => Object.assign({}, state, {
-        isFetching: false,
-        data: payload.json
+    [receiveGeolocation]: (state, payload) => ({
+        ...state,
+        geo: {
+            isFetching: false,
+            data: payload.json
+        }
     }),
-    [requestGeolocationFailed]: (state, payload) => Object.assign({}, state, {
-        isFetching: false,
-        error: payload.error
+    [requestGeolocationFailed]: (state, payload) => ({
+        ...state,
+        geo: {
+            isFetching: false,
+            error: payload.error
+        }
+    }),
+
+    [requestIpGeolocation]: (state) => ({
+        ...state,
+        ip: {
+            isFetching: true
+        }
+    }),
+    [receiveIpGeolocation]: (state, payload) => ({
+        ...state,
+        ip: {
+            isFetching: false,
+            data: payload.json
+        }
+    }),
+    [requestIpGeolocationFailed]: (state, payload) => ({
+        ...state,
+        ip: {
+            isFetching: false,
+            error: payload.error
+        }
     })
 }, {
-    isFetching: false
+    geo: {
+        isFetching: false
+    },
+    ip: {
+        isFetching: false
+    }
 });
 
 export default geolocationReducer;

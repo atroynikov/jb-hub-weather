@@ -30,6 +30,14 @@ module.exports = {
                             importLoaders: 1,
                             localIdentName: '[name]__[local]__[hash:base64:7]'
                         }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                ctx: {variables: require('@jetbrains/ring-ui/extract-css-vars')}
+                            }
+                        }
                     }
                 ]
             },

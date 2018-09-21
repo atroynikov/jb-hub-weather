@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Loader from '@jetbrains/ring-ui/components/loader/loader';
 import LoaderScreen from '@jetbrains/ring-ui/components/loader-screen/loader-screen';
 import styles from './WidgetComponent.css';
 

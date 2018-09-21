@@ -16,6 +16,9 @@ import {
     bootstrapWidget, bootstrapWidgetStarted, bootstrapWidgetFinished, bootstrapWidgetFailed,
     refreshWidget, refreshWidgetStarted, refreshWidgetFinished, refreshWidgetFailed,
 } from '../actions/WidgetActions';
+import {
+    fetchIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
+} from '../actions/GeolocationActions';
 
 function* bootstrapWidgetSaga() {
     try {
@@ -45,6 +48,8 @@ function* bootstrapWidgetSaga() {
         if (!config) {
             yield put(openConfiguration());
         } else {
+            yield put(fetchIpGeolocation());
+            yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
             yield all([
                 put(fetchWeather())
                 //put(fetchForecast())
