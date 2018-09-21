@@ -10,7 +10,7 @@ import {
     alert,alertStarted, alertFinished, alertFailed
 } from '@actions/DashboardApiActions';
 
-function* fetchConfigurationSaga() {
+export function* fetchConfigurationSaga() {
     try {
         yield put(requestFetchConfiguration());
         const dashboardApi = yield getContext('dashboardApi');
@@ -21,7 +21,7 @@ function* fetchConfigurationSaga() {
     }
 }
 
-function* storeConfigurationSaga({payload}) {
+export function* storeConfigurationSaga({payload}) {
     try {
         yield put(requestStoreConfiguration(payload));
         const dashboardApi = yield getContext('dashboardApi');
@@ -32,7 +32,7 @@ function* storeConfigurationSaga({payload}) {
     }
 }
 
-function* fetchCacheSaga() {
+export function* fetchCacheSaga() {
     try {
         yield put(requestFetchCache());
         const dashboardApi = yield getContext('dashboardApi');
@@ -43,7 +43,7 @@ function* fetchCacheSaga() {
     }
 }
 
-function* storeCacheSaga({payload}) {
+export function* storeCacheSaga({payload}) {
     try {
         yield put(requestStoreCache(payload));
         const dashboardApi = yield getContext('dashboardApi');
@@ -55,7 +55,7 @@ function* storeCacheSaga({payload}) {
     }
 }
 
-function* setTitleSaga({payload}) {
+export function* setTitleSaga({payload}) {
     try {
         yield put(setTitleStarted());
         const dashboardApi = yield getContext('dashboardApi');
@@ -67,7 +67,7 @@ function* setTitleSaga({payload}) {
     }
 }
 
-function* setLoadingAnimationSaga({payload}) {
+export function* setLoadingAnimationSaga({payload}) {
     try {
         yield put(setLoadingAnimationStarted());
         const dashboardApi = yield getContext('dashboardApi');
@@ -78,7 +78,7 @@ function* setLoadingAnimationSaga({payload}) {
     }
 }
 
-function* alertSaga({payload}) {
+export function* alertSaga({payload}) {
     try {
         yield put(alertStarted());
         const dashboardApi = yield getContext('dashboardApi');

@@ -3,7 +3,8 @@ const fs = require('fs');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ringUiWebpackConfig = require('@jetbrains/ring-ui/webpack.config');
 
-module.exports = {
+
+const webpackConfig = () => ({
     entry: './src/index.js',
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -85,4 +86,6 @@ module.exports = {
             'Access-Control-Allow-Origin': '*'
         }
     }
-};
+});
+
+module.exports = webpackConfig;
