@@ -16,7 +16,7 @@ const geolocationReducer = createReducer({
         ...state,
         geo: {
             isFetching: false,
-            data: payload.json
+            data: payload
         }
     }),
     [requestGeolocationFailed]: (state, payload) => ({
@@ -37,7 +37,7 @@ const geolocationReducer = createReducer({
         ...state,
         ip: {
             isFetching: false,
-            data: payload.json
+            data: payload
         }
     }),
     [requestIpGeolocationFailed]: (state, payload) => ({

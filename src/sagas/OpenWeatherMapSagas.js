@@ -8,14 +8,19 @@ import {
 
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-function* fetchOwmWeatherSaga() {
+function* fetchOwmWeatherSaga({payload}) {
     try {
         yield put(requestOwmWeather());
         const {
             placeName: name, tempScale: scale, owmAppId: appId
         } = yield select(state => state.dashboardApi.config.data);
         const units = {C: 'metric', F: 'imperial', K: ''}[scale];
-        const url = `${BASE_URL}/weather?q=${encodeURIComponent(name)}&units=${units}&appid=${appId}`;
+        let url;
+        if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
+            url = `${BASE_URL}/weather?lat=${encodeURIComponent(payload.lat)}&lon=${encodeURIComponent(payload.lon)}&units=${units}&appid=${appId}`;
+        } else if (payload.hasOwnProperty('name')) {
+            url = `${BASE_URL}/weather?q=${encodeURIComponent(name)}&units=${units}&appid=${appId}`;
+        }
         const json = yield call(() => fetch(url).then(res => res.json()));
         yield put(receiveOwmWeather(json));
     } catch (error) {
@@ -23,7 +28,7 @@ function* fetchOwmWeatherSaga() {
     }
 }
 
-function* fetchOwmForecastSaga() {
+function* fetchOwmForecastSaga({payload}) {
     try {
         yield put(requestOwmForecast());
         const {

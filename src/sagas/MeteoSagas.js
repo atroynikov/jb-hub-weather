@@ -14,6 +14,20 @@ function* fetchWeatherSaga() {
     try {
         yield put(fetchWeatherStarted());
         const config = yield select(state => state.dashboardApi.config.data);
+
+        let ipGeo;
+        let data;
+        switch (config.locSource) {
+            case 'name':
+                data = {name: config.placeName};
+                break;
+            case 'coord':
+
+                break;
+            default:
+                ipGeo = yield select(state => state.geolocationApi.ip.data);
+                data = {lat: ipGeo.lat, lon: ipGeo.lon};
+        }
         let fetchWeatherAct;
         let fetchWeatherFinishedAct;
         switch (config.dataSource) {
@@ -21,7 +35,7 @@ function* fetchWeatherSaga() {
                 fetchWeatherAct = fetchOwmWeather;
                 fetchWeatherFinishedAct = receiveOwmWeather;
         }
-        yield put(fetchWeatherAct());
+        yield put(fetchWeatherAct(data));
         const {payload} = yield take([fetchWeatherFinishedAct.getType()]);
         yield put(fetchWeatherFinished(payload));
     } catch (error) {

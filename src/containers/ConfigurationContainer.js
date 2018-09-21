@@ -10,7 +10,7 @@ import {
 } from '../actions/ConfigurationActions';
 
 const defaultConfig = {
-    locSource: 'name',
+    locSource: 'geo',
     placeName: 'Sankt-Peterburg',
     tempScale: 'C',
     showForecast: false,

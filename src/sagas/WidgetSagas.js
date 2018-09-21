@@ -32,8 +32,7 @@ function* bootstrapWidgetSaga() {
 
         yield all([
             put(fetchConfiguration()),
-            put(fetchCache()),
-            put(fetchGeolocation())
+            put(fetchCache())
         ]);
         const [{type: confActType}, {type: cacheActType}] = yield all([
             take(receiveFetchConfiguration.getType(), requestFetchCacheFailed.getType()),
@@ -71,6 +70,8 @@ function* refreshWidgetSaga() {
         yield put(refreshWidgetStarted());
         yield put(setLoadingAnimation(true));
         yield take(setLoadingAnimationFinished.getType());
+        yield put(fetchIpGeolocation());
+        yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
         yield all([
             put(fetchWeather()),
             //put(fetchForecast())
