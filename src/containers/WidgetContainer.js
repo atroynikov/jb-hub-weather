@@ -4,12 +4,12 @@ import {
     compose, lifecycle, setDisplayName
 } from 'recompose';
 
-import WidgetComponent from '../components/WidgetComponent';
+import WidgetComponent from '@components/WidgetComponent';
 import ConfigurationContainer from './ConfigurationContainer';
 import WeatherContainer from './WeatherContainer';
 import ForecastContainer from './ForecastContainer';
 
-import {bootstrapWidget} from '../actions/WidgetActions';
+import {bootstrapWidget} from '@actions/WidgetActions';
 
 const WidgetContainer = compose(
     connect(

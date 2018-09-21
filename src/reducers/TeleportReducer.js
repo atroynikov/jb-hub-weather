@@ -2,7 +2,7 @@ import { createReducer } from 'redux-act';
 
 import {
     requestTeleport, receiveTeleport, requestTeleportFailed,
-} from '../actions/TeleportActions';
+} from '@actions/TeleportActions';
 
 const teleportReducer = createReducer({
     [requestTeleport]: (state) => Object.assign({}, state, {

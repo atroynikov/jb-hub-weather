@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose, setDisplayName} from 'recompose';
 
-import WeatherComponent from '../components/WeatherComponent';
+import WeatherComponent from '@components/WeatherComponent';
 
 const WeatherContainer = compose(
     connect(

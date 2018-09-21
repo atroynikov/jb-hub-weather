@@ -8,7 +8,7 @@ import {
     setTitle, setTitleStarted, setTitleFinished, setTitleFailed,
     setLoadingAnimation, setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed,
     alert,alertStarted, alertFinished, alertFailed
-} from '../actions/DashboardApiActions';
+} from '@actions/DashboardApiActions';
 
 function* fetchConfigurationSaga() {
     try {

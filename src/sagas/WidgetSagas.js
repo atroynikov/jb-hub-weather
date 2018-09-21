@@ -1,24 +1,24 @@
 import {call, put, take, all, select, getContext, takeLatest} from 'redux-saga/effects';
 
-import {openConfiguration} from '../actions/ConfigurationActions';
-import {fetchGeolocation} from '../actions/GeolocationActions';
+import {openConfiguration} from '@actions/ConfigurationActions';
+import {fetchGeolocation} from '@actions/GeolocationActions';
 import {
     fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
     fetchCache, receiveFetchCache, requestFetchCacheFailed,
     setLoadingAnimation, setLoadingAnimationFinished,
     alert, alertFinished
-} from '../actions/DashboardApiActions';
+} from '@actions/DashboardApiActions';
 import {
     fetchWeather, fetchWeatherFinished,
     fetchForecast, fetchForecastFinished
-} from '../actions/MeteoActions';
+} from '@actions/MeteoActions';
 import {
     bootstrapWidget, bootstrapWidgetStarted, bootstrapWidgetFinished, bootstrapWidgetFailed,
     refreshWidget, refreshWidgetStarted, refreshWidgetFinished, refreshWidgetFailed,
-} from '../actions/WidgetActions';
+} from '@actions/WidgetActions';
 import {
     fetchIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
-} from '../actions/GeolocationActions';
+} from '@actions/GeolocationActions';
 
 function* bootstrapWidgetSaga() {
     try {

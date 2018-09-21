@@ -2,8 +2,8 @@ import {call, put, takeLatest} from "redux-saga/effects";
 import {
     fetchGeolocation, requestGeolocation, receiveGeolocation, requestGeolocationFailed,
     fetchIpGeolocation, requestIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
-} from '../actions/GeolocationActions';
-import {alert} from '../actions/DashboardApiActions'
+} from '@actions/GeolocationActions';
+import {alert} from '@actions/DashboardApiActions'
 import fetch from "isomorphic-fetch";
 
 function* fetchGeolocationSaga() {

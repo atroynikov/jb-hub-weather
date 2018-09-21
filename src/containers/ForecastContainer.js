@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose, setDisplayName} from 'recompose';
 
-import ForecastComponent from '../components/ForecastComponent';
+import ForecastComponent from '@components/ForecastComponent';
 
 const ForecastContainer = compose(
     connect(

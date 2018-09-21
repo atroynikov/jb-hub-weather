@@ -7,11 +7,11 @@ import {Provider} from 'react-redux';
 import createSagaMiddleware from 'redux-saga'
 import loggerMiddleware from 'redux-logger';
 
-import rootReducer from './reducers';
-import rootSaga from './sagas';
+import rootReducer from '@reducers';
+import rootSaga from '@sagas';
 
 import HubDashboardAddons from 'hub-dashboard-addons';
-import WidgetContainer from './containers/WidgetContainer';
+import WidgetContainer from '@containers/WidgetContainer';
 
 HubDashboardAddons.registerWidget((dashboardApi, registerWidgetApi) => {
     const sagaMiddleware = createSagaMiddleware();

@@ -5,7 +5,7 @@ import {
     enterConfigMode, enterConfigModeStarted, enterConfigModeFinished, enterConfigModeFailed,
     exitConfigMode, exitConfigModeStarted, exitConfigModeFailed, exitConfigModeFinished,
     saveConfiguration, saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed
-} from '../actions/ConfigurationActions';
+} from '@actions/ConfigurationActions';
 
 const configurationReducer = createReducer({
     [initConfiguration]: (state, config) => ({

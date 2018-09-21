@@ -4,10 +4,10 @@ import {
     compose, withState, setPropTypes, setDisplayName
 } from 'recompose';
 
-import ConfigurationComponent from '../components/ConfigurationComponent';
+import ConfigurationComponent from '@components/ConfigurationComponent';
 import {
     saveConfiguration, exitConfigMode
-} from '../actions/ConfigurationActions';
+} from '@actions/ConfigurationActions';
 
 const defaultConfig = {
     locSource: 'geo',

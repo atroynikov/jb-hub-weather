@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act';
 import {
     requestGeolocation, receiveGeolocation, requestGeolocationFailed,
     requestIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
-} from '../actions/GeolocationActions';
+} from '@actions/GeolocationActions';
 
 const geolocationReducer = createReducer({
     [requestGeolocation]: (state) => ({

@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 
 import {
     fetchTeleport, receiveTeleport, requestTeleport, requestTeleportFailed
-} from '../actions/TeleportActions';
+} from '@actions/TeleportActions';
 
 const BASE_URL = 'https://api.teleport.org/api/';
 

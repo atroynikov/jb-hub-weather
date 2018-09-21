@@ -5,22 +5,25 @@ const ringUiWebpackConfig = require('@jetbrains/ring-ui/webpack.config');
 
 module.exports = {
     entry: './src/index.js',
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias: {
+            "@actions": path.resolve('./src/actions'),
+            "@components": path.resolve('./src/components'),
+            "@containers": path.resolve('./src/containers'),
+            "@reducers": path.resolve('./src/reducers'),
+            "@sagas": path.resolve('./src/sagas')
+        }
+    },
     output: {
-        path: path.resolve(__dirname, 'target')
+        path: path.resolve(__dirname, './target')
     },
     module: {
         rules: [
             ...ringUiWebpackConfig.config.module.rules,
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
-            {
                 test: /\.css$/,
-                include: path.resolve(__dirname, 'src'),
+                include: path.resolve(__dirname, './src'),
                 use: [
                     'style-loader',
                     {
@@ -44,11 +47,16 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: 'less-loader'
+            },
+            {
+                test: /\.jsx?$/,
+                include: [
+                    path.join(__dirname, 'node_modules/chai-as-promised'),
+                    path.join(__dirname, './src')
+                ],
+                loader: 'babel-loader?cacheDirectory'
             }
         ]
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
     },
     plugins: [
         new CopyWebpackPlugin([
@@ -69,7 +77,7 @@ module.exports = {
             cert: fs.readFileSync('./localhost.crt')
         },
         host: 'localhost.troynikov.com',
-        contentBase: path.join(__dirname, 'target'),
+        contentBase: path.join(__dirname, './target'),
         compress: true,
         hot: false,
         hotOnly: false,

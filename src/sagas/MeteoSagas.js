@@ -3,11 +3,11 @@ import {call, put, take, select, takeLatest} from 'redux-saga/effects';
 import {
     fetchWeather, fetchWeatherStarted, fetchWeatherFinished, fetchWeatherFailed,
     fetchForecast, fetchForecastStarted, fetchForecastFinished, fetchForecastFailed,
-} from '../actions/MeteoActions';
+} from '@actions/MeteoActions';
 import {
     fetchOwmWeather, receiveOwmWeather, requestOwmWeatherFailed,
     fetchOwmForecast, receiveOwmForecast, requestOwmForecastFailed
-} from '../actions/OpenWeatherMapActions';
+} from '@actions/OpenWeatherMapActions';
 import openWeatherMapSagas from './OpenWeatherMapSagas';
 
 function* fetchWeatherSaga() {

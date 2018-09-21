@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch';
 import {
     fetchOwmWeather, requestOwmWeather, receiveOwmWeather, requestOwmWeatherFailed,
     fetchOwmForecast, requestOwmForecast, receiveOwmForecast, requestOwmForecastFailed
-} from '../actions/OpenWeatherMapActions';
+} from '@actions/OpenWeatherMapActions';
 
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 

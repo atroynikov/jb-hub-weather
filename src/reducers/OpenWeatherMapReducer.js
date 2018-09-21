@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act';
 import {
     requestOwmWeather, receiveOwmWeather, requestOwmWeatherFailed,
     requestOwmForecast, receiveOwmForecast, requestOwmForecastFailed
-} from '../actions/OpenWeatherMapActions';
+} from '@actions/OpenWeatherMapActions';
 
 const openWeatherMapReducer = createReducer({
     [requestOwmWeather]: (state) => ({

@@ -5,13 +5,13 @@ import {
     exitConfigMode, exitConfigModeStarted, exitConfigModeFinished, exitConfigModeFailed,
     openConfigurationStarted, openConfigurationFinished, openConfigurationFailed,
     saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed, openConfiguration, saveConfiguration
-} from '../actions/ConfigurationActions';
+} from '@actions/ConfigurationActions';
 import {
     storeConfiguration, receiveStoreConfiguration, setTitle
-} from '../actions/DashboardApiActions';
+} from '@actions/DashboardApiActions';
 import {
     refreshWidget, refreshWidgetFinished
-} from '../actions/WidgetActions';
+} from '@actions/WidgetActions';
 
 function* enterConfigModeSaga() {
     const dashboardApi = yield getContext('dashboardApi');

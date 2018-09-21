@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act';
 import {
     fetchWeather, fetchWeatherStarted, fetchWeatherFinished, fetchWeatherFailed,
     fetchForecast, fetchForecastStarted, fetchForecastFinished, fetchForecastFailed
-} from '../actions/MeteoActions';
+} from '@actions/MeteoActions';
 
 const meteoReducer = createReducer({
     [fetchWeather]: (state) => ({

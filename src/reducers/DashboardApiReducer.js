@@ -5,7 +5,7 @@ import {
     requestStoreConfiguration, receiveStoreConfiguration, requestStoreConfigurationFailed,
     requestFetchCache, receiveFetchCache, requestFetchCacheFailed,
     requestStoreCache, receiveStoreCache, requestStoreCacheFailed
-} from '../actions/DashboardApiActions';
+} from '@actions/DashboardApiActions';
 
 const dashboardApiReducer = createReducer({
     [requestFetchConfiguration]: (state) => ({
