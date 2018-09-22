@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import {cloneableGenerator} from 'redux-saga/utils';
 import {put, call, getContext} from 'redux-saga/effects';
 import {
     fetchConfigurationSaga
@@ -9,8 +10,9 @@ import {
 
 describe('DashboardApiSagas', () => {
     describe('fetchConfigurationSaga', () => {
+        const gen = fetchConfigurationSaga();
+
         it('Test', () => {
-            const generator = fetchConfigurationSaga();
 
             (generator.next().value).should.deep.equal(put(requestFetchConfiguration()));
             (generator.next().value).should.deep.equal(getContext('dashboardApi'));

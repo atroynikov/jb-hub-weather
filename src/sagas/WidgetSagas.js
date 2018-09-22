@@ -9,8 +9,8 @@ import {
     alert, alertFinished
 } from '@actions/DashboardApiActions';
 import {
-    fetchWeather, fetchWeatherFinished,
-    fetchForecast, fetchForecastFinished
+    fetchWeather, fetchWeatherFinished, fetchWeatherFailed,
+    fetchForecast, fetchForecastFinished, fetchForecastFailed
 } from '@actions/MeteoActions';
 import {
     bootstrapWidget, bootstrapWidgetStarted, bootstrapWidgetFinished, bootstrapWidgetFailed,
@@ -50,12 +50,12 @@ function* bootstrapWidgetSaga() {
             yield put(fetchIpGeolocation());
             yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
             yield all([
-                put(fetchWeather())
-                //put(fetchForecast())
+                put(fetchWeather()),
+                put(fetchForecast())
             ]);
             const [weatherActType, forecastActType] = yield all([
-                take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])
-                //take([receiveForecast.getType(), requestForecastFailed.getType()])
+                take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()]),
+                take([fetchForecastFinished.getType(), fetchForecastFailed.getType()])
             ]);
         }
 
@@ -74,11 +74,11 @@ function* refreshWidgetSaga() {
         yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
         yield all([
             put(fetchWeather()),
-            //put(fetchForecast())
+            put(fetchForecast())
         ]);
         const [weatherActType, forecastActType] = yield all([
-            take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])
-            //take([receiveForecast.getType(), requestForecastFailed.getType()])
+            take([fetchWeatherFinished.getType(), fetchWeatherFailed.getType()]),
+            take([fetchForecastFinished.getType(), fetchForecastFailed.getType()])
         ]);
         yield put(setLoadingAnimation(false));
         yield take(setLoadingAnimationFinished.getType());

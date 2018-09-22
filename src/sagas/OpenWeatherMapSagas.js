@@ -10,12 +10,13 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 function* fetchOwmWeatherSaga({payload}) {
     try {
+        let url;
+
         yield put(requestOwmWeather());
         const {
             placeName: name, tempScale: scale, owmAppId: appId
         } = yield select(state => state.dashboardApi.config.data);
         const units = {C: 'metric', F: 'imperial', K: ''}[scale];
-        let url;
         if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
             url = `${BASE_URL}/weather?lat=${encodeURIComponent(payload.lat)}&lon=${encodeURIComponent(payload.lon)}&units=${units}&appid=${appId}`;
         } else if (payload.hasOwnProperty('name')) {
@@ -30,12 +31,20 @@ function* fetchOwmWeatherSaga({payload}) {
 
 function* fetchOwmForecastSaga({payload}) {
     try {
+        let url;
+
         yield put(requestOwmForecast());
         const {
-            placeName: name, forecastDays: cnt, tempScale: scale, owmAppId: APP_ID
+            placeName: name, forecastDays: days, tempScale: scale, owmAppId: appId
         } = yield select(state => state.dashboardApi.config.data);
         const units = {C: 'metric', F: 'imperial', K: ''}[scale];
-        const url = `${BASE_URL}/forecast?q=${encodeURIComponent(name)}&units=${units}&cnt=${cnt}&appid=${APP_ID}`;
+        const cnt = days * 8;
+        if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
+            url = `${BASE_URL}/forecast?lat=${encodeURIComponent(payload.lat)}`
+                +`&lon=${encodeURIComponent(payload.lon)}&units=${units}&cnt=${cnt}&appid=${appId}`;
+        } else if (payload.hasOwnProperty('name')) {
+            url = `${BASE_URL}/forecast?q=${encodeURIComponent(name)}&units=${units}&cnt=${cnt}&appid=${appId}`;
+        }
         const json = yield call(() => fetch(url).then(res => res.json()));
         yield put(receiveOwmForecast(json));
     } catch (error) {
