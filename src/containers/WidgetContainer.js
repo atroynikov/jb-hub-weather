@@ -14,7 +14,7 @@ import {bootstrapWidget} from '@actions/WidgetActions';
 const WidgetContainer = compose(
     connect(
         (state) => ({
-            config: state.dashboardApi.config,
+            config: state.dashboardApi.config.data,
             configMode: state.configuration.configMode,
             Configuration: ConfigurationContainer,
             Weather: WeatherContainer,

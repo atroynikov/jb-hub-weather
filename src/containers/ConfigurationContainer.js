@@ -15,6 +15,7 @@ const defaultConfig = {
     tempScale: 'C',
     showForecast: false,
     forecastDays: '5',
+    updateInt: '300',
     dataSource: 'owm',
     owmAppId: '757dd97f4bcba5a5328ebb5395a61384',
     dsSecretKey: 'c538faa3d9d27354adfbab12e2abd0c1'
@@ -26,6 +27,7 @@ const ConfigurationContainer = compose(
     withState('tempScale','setTempScale'),
     withState('showForecast', 'setShowForecast'),
     withState('forecastDays', 'setForecastDays'),
+    withState('updateInt', 'setUpdateInt'),
     withState('dataSource', 'setDataSource'),
     withState('owmAppId', 'setOwmAppId', ),
     withState('dsSecretKey', 'setDsSecretKey'),
@@ -46,6 +48,7 @@ const ConfigurationContainer = compose(
                 tempScale: ownProps.tempScale !== []._ ? ownProps.tempScale : stateProps.tempScale,
                 showForecast: ownProps.showForecast !== []._ ? ownProps.showForecast : stateProps.showForecast,
                 forecastDays: ownProps.forecastDays !== []._ ? ownProps.forecastDays : stateProps.forecastDays,
+                updateInt: ownProps.updateInt !== []._ ? ownProps.updateInt : stateProps.updateInt,
                 dataSource: ownProps.dataSource !== []._ ? ownProps.dataSource : stateProps.dataSource,
                 owmAppId: ownProps.owmAppId !== []._ ? ownProps.owmAppId : stateProps.owmAppId,
                 dsSecretKey: ownProps.dsSecretKey !== []._ ? ownProps.dsSecretKey : stateProps.dsSecretKey
@@ -58,6 +61,7 @@ const ConfigurationContainer = compose(
                     tempScale: ownProps.tempScale,
                     showForecast: ownProps.showForecast,
                     forecastDays: parseInt(ownProps.forecastDays, 10),
+                    updateInt: parseInt(ownProps.updateInt, 10),
                     dataSource: ownProps.dataSource,
                     owmAppId: ownProps.owmAppId,
                     dsSecretKey: ownProps.dsSecretKey

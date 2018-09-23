@@ -43,20 +43,20 @@ export function* bootstrapWidgetSaga() {
             cache: {data: cache}
         } = yield select(state => state.dashboardApi);
 
-        //yield put(initConfiguration(config));*/
         if (!config) {
             yield put(openConfiguration());
         } else {
             yield put(fetchIpGeolocation());
             yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
-            yield all([
-                put(fetchWeather()),
-                put(fetchForecast())
-            ]);
-            const [weatherActType, forecastActType] = yield all([
-                take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()]),
-                take([fetchForecastFinished.getType(), fetchForecastFailed.getType()])
-            ]);
+
+            let fetchEffects = [put(fetchWeather())];
+            let takeEffects = [take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])];
+            if (config.showForecast) {
+                fetchEffects.push(put(fetchForecast()));
+                takeEffects.push(take([fetchForecastFinished.getType(), fetchForecastFailed.getType()]))
+            }
+            yield all(fetchEffects);
+            const [weatherActType, forecastActType] = yield all(takeEffects);
         }
 
         yield put(bootstrapWidgetFinished());
@@ -72,14 +72,17 @@ export function* refreshWidgetSaga() {
         yield take(setLoadingAnimationFinished.getType());
         yield put(fetchIpGeolocation());
         yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
-        yield all([
-            put(fetchWeather()),
-            put(fetchForecast())
-        ]);
-        const [weatherActType, forecastActType] = yield all([
-            take([fetchWeatherFinished.getType(), fetchWeatherFailed.getType()]),
-            take([fetchForecastFinished.getType(), fetchForecastFailed.getType()])
-        ]);
+
+        const {config: {data: config}} = yield select(state => state.dashboardApi);
+        let fetchEffects = [put(fetchWeather())];
+        let takeEffects = [take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])];
+        if (config.showForecast) {
+            fetchEffects.push(put(fetchForecast()));
+            takeEffects.push(take([fetchForecastFinished.getType(), fetchForecastFailed.getType()]))
+        }
+        yield all(fetchEffects);
+        const [weatherActType, forecastActType] = yield all(takeEffects);
+
         yield put(setLoadingAnimation(false));
         yield take(setLoadingAnimationFinished.getType());
         yield put(refreshWidgetFinished());

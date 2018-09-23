@@ -18,6 +18,7 @@ const ConfigurationComponent = ({
     locSource, setLocSource,
     showForecast, setShowForecast,
     forecastDays, setForecastDays,
+    updateInt, setUpdateInt,
     dataSource, setDataSource,
     owmAppId, setOwmAppId,
     dsSecretKey, setDsSecretKey,
@@ -78,6 +79,12 @@ const ConfigurationComponent = ({
                     </div>
                     }
                     <div className="ring-form__group">
+                        <div className="ring-form__label">Update interval (sec)</div>
+                        <div className="ring-form__control">
+                            <Input value={''+updateInt} onChange={ev => setUpdateInt(ev.target.value)}/>
+                        </div>
+                    </div>
+                    <div className="ring-form__group">
                         <div className="ring-form__label">Data source</div>
                         <div className="ring-form__control">
                             <Radio value={dataSource} onChange={setDataSource}>
@@ -135,6 +142,8 @@ ConfigurationComponent.propTypes = {
     setShowForecast: PropTypes.func.isRequired,
     forecastDays: PropTypes.number.isRequired,
     setForecastDays: PropTypes.func.isRequired,
+    updateInt: PropTypes.number.isRequired,
+    setUpdateInt: PropTypes.func.isRequired,
     dataSource: PropTypes.string.isRequired,
     setDataSource: PropTypes.func.isRequired,
     owmAppId: PropTypes.string.isRequired,

@@ -11,11 +11,14 @@ const WidgetComponent = ({
     Weather,
     Forecast
 }) => (
-    <div>
+    <div className={styles.widget}>
         {configMode
         ? <Configuration/>
-        :   config.data
-            ? <React.Fragment><Weather/><Forecast/></React.Fragment>
+        :   config
+            ? <React.Fragment>
+                    <Weather/>
+                    {config.showForecast && <Forecast/>}
+                </React.Fragment>
             : <LoaderScreen/>
         }
     </div>

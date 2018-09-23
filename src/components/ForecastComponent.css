@@ -1,3 +1,23 @@
 .forecast {
+    display: flex;
+    flex-flow: row nowrap;
+}
 
+.day {
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.day:hover {
+    color: #fff;
+    background-color: #008EFF;
+}
+
+.day h3 {
+    text-transform: uppercase;
+}
+
+.day p {
+    font-size: 28px;
 }
