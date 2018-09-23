@@ -47,6 +47,7 @@
     "electron": "3.0.0",
     "enzyme": "3.6.0",
     "enzyme-adapter-react-16": "1.5.0",
+    "gh-pages": "2.0.0",
     "karma": "3.0.0",
     "karma-chai-plugins": "0.9.0",
     "karma-electron-launcher": "0.2.0",
@@ -59,9 +60,10 @@
     "sinon-chai": "3.2.0"
   },
   "scripts": {
-    "build": "webpack --mode development",
+    "build": "NODE_ENV=production webpack -p",
     "start": "webpack-dev-server --mode development",
-    "test": "karma start"
+    "test": "karma start",
+    "deploy": "gh-pages -d target"
   },
   "engines": {
     "node": ">=6.0.0"
