@@ -1,21 +1,77 @@
 import 'babel-polyfill';
 import {cloneableGenerator} from 'redux-saga/utils';
-import {put, call, getContext} from 'redux-saga/effects';
+import {put} from 'redux-saga/effects';
 import {
-    fetchConfigurationSaga
+    fetchConfigurationSaga, storeConfigurationSaga,
+    fetchCacheSaga, storeCacheSaga,
+    setTitleSaga,
+    setLoadingAnimationSaga,
+    alertSaga
 } from '@sagas/DashboardApiSagas';
 import {
-    requestFetchConfiguration
+    requestFetchConfiguration,
+    requestStoreConfiguration,
+    requestFetchCache,
+    requestStoreCache,
+    setTitleStarted,
+    setLoadingAnimationStarted,
+    alertStarted
 } from '@actions/DashboardApiActions';
 
 describe('DashboardApiSagas', () => {
     describe('fetchConfigurationSaga', () => {
-        const gen = fetchConfigurationSaga();
+        const generator = cloneableGenerator(fetchConfigurationSaga);
 
-        it('Test', () => {
-
+        it('Must trigger requestFetchConfiguration', () => {
             (generator.next().value).should.deep.equal(put(requestFetchConfiguration()));
-            (generator.next().value).should.deep.equal(getContext('dashboardApi'));
+        });
+    });
+
+    describe('storeConfigurationSaga', () => {
+        const generator = cloneableGenerator(storeConfigurationSaga);
+
+        it('Must trigger requestStoreConfiguration', () => {
+            (generator.next().value).should.deep.equal(put(requestStoreConfiguration()));
+        });
+    });
+
+    describe('fetchCacheSaga', () => {
+        const generator = cloneableGenerator(fetchCacheSaga);
+
+        it('Must trigger requestFetchCache', () => {
+            (generator.next().value).should.deep.equal(put(requestFetchCache()));
+        });
+    });
+
+    describe('storeCacheSaga', () => {
+        const generator = cloneableGenerator(storeCacheSaga);
+
+        it('Must trigger requestStoreCache', () => {
+            (generator.next().value).should.deep.equal(put(requestStoreCache()));
+        });
+    });
+
+    describe('setTitleSaga', () => {
+        const generator = cloneableGenerator(setTitleSaga);
+
+        it('Must trigger setTitleStarted', () => {
+            (generator.next().value).should.deep.equal(put(setTitleStarted()));
+        });
+    });
+
+    describe('setLoadingAnimationSaga', () => {
+        const generator = cloneableGenerator(setLoadingAnimationSaga);
+
+        it('Must trigger setLoadingAnimationStarted', () => {
+            (generator.next().value).should.deep.equal(put(setLoadingAnimationStarted()));
+        });
+    });
+
+    describe('alertSaga', () => {
+        const generator = cloneableGenerator(alertSaga);
+
+        it('Must trigger alertStarted', () => {
+            (generator.next().value).should.deep.equal(put(alertStarted()));
         });
     });
 });

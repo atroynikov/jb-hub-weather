@@ -17,7 +17,8 @@ const webpackConfig = () => ({
         }
     },
     output: {
-        path: path.resolve(__dirname, './target')
+        path: path.resolve(__dirname, './target'),
+        filename: 'index.js'
     },
     module: {
         rules: [
