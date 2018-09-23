@@ -90,6 +90,7 @@ const ConfigurationComponent = ({
                             <Radio value={dataSource} onChange={setDataSource}>
                                 <RadioItem value="owm">OpenWeatherMap</RadioItem>
                                 <RadioItem value="ds">Dark Sky</RadioItem>
+                                <RadioItem value="apixu" disabled>Apixu</RadioItem>
                             </Radio>
                         </div>
                     </div>

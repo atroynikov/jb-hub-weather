@@ -89,6 +89,9 @@ export function* refreshWidgetSaga() {
     } catch(error) {
         yield put(refreshWidgetFailed(error.toString()));
     }
+}
+
+export function* initUpdateTimer() {
 
 }
 

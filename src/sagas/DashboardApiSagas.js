@@ -1,4 +1,4 @@
-import {call, put, select, getContext, takeLatest} from 'redux-saga/effects';
+import {call, put, select, getContext, takeEvery} from 'redux-saga/effects';
 
 import {
     fetchConfiguration, requestFetchConfiguration, receiveFetchConfiguration, requestFetchConfigurationFailed,
@@ -91,11 +91,11 @@ export function* alertSaga({payload}) {
 }
 
 export default [
-    takeLatest(fetchConfiguration, fetchConfigurationSaga),
-    takeLatest(storeConfiguration, storeConfigurationSaga),
-    takeLatest(fetchCache, fetchCacheSaga),
-    takeLatest(storeCache, storeCacheSaga),
-    takeLatest(setTitle, setTitleSaga),
-    takeLatest(setLoadingAnimation, setLoadingAnimationSaga),
-    takeLatest(alert, alertSaga)
+    takeEvery(fetchConfiguration, fetchConfigurationSaga),
+    takeEvery(storeConfiguration, storeConfigurationSaga),
+    takeEvery(fetchCache, fetchCacheSaga),
+    takeEvery(storeCache, storeCacheSaga),
+    takeEvery(setTitle, setTitleSaga),
+    takeEvery(setLoadingAnimation, setLoadingAnimationSaga),
+    takeEvery(alert, alertSaga)
 ];

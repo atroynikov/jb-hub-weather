@@ -14,6 +14,7 @@ import {
 } from '@actions/DarkSkyActions';
 import openWeatherMapSagas from './OpenWeatherMapSagas';
 import darkSkySagas from './DarkSkySagas';
+import {getIpGeoData} from '@selectors/GeolocationSelectors';
 
 export function* fetchWeatherSaga() {
     try {
@@ -32,7 +33,7 @@ export function* fetchWeatherSaga() {
 
                 break;
             default:
-                ipGeo = yield select(state => state.geolocationApi.ip.data);
+                ipGeo = yield select(getIpGeoData);
                 data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
         }
         switch (config.dataSource) {
@@ -70,7 +71,7 @@ export function* fetchForecastSaga() {
 
                 break;
             default:
-                ipGeo = yield select(state => state.geolocationApi.ip.data);
+                ipGeo = yield select(getIpGeoData);
                 data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
         }
         switch (config.dataSource) {

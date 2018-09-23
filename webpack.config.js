@@ -13,7 +13,8 @@ const webpackConfig = () => ({
             "@components": path.resolve('./src/components'),
             "@containers": path.resolve('./src/containers'),
             "@reducers": path.resolve('./src/reducers'),
-            "@sagas": path.resolve('./src/sagas')
+            "@sagas": path.resolve('./src/sagas'),
+            "@selectors": path.resolve('./src/selectors')
         }
     },
     output: {
