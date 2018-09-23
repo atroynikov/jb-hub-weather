@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import {Grid, Row, Col} from '@jetbrains/ring-ui/components/grid/grid';
 import Panel from '@jetbrains/ring-ui/components/panel/panel';

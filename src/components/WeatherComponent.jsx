@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import WeatherIcons from 'react-weathericons';
 
 import styles from './WeatherComponent.css';
 
@@ -25,12 +27,12 @@ const WeatherComponent = ({
                     <small>
                         <small>WIND:</small>
                     </small>
-                    {weather && weather.wind ? weather.wind.speed : '?'} km/h
+                    {weather && weather.wind ? weather.wind.speed : '?'} m/sec
                 </div>
                 <div>&nbsp;</div>
             </div>
             <div className={styles.weatherCurrentIcon}>
-                <span className="wi-day-sunny"/>
+                {weather.weather && <WeatherIcons name={'owm-'+ weather.weather[0].id} size="2x"/>}
             </div>
         </div>
     </div>
