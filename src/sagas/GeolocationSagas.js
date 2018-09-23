@@ -7,6 +7,7 @@ import {alert} from '@actions/DashboardApiActions'
 import fetch from "isomorphic-fetch";
 
 function* fetchGeolocationSaga() {
+    // Need allow="geolocation" in Hub iframe
     try {
         yield put(requestGeolocation());
         const response = yield call(() => new Promise((resolve, reject) => {
@@ -17,6 +18,7 @@ function* fetchGeolocationSaga() {
         }));
         yield put(receiveGeolocation(response));
     } catch (error) {
+        yield put(alert(error.toString(), 'error'));
         yield put(requestGeolocationFailed(error.message||error.toString()));
     }
 }
