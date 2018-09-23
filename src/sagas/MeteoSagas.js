@@ -28,7 +28,7 @@ function* fetchWeatherSaga() {
                 break;
             default:
                 ipGeo = yield select(state => state.geolocationApi.ip.data);
-                data = {lat: ipGeo.lat, lon: ipGeo.lon};
+                data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
         }
         switch (config.dataSource) {
             default:
@@ -62,7 +62,7 @@ function* fetchForecastSaga() {
                 break;
             default:
                 ipGeo = yield select(state => state.geolocationApi.ip.data);
-                data = {lat: ipGeo.lat, lon: ipGeo.lon};
+                data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
         }
         switch (config.dataSource) {
             default:
