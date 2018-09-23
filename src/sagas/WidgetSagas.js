@@ -20,7 +20,7 @@ import {
     fetchIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
 } from '@actions/GeolocationActions';
 
-function* bootstrapWidgetSaga() {
+export function* bootstrapWidgetSaga() {
     try {
         yield put(bootstrapWidgetStarted());
         const dispatch = yield getContext('dispatch');
@@ -65,7 +65,7 @@ function* bootstrapWidgetSaga() {
     }
 }
 
-function* refreshWidgetSaga() {
+export function* refreshWidgetSaga() {
     try {
         yield put(refreshWidgetStarted());
         yield put(setLoadingAnimation(true));

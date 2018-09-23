@@ -8,7 +8,7 @@ import {
 
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-function* fetchOwmWeatherSaga({payload}) {
+export function* fetchOwmWeatherSaga({payload}) {
     try {
         let url;
 
@@ -29,7 +29,7 @@ function* fetchOwmWeatherSaga({payload}) {
     }
 }
 
-function* fetchOwmForecastSaga({payload}) {
+export function* fetchOwmForecastSaga({payload}) {
     try {
         let url;
 
@@ -40,8 +40,9 @@ function* fetchOwmForecastSaga({payload}) {
         const units = {C: 'metric', F: 'imperial', K: ''}[scale];
         const cnt = days * 8;
         if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
-            url = `${BASE_URL}/forecast?lat=${encodeURIComponent(payload.lat)}`
-                +`&lon=${encodeURIComponent(payload.lon)}&units=${units}&cnt=${cnt}&appid=${appId}`;
+            const {lat, lon} = payload;
+            url = `${BASE_URL}/forecast?lat=${encodeURIComponent(lat)}`
+                +`&lon=${encodeURIComponent(lon)}&units=${units}&cnt=${cnt}&appid=${appId}`;
         } else if (payload.hasOwnProperty('name')) {
             url = `${BASE_URL}/forecast?q=${encodeURIComponent(name)}&units=${units}&cnt=${cnt}&appid=${appId}`;
         }

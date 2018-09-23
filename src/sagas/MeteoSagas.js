@@ -8,9 +8,14 @@ import {
     fetchOwmWeather, receiveOwmWeather, requestOwmWeatherFailed,
     fetchOwmForecast, receiveOwmForecast, requestOwmForecastFailed
 } from '@actions/OpenWeatherMapActions';
+import {
+    fetchDsWeather, receiveDsWeather, requestDsWeatherFailed,
+    fetchDsForecast, receiveDsForecast, requestDsForecastFailed
+} from '@actions/DarkSkyActions';
 import openWeatherMapSagas from './OpenWeatherMapSagas';
+import darkSkySagas from './DarkSkySagas';
 
-function* fetchWeatherSaga() {
+export function* fetchWeatherSaga() {
     try {
         let ipGeo;
         let data;
@@ -31,6 +36,10 @@ function* fetchWeatherSaga() {
                 data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
         }
         switch (config.dataSource) {
+            case 'ds':
+                fetchAct = fetchDsWeather;
+                fetchFinishedAct = receiveDsWeather;
+                break;
             default:
                 fetchAct = fetchOwmWeather;
                 fetchFinishedAct = receiveOwmWeather;
@@ -44,7 +53,7 @@ function* fetchWeatherSaga() {
     }
 }
 
-function* fetchForecastSaga() {
+export function* fetchForecastSaga() {
     try {
         let ipGeo;
         let data;
@@ -65,6 +74,10 @@ function* fetchForecastSaga() {
                 data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
         }
         switch (config.dataSource) {
+            case 'ds':
+                fetchAct = fetchDsForecast;
+                fetchFinishedAct = receiveDsForecast;
+                break;
             default:
                 fetchAct = fetchOwmForecast;
                 fetchFinishedAct = receiveOwmForecast;
@@ -74,12 +87,13 @@ function* fetchForecastSaga() {
         const {payload} = yield take([fetchFinishedAct.getType()]);
         yield put(fetchForecastFinished(payload));
     } catch (error) {
-        yield put(fetchForecastFailed(error.t));
+        yield put(fetchForecastFailed(error.toString()));
     }
 }
 
 export default [
     takeLatest(fetchWeather, fetchWeatherSaga),
     takeLatest(fetchForecast, fetchForecastSaga),
-    ...openWeatherMapSagas
+    ...openWeatherMapSagas,
+    ...darkSkySagas
 ];

@@ -17,7 +17,7 @@ const defaultConfig = {
     forecastDays: '5',
     dataSource: 'owm',
     owmAppId: '757dd97f4bcba5a5328ebb5395a61384',
-    dsSecretKey: ''
+    dsSecretKey: 'c538faa3d9d27354adfbab12e2abd0c1'
 };
 
 const ConfigurationContainer = compose(

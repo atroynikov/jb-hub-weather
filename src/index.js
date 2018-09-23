@@ -30,6 +30,6 @@ HubDashboardAddons.registerWidget((dashboardApi, registerWidgetApi) => {
         <Provider store={store}>
             <WidgetContainer/>
         </Provider>,
-        document.getElementById('app')
+        document.getElementById('root')
     );
 });

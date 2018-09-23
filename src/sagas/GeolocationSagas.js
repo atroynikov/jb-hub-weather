@@ -6,7 +6,7 @@ import {
 import {alert} from '@actions/DashboardApiActions'
 import fetch from "isomorphic-fetch";
 
-function* fetchGeolocationSaga() {
+export function* fetchGeolocationSaga() {
     // Need allow="geolocation" in Hub iframe
     try {
         yield put(requestGeolocation());
@@ -23,7 +23,7 @@ function* fetchGeolocationSaga() {
     }
 }
 
-function* fetchIpGeolocationSaga() {
+export function* fetchIpGeolocationSaga() {
     try {
         yield put(requestIpGeolocation());
         const url = `https://ipapi.co/json/`;
