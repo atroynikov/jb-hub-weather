@@ -3,19 +3,15 @@
 .weather {
     display: flex;
     flex-flow: column wrap;
-    box-shadow: 0px 1px 10px 0px #cfcfcf;
+    box-shadow: 0 1px 10px 0 #CFCFCF;
     overflow: hidden;
 }
 
 .weatherCurrent {
     display: flex;
     flex-flow: row wrap;
-    /*background-image: url("/Content/images/shared/misc/london-view.png");*/
-    /*background-repeat: repeat-x;*/
-    /*color: white;*/
     color: #AAA;
     padding: 20px;
-    /*text-shadow: 1px 1px #F68D2E;*/
 }
 
 .weatherCurrentInfo {
@@ -31,6 +27,7 @@
 
 .weatherCurrentInfoTemp {
     font-size: 56px;
+    margin: 28px 0;
 }
 
 .weatherCurrentInfoCityWind {

@@ -14,20 +14,14 @@ const WeatherComponent = ({
             <div className={styles.weatherCurrentInfo}>
                 <div>&nbsp;</div>
                 <div className={styles.weatherCurrentInfoCity}>
-                    <small>
-                        <small>CITY:</small>
-                    </small>
-                    {weather.name || '?'}
+                    {weather.name || '...'}
                 </div>
                 <div className={styles.weatherCurrentInfoTemp}>
-                    {weather && weather.main ? weather.main.temp : '?'}
+                    {weather && weather.main ? weather.main.temp : '...'}
                     {weather && weather.main && <small>&deg;{config.tempScale}</small>}
                 </div>
                 <div className={styles.weatherCurrentInfoCityWind}>
-                    <small>
-                        <small>WIND:</small>
-                    </small>
-                    {weather && weather.wind ? weather.wind.speed : '?'} m/sec
+                    {weather && weather.wind ? weather.wind.speed : '...'} m/sec
                 </div>
                 <div>&nbsp;</div>
             </div>
