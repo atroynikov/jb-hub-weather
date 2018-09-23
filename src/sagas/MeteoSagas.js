@@ -14,6 +14,7 @@ import {
 } from '@actions/DarkSkyActions';
 import openWeatherMapSagas from './OpenWeatherMapSagas';
 import darkSkySagas from './DarkSkySagas';
+import {getConfig} from '@selectors/DashboardApiSelectors';
 import {getIpGeoData} from '@selectors/GeolocationSelectors';
 
 export function* fetchWeatherSaga() {
@@ -24,7 +25,8 @@ export function* fetchWeatherSaga() {
         let fetchFinishedAct;
 
         yield put(fetchWeatherStarted());
-        const config = yield select(state => state.dashboardApi.config.data);
+        const config = yield select(getConfig);
+        //ToDo: replace hardcoded types to enum const
         switch (config.locSource) {
             case 'name':
                 data = {name: config.placeName};
@@ -62,7 +64,7 @@ export function* fetchForecastSaga() {
         let fetchFinishedAct;
 
         yield put(fetchForecastStarted());
-        const config = yield select(state => state.dashboardApi.config.data);
+        const config = yield select(getConfig);
         switch (config.locSource) {
             case 'name':
                 data = {name: config.placeName};

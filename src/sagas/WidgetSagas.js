@@ -1,7 +1,6 @@
 import {call, put, take, all, select, getContext, takeLatest} from 'redux-saga/effects';
 
 import {openConfiguration} from '@actions/ConfigurationActions';
-import {fetchGeolocation} from '@actions/GeolocationActions';
 import {
     fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
     fetchCache, receiveFetchCache, requestFetchCacheFailed,
@@ -19,6 +18,7 @@ import {
 import {
     fetchIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
 } from '@actions/GeolocationActions';
+import {getConfig} from '@selectors/DashboardApiSelectors';
 
 export function* bootstrapWidgetSaga() {
     try {
@@ -73,7 +73,7 @@ export function* refreshWidgetSaga() {
         yield put(fetchIpGeolocation());
         yield take([receiveIpGeolocation.getType(), requestIpGeolocationFailed.getType()]);
 
-        const {config: {data: config}} = yield select(state => state.dashboardApi);
+        const config = yield select(getConfig);
         let fetchEffects = [put(fetchWeather())];
         let takeEffects = [take([fetchWeatherFinished.getType(), fetchForecastFinished.getType()])];
         if (config.showForecast) {
