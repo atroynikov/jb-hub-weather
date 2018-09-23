@@ -24,9 +24,9 @@ const WidgetComponent = ({
 WidgetComponent.propTypes = {
     config: PropTypes.object.isRequired,
     configMode: PropTypes.bool.isRequired,
-    Configuration: PropTypes.element.isRequired,
-    Weather: PropTypes.element.isRequired,
-    Forecast: PropTypes.element.isRequired
+    Configuration: PropTypes.func.isRequired,
+    Weather: PropTypes.func.isRequired,
+    Forecast: PropTypes.func.isRequired
 };
 
 export default WidgetComponent;
