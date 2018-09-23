@@ -7,7 +7,11 @@ import ForecastComponent from '@components/ForecastComponent';
 const ForecastContainer = compose(
     connect(
         (state) => ({
-            forecast: state.forecast
+            forecast: state.forecast,
+            config: state.dashboardApi.config.data
+        }),
+        (dispatch) => ({
+
         })
     ),
     setDisplayName('ForecastContainer')

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {Grid, Row, Col} from '@jetbrains/ring-ui/components/grid/grid';
 import Panel from '@jetbrains/ring-ui/components/panel/panel';
@@ -121,5 +122,26 @@ const ConfigurationComponent = ({
          </Row>
     </Grid>
 );
+
+ConfigurationComponent.propTypes = {
+    tempScale: PropTypes.string.isRequired,
+    setTempScale: PropTypes.func.isRequired,
+    placeName: PropTypes.string.isRequired,
+    setPlaceName: PropTypes.func.isRequired,
+    locSource: PropTypes.string.isRequired,
+    setLocSource: PropTypes.func.isRequired,
+    showForecast: PropTypes.bool.isRequired,
+    setShowForecast: PropTypes.func.isRequired,
+    forecastDays: PropTypes.number.isRequired,
+    setForecastDays: PropTypes.func.isRequired,
+    dataSource: PropTypes.string.isRequired,
+    setDataSource: PropTypes.func.isRequired,
+    owmAppId: PropTypes.string.isRequired,
+    setOwmAppId: PropTypes.func.isRequired,
+    dsSecretKey: PropTypes.string.isRequired,
+    setDsSecretKey: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired
+};
 
 export default ConfigurationComponent;

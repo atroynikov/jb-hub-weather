@@ -21,10 +21,12 @@ const WidgetComponent = ({
     </div>
 );
 
-// WidgetComponent.propTypes = {
-//     Configuration: PropTypes.func.isRequired,
-//     Weather: PropTypes.func.isRequired,
-//     Forecast: PropTypes.func.isRequired
-// };
+WidgetComponent.propTypes = {
+    config: PropTypes.object.isRequired,
+    configMode: PropTypes.bool.isRequired,
+    Configuration: PropTypes.element.isRequired,
+    Weather: PropTypes.element.isRequired,
+    Forecast: PropTypes.element.isRequired
+};
 
 export default WidgetComponent;

@@ -37,7 +37,8 @@ const WeatherComponent = ({
 );
 
 WeatherComponent.propTypes = {
-
+    weather: PropTypes.object.isRequired,
+    config: PropTypes.object.isRequired
 };
 
 export default WeatherComponent;
