@@ -1,2 +1,1 @@
 # JetBrains Hub Weather Widget
-[![Dependencies Status][deps-img]][deps] [![Dev Dependencies Status][dev-deps-img]][dev-deps] [![NPM version][npm-version-img]][npm-package] [![NPM downloads][npm-count-img]][npm-package]
