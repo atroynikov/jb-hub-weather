@@ -1,3 +1,9 @@
+:global(body) {
+    margin: 0;
+    padding: 0;
+}
+
+
 .widget {
     composes: font from "@jetbrains/ring-ui/components/global/global.css";
     margin: 0;
