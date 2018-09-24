@@ -4,11 +4,8 @@ import {
     compose, lifecycle, setDisplayName
 } from 'recompose';
 
-import WidgetComponent from '@components/WidgetComponent';
-import ConfigurationContainer from './ConfigurationContainer';
-import WeatherContainer from './WeatherContainer';
-import ForecastContainer from './ForecastContainer';
-
+import {WidgetComponent} from '@components';
+import {ConfigurationContainer, ForecastContainer, WeatherContainer} from '@containers';
 import {bootstrapWidget} from '@actions/WidgetActions';
 
 const WidgetContainer = compose(

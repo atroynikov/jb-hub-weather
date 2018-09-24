@@ -4,7 +4,7 @@ import {
     compose, withState, setPropTypes, setDisplayName
 } from 'recompose';
 
-import ConfigurationComponent from '@components/ConfigurationComponent';
+import {ConfigurationComponent} from '@components';
 import {
     saveConfiguration, exitConfigMode
 } from '@actions/ConfigurationActions';
