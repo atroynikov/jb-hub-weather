@@ -10,6 +10,8 @@ import Radio from '@jetbrains/ring-ui/components/radio/radio';
 import RadioItem from '@jetbrains/ring-ui/components/radio/radio__item';
 import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
 
+import {LocationSources, DataSources} from '@constants';
+
 import '@jetbrains/ring-ui/components/form/form.scss';
 
 const LocationSource = ({locSource, setLocSource}) => (
@@ -17,9 +19,9 @@ const LocationSource = ({locSource, setLocSource}) => (
     <div className="ring-form__label">Location source</div>
     <div className="ring-form__control">
       <Radio value={locSource} onChange={setLocSource}>
-        <RadioItem value="geo">Geolocation</RadioItem>
-        <RadioItem value="name">Place name</RadioItem>
-        <RadioItem value="coord">Place coordinates</RadioItem>
+        <RadioItem value={LocationSources.GEO}>Geolocation</RadioItem>
+        <RadioItem value={LocationSources.NAME}>Place name</RadioItem>
+        <RadioItem value={LocationSources.NAME}>Place coordinates</RadioItem>
       </Radio>
     </div>
   </div>
@@ -88,9 +90,9 @@ const DataSource = ({dataSource, setDataSource}) => (
     <div className="ring-form__label">Data source</div>
     <div className="ring-form__control">
       <Radio value={dataSource} onChange={setDataSource}>
-        <RadioItem value="owm">OpenWeatherMap</RadioItem>
-        <RadioItem value="ds">Dark Sky</RadioItem>
-        <RadioItem value="apixu" disabled>Apixu</RadioItem>
+        <RadioItem value={DataSources.OPEN_WEATHER_MAP}>OpenWeatherMap</RadioItem>
+        <RadioItem value={DataSources.DARK_SKY}>Dark Sky</RadioItem>
+        <RadioItem value={DataSources.APIXU} disabled>Apixu</RadioItem>
       </Radio>
     </div>
   </div>
@@ -130,15 +132,15 @@ const ConfigurationComponent = (props) => (
       <Col xs={12}>
         <form className="ring-form">
           <LocationSource {...props}/>
-          {props.locSource === 'name' && <PlaceName {...props}/>}
-          {props.locSource === 'coord' && <PlaceCoordinates {...props}/>}
+          {props.locSource === LocationSources.NAME && <PlaceName {...props}/>}
+          {props.locSource === LocationSources.COORD && <PlaceCoordinates {...props}/>}
           <Scale {...props}/>
           <ShowForecast {...props}/>
           {props.showForecast && <ForecastDays {...props}/>}
           <UpdateInterval {...props}/>
           <DataSource {...props}/>
-          {props.dataSource === 'owm' && <OwmAppId {...props}/>}
-          {props.dataSource === 'ds' && <DsSecretKey {...props}/>}
+          {props.dataSource === DataSources.OPEN_WEATHER_MAP && <OwmAppId {...props}/>}
+          {props.dataSource === DataSources.DARK_SKY && <DsSecretKey {...props}/>}
           <div className="ring-form__footer">
             <Panel>
               <Button primary onClick={() => props.onSave()}>Save</Button>

@@ -13,10 +13,11 @@ const webpackConfig = () => ({
     alias: {
       "@actions": path.resolve('./src/actions'),
       "@components": path.resolve('./src/components'),
+      "@constants": path.resolve('./src/constants'),
       "@containers": path.resolve('./src/containers'),
       "@reducers": path.resolve('./src/reducers'),
       "@sagas": path.resolve('./src/sagas'),
-      "@selectors": path.resolve('./src/selectors')
+      "@selectors": path.resolve('./src/selectors'),
     }
   },
   output: {
