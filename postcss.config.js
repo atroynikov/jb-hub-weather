@@ -1,6 +1,6 @@
 module.exports = ctx => ({
-    plugins: [
-        require('postcss-import')({}),
-        require('postcss-cssnext')({})
-    ]
+  plugins: [
+    require('postcss-import')({}),
+    require('postcss-cssnext')({})
+  ]
 });

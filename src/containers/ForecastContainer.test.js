@@ -5,5 +5,5 @@ import {createMockStore} from 'redux-test-utils';
 import {ForecastContainer} from '@containers';
 
 describe('ForecastContainer', () => {
-    const store = createMockStore({});
+  const store = createMockStore({});
 });

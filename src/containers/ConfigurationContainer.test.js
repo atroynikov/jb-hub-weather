@@ -5,5 +5,5 @@ import {createMockStore} from 'redux-test-utils';
 import {ConfigurationContainer} from '@containers';
 
 describe('ConfigurationContainer', () => {
-    const store = createMockStore({});
+  const store = createMockStore({});
 });

@@ -8,19 +8,19 @@ import teleportSagas from './TeleportSagas';
 import geolocationSagas from './GeolocationSagas';
 
 const rootSaga = function* (dispatch, dashboardApi, registerWidgetApi) {
-    yield setContext({
-        dispatch: dispatch,
-        dashboardApi: dashboardApi,
-        registerWidgetApi: registerWidgetApi
-    });
-    yield all([
-        ...widgetSagas,
-        ...dashboardApiSagas,
-        ...configurationSagas,
-        ...meteoSagas,
-        ...teleportSagas,
-        ...geolocationSagas
-    ]);
+  yield setContext({
+    dispatch: dispatch,
+    dashboardApi: dashboardApi,
+    registerWidgetApi: registerWidgetApi
+  });
+  yield all([
+    ...widgetSagas,
+    ...dashboardApiSagas,
+    ...configurationSagas,
+    ...meteoSagas,
+    ...teleportSagas,
+    ...geolocationSagas
+  ]);
 };
 
 export default rootSaga;

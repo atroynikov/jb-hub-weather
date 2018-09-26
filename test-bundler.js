@@ -18,9 +18,9 @@ chai.use(sinonChai);
 chai.use(chaiEnzyme());
 
 Object.assign(window, {
-    sinon,
-    chai,
-    should: chai.should()
+  sinon,
+  chai,
+  should: chai.should()
 });
 
 const testsContext = require.context('./src', true, /\.test\.js$/);

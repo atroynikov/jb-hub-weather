@@ -7,7 +7,7 @@ export const requestFetchCacheFailed = createAction('Request fetch widget cache 
 
 export const storeCache = createAction('Store widget cache');
 export const requestStoreCache = createAction('Request store widget cache');
-export const receiveStoreCache= createAction('Receive store widget cache');
+export const receiveStoreCache = createAction('Receive store widget cache');
 export const requestStoreCacheFailed = createAction('Request store widget cache failed');
 
 export const fetchConfiguration = createAction('Fetch widget configuration');
@@ -17,7 +17,7 @@ export const requestFetchConfigurationFailed = createAction('Request fetch widge
 
 export const storeConfiguration = createAction('Store widget configuration');
 export const requestStoreConfiguration = createAction('Request store widget configuration');
-export const receiveStoreConfiguration= createAction('Receive store widget configuration');
+export const receiveStoreConfiguration = createAction('Receive store widget configuration');
 export const requestStoreConfigurationFailed = createAction('Request store widget configuration failed');
 
 export const setTitle = createAction('Set widget title', (...args) => args.join("\0"));
@@ -32,5 +32,5 @@ export const setLoadingAnimationFailed = createAction('Failed setting loading an
 
 export const alert = createAction("Show alert", (...args) => args.join("\0"));
 export const alertStarted = createAction("Started triggering alert");
-export const alertFinished= createAction("Finished triggering alert");
+export const alertFinished = createAction("Finished triggering alert");
 export const alertFailed = createAction("Failed triggering alert");

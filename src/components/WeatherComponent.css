@@ -1,65 +1,65 @@
 @value unit, font, font-size, dark-gray-color, error-color from "@jetbrains/ring-ui/components/global/global.css";
 
 .weather {
-    display: flex;
-    flex-flow: column wrap;
-    box-shadow: 0 1px 10px 0 #CFCFCF;
-    overflow: hidden;
+  display: flex;
+  flex-flow: column wrap;
+  box-shadow: 0 1px 10px 0 #CFCFCF;
+  overflow: hidden;
 }
 
 .weatherCurrent {
-    display: flex;
-    flex-flow: row wrap;
-    color: #AAA;
-    padding: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  color: #AAA;
+  padding: 20px;
 }
 
 .weatherCurrentInfo {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-around;
-    flex-grow: 2;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  flex-grow: 2;
 }
 
 .weatherCurrentInfoCity {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .weatherCurrentInfoTemp {
-    font-size: 56px;
-    margin: 28px 0;
+  font-size: 56px;
+  margin: 28px 0;
 }
 
 .weatherCurrentInfoCityWind {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .weatherCurrentIcon {
-    text-align: center;
-    font-size: 64px;
-    flex-grow: 1;
+  text-align: center;
+  font-size: 64px;
+  flex-grow: 1;
 }
 
 .weatherFuture {
-    display: flex;
-    flex-flow: row nowrap;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .weatherFutureDay {
-    flex-grow: 1;
-    text-align: center;
-    cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+  cursor: pointer;
 }
 
 .weatherFutureDay:hover {
-    color: #fff;
-    background-color: #F68D2E;
+  color: #fff;
+  background-color: #F68D2E;
 }
 
 .weatherFutureDayH3 {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .weatherFutureDayP {
-    font-size: 28px;
+  font-size: 28px;
 }
