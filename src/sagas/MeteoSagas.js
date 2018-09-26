@@ -12,10 +12,12 @@ import {
   fetchDsWeather, receiveDsWeather, requestDsWeatherFailed,
   fetchDsForecast, receiveDsForecast, requestDsForecastFailed
 } from '@actions/DarkSkyActions';
+import {storeCache} from '@actions/DashboardApiActions';
 import openWeatherMapSagas from './OpenWeatherMapSagas';
 import darkSkySagas from './DarkSkySagas';
-import {getConfig} from '@selectors/DashboardApiSelectors';
+import {getCache, getConfig} from '@selectors/DashboardApiSelectors';
 import {getIpGeoData} from '@selectors/GeolocationSelectors';
+import {LocationSources, DataSources} from '@constants';
 
 export function* fetchWeatherSaga() {
   try {
@@ -26,12 +28,13 @@ export function* fetchWeatherSaga() {
 
     yield put(fetchWeatherStarted());
     const config = yield select(getConfig);
-    //ToDo: replace hardcoded types to enum const
+    const cache = yield select(getCache);
+
     switch (config.locSource) {
-      case 'name':
+      case LocationSources.NAME:
         data = {name: config.placeName};
         break;
-      case 'coord':
+      case LocationSources.COORD:
 
         break;
       default:
@@ -39,7 +42,7 @@ export function* fetchWeatherSaga() {
         data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
     }
     switch (config.dataSource) {
-      case 'ds':
+      case DataSources.DARK_SKY:
         fetchAct = fetchDsWeather;
         fetchFinishedAct = receiveDsWeather;
         break;
@@ -50,6 +53,11 @@ export function* fetchWeatherSaga() {
 
     yield put(fetchAct(data));
     const {payload} = yield take([fetchFinishedAct.getType()]);
+    yield put(storeCache({
+      ...cache,
+      weather: payload
+    }));
+
     yield put(fetchWeatherFinished(payload));
   } catch (error) {
     yield put(fetchWeatherFailed(error.toString()));
@@ -65,11 +73,13 @@ export function* fetchForecastSaga() {
 
     yield put(fetchForecastStarted());
     const config = yield select(getConfig);
+    const cache = yield select(getCache);
+
     switch (config.locSource) {
-      case 'name':
+      case LocationSources.NAME:
         data = {name: config.placeName};
         break;
-      case 'coord':
+      case LocationSources.COORD:
 
         break;
       default:
@@ -77,7 +87,7 @@ export function* fetchForecastSaga() {
         data = {lat: ipGeo.latitude, lon: ipGeo.longitude};
     }
     switch (config.dataSource) {
-      case 'ds':
+      case DataSources.DARK_SKY:
         fetchAct = fetchDsForecast;
         fetchFinishedAct = receiveDsForecast;
         break;
@@ -88,6 +98,11 @@ export function* fetchForecastSaga() {
 
     yield put(fetchAct(data));
     const {payload} = yield take([fetchFinishedAct.getType()]);
+    yield put(storeCache({
+      ...cache,
+      forecast: payload
+    }));
+
     yield put(fetchForecastFinished(payload));
   } catch (error) {
     yield put(fetchForecastFailed(error.toString()));
