@@ -5,10 +5,12 @@ import WeatherIcons from "react-weathericons";
 
 import styles from './ForecastComponent.css';
 
-const ForecastComponent = ({
-                             forecast,
-                             config
-                           }) => (
+const ForecastComponent = (
+  {
+    forecast,
+    config
+  }
+) => (
   <div className={styles.forecast}>
     {forecast.list && forecast.list.slice(0, 3).map(item => (
       <div className={styles.day}>

@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import LoaderScreen from '@jetbrains/ring-ui/components/loader-screen/loader-screen';
 import styles from './WidgetComponent.css';
 
-const WidgetComponent = ({
-                           config,
-                           configMode,
-                           Configuration,
-                           Weather,
-                           Forecast
-                         }) => (
+const WidgetComponent = (
+  {
+    config,
+    configMode,
+    Configuration,
+    Weather,
+    Forecast
+  }
+) => (
   <div className={styles.widget}>
     {configMode
       ? <Configuration/>

@@ -12,18 +12,20 @@ import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
 
 import '@jetbrains/ring-ui/components/form/form.scss';
 
-const ConfigurationComponent = ({
-                                  tempScale, setTempScale,
-                                  placeName, setPlaceName,
-                                  locSource, setLocSource,
-                                  showForecast, setShowForecast,
-                                  forecastDays, setForecastDays,
-                                  updateInt, setUpdateInt,
-                                  dataSource, setDataSource,
-                                  owmAppId, setOwmAppId,
-                                  dsSecretKey, setDsSecretKey,
-                                  onSave, onCancel
-                                }) => (
+const ConfigurationComponent = (
+  {
+    tempScale, setTempScale,
+    placeName, setPlaceName,
+    locSource, setLocSource,
+    showForecast, setShowForecast,
+    forecastDays, setForecastDays,
+    updateInt, setUpdateInt,
+    dataSource, setDataSource,
+    owmAppId, setOwmAppId,
+    dsSecretKey, setDsSecretKey,
+    onSave, onCancel
+  }
+) => (
   <Grid>
     <Row>
       <Col xs={12}>

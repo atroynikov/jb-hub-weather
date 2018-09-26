@@ -5,10 +5,12 @@ import WeatherIcons from 'react-weathericons';
 
 import styles from './WeatherComponent.css';
 
-const WeatherComponent = ({
-                            weather,
-                            config
-                          }) => (
+const WeatherComponent = (
+  {
+    weather,
+    config
+  }
+) => (
   <div className={styles.weather}>
     <div className={styles.weatherCurrent}>
       <div className={styles.weatherCurrentInfo}>
