@@ -6,11 +6,11 @@ import {ForecastComponent} from '@components';
 
 const ForecastContainer = compose(
   connect(
-    (state) => ({
+    state => ({
       forecast: state.meteo.forecast,
       config: state.dashboardApi.config.data
     }),
-    (dispatch) => ({})
+    dispatch => ({})
   ),
   setDisplayName('ForecastContainer')
 )(ForecastComponent);

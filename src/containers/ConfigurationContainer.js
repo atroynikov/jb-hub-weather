@@ -29,7 +29,7 @@ const ConfigurationContainer = compose(
   withState('forecastDays', 'setForecastDays'),
   withState('updateInt', 'setUpdateInt'),
   withState('dataSource', 'setDataSource'),
-  withState('owmAppId', 'setOwmAppId',),
+  withState('owmAppId', 'setOwmAppId'),
   withState('dsSecretKey', 'setDsSecretKey'),
   connect(
     state => ({
@@ -66,7 +66,7 @@ const ConfigurationContainer = compose(
           owmAppId: ownProps.owmAppId,
           dsSecretKey: ownProps.dsSecretKey
         }),
-        onCancel: () => dispatchProps.cancel(),
+        onCancel: () => dispatchProps.cancel()
       });
     }
   ),

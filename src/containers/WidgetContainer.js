@@ -10,7 +10,7 @@ import {bootstrapWidget} from '@actions/WidgetActions';
 
 const WidgetContainer = compose(
   connect(
-    (state) => ({
+    state => ({
       config: state.dashboardApi.config.data,
       configMode: state.configuration.configMode,
       Configuration: ConfigurationContainer,

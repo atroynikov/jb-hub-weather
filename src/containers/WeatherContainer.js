@@ -6,11 +6,11 @@ import {WeatherComponent} from '@components';
 
 const WeatherContainer = compose(
   connect(
-    (state) => ({
+    state => ({
       weather: state.meteo.weather,
       config: state.dashboardApi.config.data
     }),
-    (dispatch) => ({})
+    dispatch => ({})
   ),
   setDisplayName('WeatherContainer')
 )(WeatherComponent);
