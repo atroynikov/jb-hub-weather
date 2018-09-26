@@ -7,7 +7,7 @@ import {bootstrapWidget} from '@actions/WidgetActions';
 
 class WidgetContainer extends Component {
   componentDidMount() {
-    this.props.bootstrapWidget();
+    this.props.dispatch(bootstrapWidget());
   }
 
   render() {
@@ -24,8 +24,5 @@ export default connect(
     Configuration: ConfigurationContainer,
     Weather: WeatherContainer,
     Forecast: ForecastContainer
-  }),
-  dispatch => ({
-    bootstrapWidget: () => dispatch(bootstrapWidget())
   })
 )(WidgetContainer);
