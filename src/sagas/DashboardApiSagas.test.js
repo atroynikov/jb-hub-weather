@@ -2,53 +2,53 @@ import 'babel-polyfill';
 import {cloneableGenerator} from 'redux-saga/utils';
 import {put} from 'redux-saga/effects';
 import {
-  fetchConfigurationSaga, storeConfigurationSaga,
-  fetchCacheSaga, storeCacheSaga,
+  readConfigSaga, storeConfigSaga,
+  readCacheSaga, storeCacheSaga,
   setTitleSaga,
   setLoadingAnimationSaga,
   alertSaga
 } from '@sagas/DashboardApiSagas';
 import {
-  requestFetchConfiguration,
-  requestStoreConfiguration,
-  requestFetchCache,
-  requestStoreCache,
+  readConfigStarted,
+  storeConfigStarted,
+  readCacheStarted,
+  storeCacheStarted,
   setTitleStarted,
   setLoadingAnimationStarted,
   alertStarted
 } from '@actions/DashboardApiActions';
 
 describe('DashboardApiSagas', () => {
-  describe('fetchConfigurationSaga', () => {
-    const generator = cloneableGenerator(fetchConfigurationSaga);
+  describe('readConfigSaga', () => {
+    const generator = cloneableGenerator(readConfigSaga);
 
-    it('must trigger requestFetchConfiguration', () => {
-      (generator.next().value).should.deep.equal(put(requestFetchConfiguration()));
+    it('must trigger readConfigStarted', () => {
+      (generator.next().value).should.deep.equal(put(readConfigStarted()));
 
     });
   });
 
-  describe('storeConfigurationSaga', () => {
-    const generator = cloneableGenerator(storeConfigurationSaga);
+  describe('storeConfigSaga', () => {
+    const generator = cloneableGenerator(storeConfigSaga);
 
-    it('Must trigger requestStoreConfiguration', () => {
-      (generator.next().value).should.deep.equal(put(requestStoreConfiguration()));
+    it('Must trigger storeConfigStarted', () => {
+      (generator.next().value).should.deep.equal(put(storeConfigStarted()));
     });
   });
 
-  describe('fetchCacheSaga', () => {
-    const generator = cloneableGenerator(fetchCacheSaga);
+  describe('readCacheSaga', () => {
+    const generator = cloneableGenerator(readCacheSaga);
 
-    it('Must trigger requestFetchCache', () => {
-      (generator.next().value).should.deep.equal(put(requestFetchCache()));
+    it('Must trigger readCacheStarted', () => {
+      (generator.next().value).should.deep.equal(put(readCacheStarted()));
     });
   });
 
   describe('storeCacheSaga', () => {
     const generator = cloneableGenerator(storeCacheSaga);
 
-    it('Must trigger requestStoreCache', () => {
-      (generator.next().value).should.deep.equal(put(requestStoreCache()));
+    it('Must trigger storeCacheStarted', () => {
+      (generator.next().value).should.deep.equal(put(storeCacheStarted()));
     });
   });
 

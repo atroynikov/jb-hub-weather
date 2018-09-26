@@ -56,7 +56,7 @@ const configurationReducer = createReducer({
   [saveConfigurationFinished]: (state, payload) => ({
     ...state
   }),
-  [saveConfigurationFailed]: (state, payload) => ({
+  [saveConfigurationFailed]: (state) => ({
     ...state
   }),
 }, {

@@ -1,36 +1,36 @@
 import {createAction} from 'redux-act';
 
-export const fetchCache = createAction('Fetch widget cache');
-export const requestFetchCache = createAction('Request fetch widget cache');
-export const receiveFetchCache = createAction('Receive fetch widget cache');
-export const requestFetchCacheFailed = createAction('Request fetch widget cache failed');
+export const readConfig = createAction('Read widget configuration');
+export const readConfigStarted = createAction('Started reading widget configuration');
+export const readConfigFinished = createAction('Finished reading widget configuration');
+export const readConfigFailed = createAction('Failed reading widget configuration');
+
+export const storeConfig = createAction('Store widget configuration');
+export const storeConfigStarted = createAction('Started storing widget configuration');
+export const storeConfigFinished = createAction('Finished storing widget configuration');
+export const storeConfigFailed = createAction('Failed storing widget configuration');
+
+export const readCache = createAction('Read widget cache');
+export const readCacheStarted = createAction('Started reading widget cache');
+export const readCacheFinished = createAction('Finished reading widget cache');
+export const readCacheFailed = createAction('Failed reading widget cache');
 
 export const storeCache = createAction('Store widget cache');
-export const requestStoreCache = createAction('Request store widget cache');
-export const receiveStoreCache = createAction('Receive store widget cache');
-export const requestStoreCacheFailed = createAction('Request store widget cache failed');
-
-export const fetchConfiguration = createAction('Fetch widget configuration');
-export const requestFetchConfiguration = createAction('Request fetch widget configuration');
-export const receiveFetchConfiguration = createAction('Receive fetch widget configuration');
-export const requestFetchConfigurationFailed = createAction('Request fetch widget configuration failed');
-
-export const storeConfiguration = createAction('Store widget configuration');
-export const requestStoreConfiguration = createAction('Request store widget configuration');
-export const receiveStoreConfiguration = createAction('Receive store widget configuration');
-export const requestStoreConfigurationFailed = createAction('Request store widget configuration failed');
+export const storeCacheStarted = createAction('Started storing widget cache');
+export const storeCacheFinished = createAction('Finished storing widget cache');
+export const storeCacheFailed = createAction('Failed storing widget cache');
 
 export const setTitle = createAction('Set widget title', (...args) => args.join("\0"));
 export const setTitleStarted = createAction('Started setting widget title');
 export const setTitleFinished = createAction('Finished setting widget title');
 export const setTitleFailed = createAction('Failed setting widget title');
 
-export const setLoadingAnimation = createAction('Set loading animation');
-export const setLoadingAnimationStarted = createAction('Started setting loading animation');
-export const setLoadingAnimationFinished = createAction('Finished setting loading animation');
-export const setLoadingAnimationFailed = createAction('Failed setting loading animation');
+export const setLoadingAnimation = createAction('Set widget loading animation');
+export const setLoadingAnimationStarted = createAction('Started setting widget loading animation');
+export const setLoadingAnimationFinished = createAction('Finished setting widget loading animation');
+export const setLoadingAnimationFailed = createAction('Failed setting widget loading animation');
 
-export const alert = createAction("Show alert", (...args) => args.join("\0"));
+export const alert = createAction("Trigger alert", (...args) => args.join("\0"));
 export const alertStarted = createAction("Started triggering alert");
 export const alertFinished = createAction("Finished triggering alert");
 export const alertFailed = createAction("Failed triggering alert");

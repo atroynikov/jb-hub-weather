@@ -2,8 +2,8 @@ import {call, put, take, all, select, getContext, takeLatest} from 'redux-saga/e
 
 import {openConfiguration} from '@actions/ConfigurationActions';
 import {
-  fetchConfiguration, receiveFetchConfiguration, requestStoreCacheFailed,
-  fetchCache, receiveFetchCache, requestFetchCacheFailed,
+  readConfig, readConfigFinished, storeCacheFailed,
+  readCache, readCacheFinished, readCacheFailed,
   setLoadingAnimation, setLoadingAnimationFinished,
   alert, alertFinished
 } from '@actions/DashboardApiActions';
@@ -31,12 +31,12 @@ export function* bootstrapWidgetSaga() {
     });
 
     yield all([
-      put(fetchConfiguration()),
-      put(fetchCache())
+      put(readConfig()),
+      put(readCache())
     ]);
     const [{type: confActType}, {type: cacheActType}] = yield all([
-      take(receiveFetchConfiguration.getType(), requestFetchCacheFailed.getType()),
-      take(receiveFetchCache.getType(), requestFetchCacheFailed.getType())
+      take(readConfigFinished.getType(), readCacheFailed.getType()),
+      take(readCacheFinished.getType(), readCacheFailed.getType())
     ]);
     const {
       config: {data: config},

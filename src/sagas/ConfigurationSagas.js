@@ -7,7 +7,7 @@ import {
   saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed, openConfiguration, saveConfiguration
 } from '@actions/ConfigurationActions';
 import {
-  storeConfiguration, receiveStoreConfiguration, setTitle
+  storeConfig, storeConfigFinished, setTitle
 } from '@actions/DashboardApiActions';
 import {
   refreshWidget, refreshWidgetFinished
@@ -51,8 +51,8 @@ function* openConfigurationSaga() {
 function* saveConfigurationSaga({payload}) {
   try {
     yield put(saveConfigurationStarted());
-    yield put(storeConfiguration(payload));
-    yield take(receiveStoreConfiguration.getType());
+    yield put(storeConfig(payload));
+    yield take(storeConfigFinished.getType());
     yield put(exitConfigMode());
     yield take(exitConfigModeFinished.getType());
     yield put(refreshWidget());

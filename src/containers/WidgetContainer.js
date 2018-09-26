@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {WidgetComponent} from '@components';
 import {ConfigurationContainer, ForecastContainer, WeatherContainer} from '@containers';
 import {bootstrapWidget} from '@actions/WidgetActions';
+import {getConfig} from '@selectors/DashboardApiSelectors';
 
 class WidgetContainer extends Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ class WidgetContainer extends Component {
 
 export default connect(
   state => ({
-    config: state.dashboardApi.config.data,
+    config: getConfig(state),
     configMode: state.configuration.configMode,
     Configuration: ConfigurationContainer,
     Weather: WeatherContainer,

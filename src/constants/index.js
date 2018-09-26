@@ -1,3 +1,11 @@
+export const ActionStates = Object.freeze({
+  IDLED: 'IDLED',
+  CALLED: 'CALLED',
+  STARTED: 'STARTED',
+  FINISHED: 'FINISHED',
+  FAILED: 'FAILED'
+});
+
 export const LocationSources = Object.freeze({
   GEO: 'geo',
   NAME: 'name',

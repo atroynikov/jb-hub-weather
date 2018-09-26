@@ -1,67 +1,67 @@
 import {call, put, select, getContext, takeEvery} from 'redux-saga/effects';
 
 import {
-  fetchConfiguration, requestFetchConfiguration, receiveFetchConfiguration, requestFetchConfigurationFailed,
-  storeConfiguration, requestStoreConfiguration, receiveStoreConfiguration, requestStoreConfigurationFailed,
-  fetchCache, requestFetchCache, receiveFetchCache, requestFetchCacheFailed,
-  storeCache, requestStoreCache, receiveStoreCache, requestStoreCacheFailed,
+  readConfig, readConfigStarted, readConfigFinished, readConfigFailed,
+  storeConfig, storeConfigStarted, storeConfigFinished, storeConfigFailed,
+  readCache, readCacheStarted, readCacheFinished, readCacheFailed,
+  storeCache, storeCacheStarted, storeCacheFinished, storeCacheFailed,
   setTitle, setTitleStarted, setTitleFinished, setTitleFailed,
   setLoadingAnimation, setLoadingAnimationStarted, setLoadingAnimationFinished, setLoadingAnimationFailed,
   alert, alertStarted, alertFinished, alertFailed
 } from '@actions/DashboardApiActions';
 
-export function* fetchConfigurationSaga() {
+export function* readConfigSaga() {
   try {
-    yield put(requestFetchConfiguration());
+    yield put(readConfigStarted());
     const dashboardApi = yield getContext('dashboardApi');
     const config = yield call([dashboardApi, 'readConfig']);
-    yield put(receiveFetchConfiguration(config));
+    yield put(readConfigFinished(config));
   } catch (error) {
-    yield put(requestFetchConfigurationFailed(error.toString()));
+    yield put(readConfigFailed(error.toString()));
   }
 }
 
-export function* storeConfigurationSaga({payload}) {
+export function* storeConfigSaga({payload}) {
   try {
-    yield put(requestStoreConfiguration(payload));
+    yield put(storeConfigStarted(payload));
     const dashboardApi = yield getContext('dashboardApi');
     yield call([dashboardApi, 'storeConfig'], payload);
-    yield put(receiveStoreConfiguration(payload));
+    yield put(storeConfigFinished(payload));
   } catch (error) {
-    yield put(requestStoreConfigurationFailed(error.toString()));
+    yield put(storeConfigFailed(error.toString()));
   }
 }
 
-export function* fetchCacheSaga() {
+export function* readCacheSaga() {
   try {
-    yield put(requestFetchCache());
+    yield put(readCacheStarted());
     const dashboardApi = yield getContext('dashboardApi');
     const cache = yield call([dashboardApi, 'readCache']);
-    yield put(receiveFetchCache(cache));
+    yield put(readCacheFinished(cache));
   } catch (error) {
-    yield put(requestFetchCacheFailed(error.toString()));
+    yield put(readCacheFailed(error.toString()));
   }
 }
 
 export function* storeCacheSaga({payload}) {
   try {
-    yield put(requestStoreCache(payload));
+    yield put(storeCacheStarted(payload));
     const dashboardApi = yield getContext('dashboardApi');
     const {weather, forecast} = yield select();
     yield call([dashboardApi, 'storeCache'], payload);
-    yield put(receiveStoreCache(payload));
+    yield put(storeCacheFinished(payload));
   } catch (error) {
-    yield put(requestStoreCacheFailed(error.toString()));
+    yield put(storeCacheFailed(error.toString()));
   }
 }
 
 export function* setTitleSaga({payload}) {
   try {
     yield put(setTitleStarted());
+    const [label, labelUrl] = payload.split("\0");
     const dashboardApi = yield getContext('dashboardApi');
-    const args = payload.split("\0");
-    yield call([dashboardApi, 'setTitle'], args[0], args[1] || null);
-    yield put(setTitleFinished());
+    yield call([dashboardApi, 'setTitle'], label, labelUrl);
+    yield put(setTitleFinished(label, labelUrl));
   } catch (error) {
     yield put(setTitleFailed(error.toString()));
   }
@@ -81,9 +81,9 @@ export function* setLoadingAnimationSaga({payload}) {
 export function* alertSaga({payload}) {
   try {
     yield put(alertStarted());
+    const [message, type, timeout] = payload.split("\0");
     const dashboardApi = yield getContext('dashboardApi');
-    const args = payload.split("\0");
-    yield call([dashboardApi, 'alert'], args[0], args[1] || []._, args[2] ? parseInt(args[2]) : []._);
+    yield call([dashboardApi, 'alert'], message, type, timeout ? parseInt(timeout) : []._);
     yield put(alertFinished());
   } catch (error) {
     yield put(alertFailed(error.toString()));
@@ -91,9 +91,9 @@ export function* alertSaga({payload}) {
 }
 
 export default [
-  takeEvery(fetchConfiguration, fetchConfigurationSaga),
-  takeEvery(storeConfiguration, storeConfigurationSaga),
-  takeEvery(fetchCache, fetchCacheSaga),
+  takeEvery(readConfig, readConfigSaga),
+  takeEvery(storeConfig, storeConfigSaga),
+  takeEvery(readCache, readCacheSaga),
   takeEvery(storeCache, storeCacheSaga),
   takeEvery(setTitle, setTitleSaga),
   takeEvery(setLoadingAnimation, setLoadingAnimationSaga),
