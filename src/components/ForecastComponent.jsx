@@ -12,9 +12,9 @@ const ForecastComponent = (
   }
 ) => (
   <div className={styles.forecast}>
-    {forecast.list && forecast.list.slice(0, 3).map(item => (
-      <div className={styles.day}>
-        <h3>Mon</h3>
+    {forecast && forecast.slice(0, config.forecastDays).map((item, idx) => (
+      <div key={idx} className={styles.day} title={item.weather[0].description}>
+        <h3>{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][(new Date(item.dt * 1e3).getDay())]}</h3>
         <p>
           <WeatherIcons name={'owm-' + item.weather[0].id}/>
         </p>

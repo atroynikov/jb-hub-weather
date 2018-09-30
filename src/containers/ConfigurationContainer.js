@@ -128,7 +128,7 @@ ConfigurationContainer.defaultProps = {
   locSource: LocationSources.GEO,
   placeName: 'Sankt-Peterburg',
   tempScale: 'C', //Change to System of Units
-  showForecast: false,
+  showForecast: true,
   forecastDays: '5',
   updateInt: '300',
   dataSource: DataSources.OPEN_WEATHER_MAP,

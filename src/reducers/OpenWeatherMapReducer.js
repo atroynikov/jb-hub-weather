@@ -25,11 +25,22 @@ const openWeatherMapReducer = createReducer({
     ...state,
     isForecastFetching: true,
   }),
-  [receiveOwmForecast]: (state, payload) => ({
-    ...state,
-    isForecastFetching: false,
-    data: payload.json
-  }),
+  [receiveOwmForecast]: (state, payload) => {
+    let date  = (new Date).getDate();
+    let data = payload.list.reduce(function(list, cur) {
+      const curDate = (new Date(cur.dt * 1e3)).getDate();
+      if (curDate !== date) {
+        list.push(cur);
+        date = curDate;
+      }
+      return list;
+    }, []);
+    return {
+      ...state,
+      isForecastFetching: false,
+      forecast: data
+    };
+  },
   [requestOwmForecastFailed]: (state, payload) => ({
     ...state,
     isForecastFetching: false,

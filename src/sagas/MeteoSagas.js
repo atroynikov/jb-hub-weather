@@ -70,6 +70,7 @@ export function* fetchForecastSaga() {
     let data;
     let fetchAct;
     let fetchFinishedAct;
+    let forecast;
 
     yield put(fetchForecastStarted());
     const config = yield select(getConfig);
@@ -97,13 +98,23 @@ export function* fetchForecastSaga() {
     }
 
     yield put(fetchAct(data));
-    const {payload} = yield take([fetchFinishedAct.getType()]);
+    yield take([fetchFinishedAct.getType()]);
+
+    switch (config.dataSource) {
+      case DataSources.DARK_SKY:
+
+        break;
+      default:
+        forecast = yield select(state => state.owmAPI.forecast)
+    }
+
     yield put(storeCache({
       ...cache,
-      forecast: payload
+      forecast: forecast
     }));
 
-    yield put(fetchForecastFinished(payload));
+    console.log(forecast);
+    yield put(fetchForecastFinished(forecast));
   } catch (error) {
     yield put(fetchForecastFailed(error.toString()));
   }

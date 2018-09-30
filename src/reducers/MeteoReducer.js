@@ -45,7 +45,7 @@ const meteoReducer = createReducer({
   isWeatherFetching: false,
   weather: {},
   isForecastFetching: false,
-  forecast: {}
+  forecast: []
 });
 
 export default meteoReducer;
