@@ -4,7 +4,11 @@
 }
 
 .widget {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   composes: font from "@jetbrains/ring-ui/components/global/global.css";
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }

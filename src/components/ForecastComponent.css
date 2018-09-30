@@ -1,6 +1,7 @@
 .forecast {
   display: flex;
   flex-flow: row nowrap;
+  height: 100px;
 }
 
 .day {
@@ -19,5 +20,6 @@
 }
 
 .day p {
+  margin: 0;
   font-size: 28px;
 }

@@ -14,7 +14,6 @@ const WeatherComponent = (
   <div className={styles.weather}>
     <div className={styles.weatherCurrent}>
       <div className={styles.weatherCurrentInfo}>
-        <div>&nbsp;</div>
         <div className={styles.weatherCurrentInfoCity}>
           {weather.name || '...'}
         </div>
@@ -25,7 +24,6 @@ const WeatherComponent = (
         <div className={styles.weatherCurrentInfoCityWind}>
           {weather && weather.wind ? weather.wind.speed : '...'} m/sec
         </div>
-        <div>&nbsp;</div>
       </div>
       <div className={styles.weatherCurrentIcon}>
         {weather.weather && <WeatherIcons name={'owm-' + weather.weather[0].id} size="2x"/>}
