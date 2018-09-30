@@ -18,10 +18,10 @@ const LocationSource = ({locSource, setLocSource}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Location source</div>
     <div className="ring-form__control">
-      <Radio value={locSource} onChange={setLocSource}>
+      <Radio value={locSource} onChange={(value) => setLocSource(value)}>
         <RadioItem value={LocationSources.GEO}>Geolocation</RadioItem>
         <RadioItem value={LocationSources.NAME}>Place name</RadioItem>
-        <RadioItem value={LocationSources.NAME}>Place coordinates</RadioItem>
+        <RadioItem value={LocationSources.COORD}>Place coordinates</RadioItem>
       </Radio>
     </div>
   </div>
@@ -49,7 +49,7 @@ const Scale = ({tempScale, setTempScale}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Scale</div>
     <div className="ring-form__control">
-      <Radio value={tempScale} onChange={setTempScale}>
+      <Radio value={tempScale} onChange={(value) => setTempScale(value)}>
         <RadioItem value="C">Celsius (&deg;C)</RadioItem>
         <RadioItem value="F">Farenheit (&deg;F)</RadioItem>
         <RadioItem value="K">Kelvin (&deg;K)</RadioItem>
@@ -126,7 +126,9 @@ const DsSecretKey = ({dsSecretKey, setDsSecretKey}) => (
   </div>
 );
 
-const ConfigurationComponent = (props) => (
+const ConfigurationComponent = (props) => {
+  console.log(props);
+  return (
   <Grid>
     <Row>
       <Col xs={12}>
@@ -151,7 +153,7 @@ const ConfigurationComponent = (props) => (
       </Col>
     </Row>
   </Grid>
-);
+)};
 
 ConfigurationComponent.propTypes = {
   tempScale: PropTypes.string.isRequired,
