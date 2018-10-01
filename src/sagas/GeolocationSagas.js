@@ -26,7 +26,7 @@ export function* fetchGeolocationSaga() {
 export function* fetchIpGeolocationSaga() {
   try {
     yield put(requestIpGeolocation());
-    const url = `https://ipapi.co/json/`;
+    const url = 'https://ipapi.co/json/';
     const json = yield call(() => fetch(url).then(res => res.json()));
     yield put(receiveIpGeolocation(json));
   } catch (error) {
