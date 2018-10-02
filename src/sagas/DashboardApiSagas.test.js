@@ -21,31 +21,43 @@ import {
 describe('DashboardApiSagas', () => {
   const config = {config: 123};
   const cache = {cache: 123};
-  const dasboardApi = {
-    readConfig: (sinon.stub()).resolves(),
-    storeConfig: (sinon.stub()).resolves(),
-    readCache: (sinon.stub()).resolves(),
-    storeCache: (sinon.stub()).resolves(),
-    setTitle: (sinon.stub()).resolves()
+  const dashboardApi = {
+    readConfig: () => {},
+    storeConfig: () => {},
+    readCache: () => {},
+    storeCache: () => {},
+    setTitle: () => {},
+    setLoadingAnimation: () => {},
+    alert: () => {},
   };
   const error = new Error("Type error: error description");
+
+  before(() => {
+    sinon.stub(dashboardApi, 'readConfig').resolves();
+    sinon.stub(dashboardApi, 'storeConfig').resolves();
+    sinon.stub(dashboardApi, 'readCache').resolves();
+    sinon.stub(dashboardApi, 'storeCache').resolves();
+    sinon.stub(dashboardApi, 'setTitle').resolves();
+    sinon.stub(dashboardApi, 'setLoadingAnimation').resolves();
+    sinon.stub(dashboardApi, 'alert').resolves();
+  });
 
   describe('readConfigSaga', () => {
     const generator = cloneableGenerator(readConfigSaga)();
 
     it('should dispatch readConfigStarted', () => {
       const result = generator.next().value;
-      result.should.deep.equal(put(readConfigStarted()));
+      result.should.to.eql(put(readConfigStarted()));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.readConfig', () => {
       const result = generator.next().value;
-      result.should.deep.equal(call([dasboardApi, 'readConfig']));
+      result.should.to.eql(call([dashboardApi, 'readConfig']));
     });
 
     describe('and dashboardApi.readConfig is successful', () => {
@@ -57,12 +69,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next(config).value;
-        result.should.deep.equal(put(readConfigFinished(config)));
+        result.should.to.eql(put(readConfigFinished(config)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -75,12 +87,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(readConfigFailed(error)));
+        result.should.to.eql(put(readConfigFailed(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
@@ -90,18 +102,18 @@ describe('DashboardApiSagas', () => {
 
     it('should dispatch storeConfigStarted', () => {
       const result = generator.next(config).value;
-      result.should.deep.equal(put(storeConfigStarted(config)));
+      result.should.to.eql(put(storeConfigStarted(config)));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.storeConfig', () => {
       const result = generator.next().value;
 
-      result.should.deep.equal(call([dasboardApi, 'storeConfig'], config));
+      result.should.to.eql(call([dashboardApi, 'storeConfig'], config));
     });
 
     describe('and dashboardApi.storeConfig is successful', () => {
@@ -113,12 +125,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next(config).value;
-        result.should.deep.equal(put(storeConfigFinished(config)));
+        result.should.to.eql(put(storeConfigFinished(config)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -131,12 +143,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(storeConfigFailed(error)));
+        result.should.to.eql(put(storeConfigFailed(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
@@ -146,17 +158,17 @@ describe('DashboardApiSagas', () => {
 
     it('should dispatch readCacheStarted', () => {
       const result = generator.next().value;
-      result.should.deep.equal(put(readCacheStarted()));
+      result.should.to.eql(put(readCacheStarted()));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.readCache', () => {
       const result = generator.next().value;
-      result.should.deep.equal(call([dasboardApi, 'readCache']));
+      result.should.to.eql(call([dashboardApi, 'readCache']));
     });
 
     describe('and dashboardApi.readCache is successful', () => {
@@ -168,12 +180,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next(cache).value;
-        result.should.deep.equal(put(readCacheFinished(cache)));
+        result.should.to.eql(put(readCacheFinished(cache)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -186,12 +198,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(readCacheFailed(error)));
+        result.should.to.eql(put(readCacheFailed(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
@@ -201,18 +213,18 @@ describe('DashboardApiSagas', () => {
 
     it('should dispatch storeCacheStarted', () => {
       const result = generator.next(config).value;
-      result.should.deep.equal(put(storeCacheStarted(cache)));
+      result.should.to.eql(put(storeCacheStarted(cache)));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.storeCache', () => {
       const result = generator.next().value;
 
-      result.should.deep.equal(call([dasboardApi, 'storeCache'], cache));
+      result.should.to.eql(call([dashboardApi, 'storeCache'], cache));
     });
 
     describe('and dashboardApi.storeCache is successful', () => {
@@ -224,12 +236,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next(config).value;
-        result.should.deep.equal(put(storeCacheFinished(cache)));
+        result.should.to.eql(put(storeCacheFinished(cache)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -242,12 +254,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(storeConfigFaileda(error)));
+        result.should.to.eql(put(storeConfigFaileda(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
@@ -259,17 +271,17 @@ describe('DashboardApiSagas', () => {
 
     it('should dispatch setTitleSagaStarted', () => {
       const result = generator.next().value;
-      result.should.deep.equal(put(setTitleStarted()));
+      result.should.to.eql(put(setTitleStarted()));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.setTitle', () => {
       const result = generator.next().value;
-      result.should.deep.equal(call([dasboardApi, 'setTitle'], titleLabel, titleUrl));
+      result.should.to.eql(call([dashboardApi, 'setTitle'], titleLabel, titleUrl));
     });
 
     describe('and dashboardApi.setTitle is successful', () => {
@@ -281,12 +293,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next().value;
-        result.should.deep.equal(put(setTitleFinished()));
+        result.should.to.eql(put(setTitleFinished()));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -299,12 +311,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(setTitleFailed(error)));
+        result.should.to.eql(put(setTitleFailed(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
@@ -315,17 +327,17 @@ describe('DashboardApiSagas', () => {
 
     it('should dispatch setLoadingAnimationStarted', () => {
       const result = generator.next().value;
-      result.should.deep.equal(put(setLoadingAnimationStarted()));
+      result.should.to.eql(put(setLoadingAnimationStarted()));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.setTitle', () => {
       const result = generator.next().value;
-      result.should.deep.equal(call([dasboardApi, 'setLoadingAnimation'], payload));
+      result.should.to.eql(call([dashboardApi, 'setLoadingAnimation'], payload));
     });
 
     describe('and dashboardApi.setLoadingAnimation is successful', () => {
@@ -337,12 +349,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next().value;
-        result.should.deep.equal(put(setLoadingAnimationFinished()));
+        result.should.to.eql(put(setLoadingAnimationFinished()));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -355,12 +367,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(setLoadingAnimationFailed(error)));
+        result.should.to.eql(put(setLoadingAnimationFailed(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
@@ -372,17 +384,17 @@ describe('DashboardApiSagas', () => {
 
     it('should dispatch alertStarted', () => {
       const result = generator.next().value;
-      result.should.deep.equal(put(alertStarted()));
+      result.should.to.eql(put(alertStarted()));
     });
 
     it('should get dashboardApi from context', () => {
       const result = generator.next().value;
-      result.should.deep.equal(getContext('dasboardApi'));
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.setTitle', () => {
       const result = generator.next().value;
-      result.should.deep.equal(call([dasboardApi, 'alert'], message, type, timeout));
+      result.should.to.eql(call([dashboardApi, 'alert'], message, type, timeout));
     });
 
     describe('and dashboardApi.alert is successful', () => {
@@ -394,12 +406,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next().value;
-        result.should.deep.equal(put(alertFinished()));
+        result.should.to.eql(put(alertFinished()));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
 
@@ -412,12 +424,12 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.deep.equal(put(alertFailed(error)));
+        result.should.to.eql(put(alertFailed(error)));
       });
 
       it('performs no further work', () => {
         const result = clone.next().done;
-        result.should.equal(true);
+        result.should.to.equal(true);
       });
     });
   });
