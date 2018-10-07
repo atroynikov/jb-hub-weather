@@ -1,4 +1,4 @@
-import {all, setContext} from 'redux-saga/effects';
+import {all} from 'redux-saga/effects';
 
 import widgetSagas from './WidgetSagas';
 import dashboardApiSagas from './DashboardApiSagas';
