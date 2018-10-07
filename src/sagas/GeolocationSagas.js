@@ -3,8 +3,8 @@ import {
   fetchGeolocation, requestGeolocation, receiveGeolocation, requestGeolocationFailed,
   fetchIpGeolocation, requestIpGeolocation, receiveIpGeolocation, requestIpGeolocationFailed
 } from '@actions/GeolocationActions';
-import {alert} from '@actions/DashboardApiActions'
-import fetch from "isomorphic-fetch";
+import {alert} from '@actions/DashboardApiActions';
+import 'isomorphic-fetch';
 
 export function* fetchGeolocationSaga() {
   // Need allow="geolocation" in Hub iframe
@@ -30,7 +30,6 @@ export function* fetchIpGeolocationSaga() {
     const json = yield call(() => fetch(url).then(res => res.json()));
     yield put(receiveIpGeolocation(json));
   } catch (error) {
-    yield put(alert(error.toString(), 'error'));
     yield (requestIpGeolocationFailed(error.toString()));
   }
 }
