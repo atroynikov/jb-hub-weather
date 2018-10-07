@@ -23,13 +23,6 @@ import {getConfig} from '@selectors/DashboardApiSelectors';
 export function* bootstrapWidgetSaga() {
   try {
     yield put(bootstrapWidgetStarted());
-    const dispatch = yield getContext('dispatch');
-    const registerWidgetApi = yield getContext('registerWidgetApi');
-    registerWidgetApi({
-      onConfigure: () => dispatch(openConfiguration()),
-      onRefresh: () => dispatch(refreshWidget())
-    });
-
     yield all([
       put(readConfig()),
       put(readCache())

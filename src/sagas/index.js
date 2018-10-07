@@ -1,4 +1,4 @@
-import {all, setContext} from 'redux-saga/effects'
+import {all, setContext} from 'redux-saga/effects';
 
 import widgetSagas from './WidgetSagas';
 import dashboardApiSagas from './DashboardApiSagas';
@@ -7,12 +7,8 @@ import meteoSagas from './MeteoSagas';
 import teleportSagas from './TeleportSagas';
 import geolocationSagas from './GeolocationSagas';
 
-const rootSaga = function* (dispatch, dashboardApi, registerWidgetApi) {
-  yield setContext({
-    dispatch: dispatch,
-    dashboardApi: dashboardApi,
-    registerWidgetApi: registerWidgetApi
-  });
+function* rootSaga(dispatch) {
+  yield setContext({dispatch});
   yield all([
     ...widgetSagas,
     ...dashboardApiSagas,
@@ -21,6 +17,6 @@ const rootSaga = function* (dispatch, dashboardApi, registerWidgetApi) {
     ...teleportSagas,
     ...geolocationSagas
   ]);
-};
+}
 
 export default rootSaga;

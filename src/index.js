@@ -12,10 +12,16 @@ import rootSaga from '@sagas';
 
 import HubDashboardAddons from 'hub-dashboard-addons';
 import WidgetContainer from '@containers/WidgetContainer';
+import {openConfiguration} from '@actions/ConfigurationActions';
+import {refreshWidget} from '@actions/WidgetActions';
 
 HubDashboardAddons.registerWidget((dashboardApi, registerWidgetApi) => {
-  const sagaMiddleware = createSagaMiddleware();
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const sagaMiddleware = createSagaMiddleware({
+    context: {
+      dashboardApi
+    }
+  });
   const store = createStore(
     rootReducer,
     {},
@@ -25,7 +31,11 @@ HubDashboardAddons.registerWidget((dashboardApi, registerWidgetApi) => {
     ))
   );
 
-  sagaMiddleware.run(rootSaga, store.dispatch, dashboardApi, registerWidgetApi);
+  registerWidgetApi({
+    onConfigure: () => store.dispatch(openConfiguration()),
+    onRefresh: () => store.dispatch(refreshWidget())
+  });
+  sagaMiddleware.run(rootSaga);
   ReactDOM.render(
     <Provider store={store}>
       <WidgetContainer/>
