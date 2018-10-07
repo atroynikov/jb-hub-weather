@@ -27,18 +27,18 @@ describe('DashboardApiSagas', () => {
     readCache: () => {},
     storeCache: () => {},
     setTitle: () => {},
-    setLoadingAnimation: () => {},
+    setLoadingAnimationEnabled: () => {},
     alert: () => {},
   };
   const error = new Error("Type error: error description");
 
   before(() => {
-    sinon.stub(dashboardApi, 'readConfig').resolves();
+    sinon.stub(dashboardApi, 'readConfig').resolves(config);
     sinon.stub(dashboardApi, 'storeConfig').resolves();
-    sinon.stub(dashboardApi, 'readCache').resolves();
+    sinon.stub(dashboardApi, 'readCache').resolves(cache);
     sinon.stub(dashboardApi, 'storeCache').resolves();
     sinon.stub(dashboardApi, 'setTitle').resolves();
-    sinon.stub(dashboardApi, 'setLoadingAnimation').resolves();
+    sinon.stub(dashboardApi, 'setLoadingAnimationEnabled').resolves();
     sinon.stub(dashboardApi, 'alert').resolves();
   });
 
@@ -56,7 +56,7 @@ describe('DashboardApiSagas', () => {
     });
 
     it('should call dashboardApi.readConfig', () => {
-      const result = generator.next().value;
+      const result = generator.next(dashboardApi).value;
       result.should.to.eql(call([dashboardApi, 'readConfig']));
     });
 
@@ -87,7 +87,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(readConfigFailed(error)));
+        result.should.to.eql(put(readConfigFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -98,10 +98,10 @@ describe('DashboardApiSagas', () => {
   });
 
   describe('storeConfigSaga', () => {
-    const generator = cloneableGenerator(storeConfigSaga)(config);
+    const generator = cloneableGenerator(storeConfigSaga)({payload: config});
 
     it('should dispatch storeConfigStarted', () => {
-      const result = generator.next(config).value;
+      const result = generator.next().value;
       result.should.to.eql(put(storeConfigStarted(config)));
     });
 
@@ -111,8 +111,7 @@ describe('DashboardApiSagas', () => {
     });
 
     it('should call dashboardApi.storeConfig', () => {
-      const result = generator.next().value;
-
+      const result = generator.next(dashboardApi).value;
       result.should.to.eql(call([dashboardApi, 'storeConfig'], config));
     });
 
@@ -143,7 +142,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(storeConfigFailed(error)));
+        result.should.to.eql(put(storeConfigFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -167,7 +166,7 @@ describe('DashboardApiSagas', () => {
     });
 
     it('should call dashboardApi.readCache', () => {
-      const result = generator.next().value;
+      const result = generator.next(dashboardApi).value;
       result.should.to.eql(call([dashboardApi, 'readCache']));
     });
 
@@ -198,7 +197,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(readCacheFailed(error)));
+        result.should.to.eql(put(readCacheFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -209,10 +208,10 @@ describe('DashboardApiSagas', () => {
   });
 
   describe('storeCacheSaga', () => {
-    const generator = cloneableGenerator(storeCacheSaga)(cache);
+    const generator = cloneableGenerator(storeCacheSaga)({payload: cache});
 
     it('should dispatch storeCacheStarted', () => {
-      const result = generator.next(config).value;
+      const result = generator.next(cache).value;
       result.should.to.eql(put(storeCacheStarted(cache)));
     });
 
@@ -222,8 +221,7 @@ describe('DashboardApiSagas', () => {
     });
 
     it('should call dashboardApi.storeCache', () => {
-      const result = generator.next().value;
-
+      const result = generator.next(dashboardApi).value;
       result.should.to.eql(call([dashboardApi, 'storeCache'], cache));
     });
 
@@ -235,7 +233,7 @@ describe('DashboardApiSagas', () => {
       });
 
       it('raises success action', () => {
-        const result = clone.next(config).value;
+        const result = clone.next(cache).value;
         result.should.to.eql(put(storeCacheFinished(cache)));
       });
 
@@ -254,7 +252,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(storeConfigFaileda(error)));
+        result.should.to.eql(put(storeCacheFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -265,9 +263,9 @@ describe('DashboardApiSagas', () => {
   });
 
   describe('setTitleSaga', () => {
-    const [titleLabel, titleUrl] = ['JetBrains', 'https://jetbrains.com/'];
-    const payload = [titleLabel, titleUrl].join("\0");
-    const generator = cloneableGenerator(setTitleSaga)(payload);
+    const [label, labelUrl] = ['JetBrains', 'https://jetbrains.com/'];
+    const payload = [label, labelUrl].join("\0");
+    const generator = cloneableGenerator(setTitleSaga)({payload});
 
     it('should dispatch setTitleSagaStarted', () => {
       const result = generator.next().value;
@@ -280,8 +278,8 @@ describe('DashboardApiSagas', () => {
     });
 
     it('should call dashboardApi.setTitle', () => {
-      const result = generator.next().value;
-      result.should.to.eql(call([dashboardApi, 'setTitle'], titleLabel, titleUrl));
+      const result = generator.next(dashboardApi).value;
+      result.should.to.eql(call([dashboardApi, 'setTitle'], label, labelUrl));
     });
 
     describe('and dashboardApi.setTitle is successful', () => {
@@ -293,7 +291,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises success action', () => {
         const result = clone.next().value;
-        result.should.to.eql(put(setTitleFinished()));
+        result.should.to.eql(put(setTitleFinished(label, labelUrl)));
       });
 
       it('performs no further work', () => {
@@ -311,7 +309,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(setTitleFailed(error)));
+        result.should.to.eql(put(setTitleFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -323,7 +321,7 @@ describe('DashboardApiSagas', () => {
 
   describe('setLoadingAnimationSaga', () => {
     const payload = true;
-    const generator = cloneableGenerator(setLoadingAnimationSaga)(payload);
+    const generator = cloneableGenerator(setLoadingAnimationSaga)({payload});
 
     it('should dispatch setLoadingAnimationStarted', () => {
       const result = generator.next().value;
@@ -335,12 +333,12 @@ describe('DashboardApiSagas', () => {
       result.should.to.eql(getContext('dashboardApi'));
     });
 
-    it('should call dashboardApi.setTitle', () => {
-      const result = generator.next().value;
-      result.should.to.eql(call([dashboardApi, 'setLoadingAnimation'], payload));
+    it('should call dashboardApi.setLoadingAnimationEnabled', () => {
+      const result = generator.next(dashboardApi).value;
+      result.should.to.eql(call([dashboardApi, 'setLoadingAnimationEnabled'], payload));
     });
 
-    describe('and dashboardApi.setLoadingAnimation is successful', () => {
+    describe('and dashboardApi.setLoadingAnimationEnabled is successful', () => {
       let clone;
 
       before(() => {
@@ -358,7 +356,7 @@ describe('DashboardApiSagas', () => {
       });
     });
 
-    describe('and dashboardApi.setLoadingAnimation fails', () => {
+    describe('and dashboardApi.setLoadingAnimationEnabled fails', () => {
       let clone;
 
       before(() => {
@@ -367,7 +365,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(setLoadingAnimationFailed(error)));
+        result.should.to.eql(put(setLoadingAnimationFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -378,9 +376,9 @@ describe('DashboardApiSagas', () => {
   });
 
   describe('alertSaga', () => {
-    const [message, type, timeout] = ['Hello world!', 'info', 3000]
+    const [message, type, timeout] = ['Hello world!', 'info', 3000];
     const payload = [message, type, timeout].join("\0");
-    const generator = cloneableGenerator(setLoadingAnimationSaga)(payload);
+    const generator = cloneableGenerator(alertSaga)({payload});
 
     it('should dispatch alertStarted', () => {
       const result = generator.next().value;
@@ -393,7 +391,7 @@ describe('DashboardApiSagas', () => {
     });
 
     it('should call dashboardApi.setTitle', () => {
-      const result = generator.next().value;
+      const result = generator.next(dashboardApi).value;
       result.should.to.eql(call([dashboardApi, 'alert'], message, type, timeout));
     });
 
@@ -424,7 +422,7 @@ describe('DashboardApiSagas', () => {
 
       it('raises failed action', () => {
         const result = clone.throw(error).value;
-        result.should.to.eql(put(alertFailed(error)));
+        result.should.to.eql(put(alertFailed(error.toString())));
       });
 
       it('performs no further work', () => {

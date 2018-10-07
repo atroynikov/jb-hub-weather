@@ -47,7 +47,6 @@ export function* storeCacheSaga({payload}) {
   try {
     yield put(storeCacheStarted(payload));
     const dashboardApi = yield getContext('dashboardApi');
-    const {weather, forecast} = yield select();
     yield call([dashboardApi, 'storeCache'], payload);
     yield put(storeCacheFinished(payload));
   } catch (error) {
