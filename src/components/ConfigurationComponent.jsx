@@ -14,7 +14,7 @@ import {LocationSources, DataSources} from '@constants';
 
 import '@jetbrains/ring-ui/components/form/form.scss';
 
-const LocationSource = ({locSource, setLocSource}) => (
+export const LocationSource = ({locSource, setLocSource}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Location source</div>
     <div className="ring-form__control">
@@ -27,16 +27,16 @@ const LocationSource = ({locSource, setLocSource}) => (
   </div>
 );
 
-const PlaceName = ({placeName, setPlaceName}) => (
+export const PlaceName = ({placeName, setPlaceName}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Place name</div>
     <div className="ring-form__control">
-      <Input size={Size.FULL} value={placeName} onChange={ev => setPlaceName(ev.target.value)}/>
+      <Input size={Size.FULL} value={placeName} onChange={ev => setPlaceName(ev.target.value)} borderless/>
     </div>
   </div>
 );
 
-const PlaceCoordinates = ({}) => (
+export const PlaceCoordinates = ({}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Place coordinates</div>
     <div className="ring-form__control">
@@ -45,7 +45,7 @@ const PlaceCoordinates = ({}) => (
   </div>
 );
 
-const Scale = ({tempScale, setTempScale}) => (
+export const Scale = ({tempScale, setTempScale}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Scale</div>
     <div className="ring-form__control">
@@ -58,7 +58,7 @@ const Scale = ({tempScale, setTempScale}) => (
   </div>
 );
 
-const ShowForecast = ({showForecast, setShowForecast}) => (
+export const ShowForecast = ({showForecast, setShowForecast}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Show forecast</div>
     <div className="ring-form__control">
@@ -67,7 +67,7 @@ const ShowForecast = ({showForecast, setShowForecast}) => (
   </div>
 );
 
-const ForecastDays = ({forecastDays, setForecastDays}) => (
+export const ForecastDays = ({forecastDays, setForecastDays}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Forecast days</div>
     <div className="ring-form__control">
@@ -76,7 +76,7 @@ const ForecastDays = ({forecastDays, setForecastDays}) => (
   </div>
 );
 
-const UpdateInterval = ({updateInt, setUpdateInt}) => (
+export const UpdateInterval = ({updateInt, setUpdateInt}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Update interval (sec)</div>
     <div className="ring-form__control">
@@ -85,7 +85,7 @@ const UpdateInterval = ({updateInt, setUpdateInt}) => (
   </div>
 );
 
-const DataSource = ({dataSource, setDataSource}) => (
+export const DataSource = ({dataSource, setDataSource}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Data source</div>
     <div className="ring-form__control">
@@ -98,7 +98,7 @@ const DataSource = ({dataSource, setDataSource}) => (
   </div>
 );
 
-const OwmAppId = ({owmAppId, setOwmAppId}) => (
+export const OwmAppId = ({owmAppId, setOwmAppId}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">OWM APP ID</div>
     <div className="ring-form__control">
@@ -112,7 +112,7 @@ const OwmAppId = ({owmAppId, setOwmAppId}) => (
   </div>
 );
 
-const DsSecretKey = ({dsSecretKey, setDsSecretKey}) => (
+export const DsSecretKey = ({dsSecretKey, setDsSecretKey}) => (
   <div className="ring-form__group">
     <div className="ring-form__label">Dark Sky secret key</div>
     <div className="ring-form__control">
