@@ -390,7 +390,7 @@ describe('DashboardApiSagas', () => {
       result.should.to.eql(getContext('dashboardApi'));
     });
 
-    it('should call dashboardApi.setTitle', () => {
+    it('should call dashboardApi.alert', () => {
       const result = generator.next(dashboardApi).value;
       result.should.to.eql(call([dashboardApi, 'alert'], message, type, timeout));
     });
