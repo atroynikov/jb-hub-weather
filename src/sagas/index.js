@@ -7,8 +7,7 @@ import meteoSagas from './MeteoSagas';
 import teleportSagas from './TeleportSagas';
 import geolocationSagas from './GeolocationSagas';
 
-function* rootSaga(dispatch) {
-  yield setContext({dispatch});
+function* rootSaga() {
   yield all([
     ...widgetSagas,
     ...dashboardApiSagas,
