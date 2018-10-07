@@ -67,7 +67,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch readConfigFinished', () => {
         const result = clone.next(config).value;
         result.should.to.eql(put(readConfigFinished(config)));
       });
@@ -85,7 +85,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch readConfigFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(readConfigFailed(error.toString())));
       });
@@ -122,7 +122,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch storeConfigFinished', () => {
         const result = clone.next(config).value;
         result.should.to.eql(put(storeConfigFinished(config)));
       });
@@ -140,7 +140,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch storeConfigFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(storeConfigFailed(error.toString())));
       });
@@ -177,7 +177,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch readCacheFinished', () => {
         const result = clone.next(cache).value;
         result.should.to.eql(put(readCacheFinished(cache)));
       });
@@ -195,7 +195,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch readCacheFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(readCacheFailed(error.toString())));
       });
@@ -232,7 +232,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch storeCacheFinished', () => {
         const result = clone.next(cache).value;
         result.should.to.eql(put(storeCacheFinished(cache)));
       });
@@ -250,7 +250,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch storeCacheFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(storeCacheFailed(error.toString())));
       });
@@ -289,7 +289,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch setTitleFinished', () => {
         const result = clone.next().value;
         result.should.to.eql(put(setTitleFinished(label, labelUrl)));
       });
@@ -307,7 +307,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch setTitleFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(setTitleFailed(error.toString())));
       });
@@ -345,7 +345,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch setLoadingAnimationFinished', () => {
         const result = clone.next().value;
         result.should.to.eql(put(setLoadingAnimationFinished()));
       });
@@ -363,7 +363,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch setLoadingAnimationFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(setLoadingAnimationFailed(error.toString())));
       });
@@ -402,7 +402,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises success action', () => {
+      it('should dispatch alertFinished', () => {
         const result = clone.next().value;
         result.should.to.eql(put(alertFinished()));
       });
@@ -420,7 +420,7 @@ describe('DashboardApiSagas', () => {
         clone = generator.clone();
       });
 
-      it('raises failed action', () => {
+      it('should dispatch alertFailed', () => {
         const result = clone.throw(error).value;
         result.should.to.eql(put(alertFailed(error.toString())));
       });
