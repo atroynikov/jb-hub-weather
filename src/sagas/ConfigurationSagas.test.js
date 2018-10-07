@@ -31,20 +31,18 @@ describe('ConfigurationSaga', () => {
   describe('enterConfigModeSaga', () => {
     const generator = cloneableGenerator(enterConfigModeSaga)();
 
-    it('should get dashboardApi from context', () => {
-      const result = generator.next().value;
-      result.should.to.eql(getContext('dashboardApi'));
-    });
-
     it('should dispatch enterConfigModeStarted', () => {
       const result = generator.next().value;
       result.should.to.eql(put(enterConfigModeStarted()));
     });
 
+    it('should get dashboardApi from context', () => {
+      const result = generator.next().value;
+      result.should.to.eql(getContext('dashboardApi'));
+    });
+
     it('should call dashboardApi.enterConfigMode', () => {
       const result = generator.next(dashboardApi).value;
-      console.log(JSON.stringify(result));
-      console.log(call([dashboardApi, 'enterConfigMode']));
       result.should.to.eql(call([dashboardApi, 'enterConfigMode']));
     });
 
@@ -80,7 +78,7 @@ describe('ConfigurationSaga', () => {
 
       it('should dispatch enterConfigModeFailed', () => {
         const result = clone.throw(new Error(errorMsg)).value;
-        result.should.to.eql(put(enterConfigModeFailed(error.toString())));
+        result.should.to.eql(put(enterConfigModeFailed(errorMsg)));
       });
 
       it('performs no further work', () => {
@@ -93,14 +91,14 @@ describe('ConfigurationSaga', () => {
   describe('exitConfigModeSaga', () => {
     const generator = cloneableGenerator(exitConfigModeSaga)();
 
-    it('should get dashboardApi from context', () => {
-      const result = generator.next().value;
-      result.should.to.eql(getContext('dashboardApi'));
-    });
-
     it('should dispatch exitConfigModeStarted', () => {
       const result = generator.next().value;
       result.should.to.eql(put(exitConfigModeStarted()));
+    });
+
+    it('should get dashboardApi from context', () => {
+      const result = generator.next().value;
+      result.should.to.eql(getContext('dashboardApi'));
     });
 
     it('should call dashboardApi.exitConfigMode', () => {
@@ -140,7 +138,7 @@ describe('ConfigurationSaga', () => {
 
       it('should dispatch exitConfigModeFailed', () => {
         const result = clone.throw(new Error(errorMsg)).value;
-        result.should.to.eql(put(exitConfigModeFailed(error.toString())));
+        result.should.to.eql(put(exitConfigModeFailed(errorMsg)));
       });
 
       it('performs no further work', () => {

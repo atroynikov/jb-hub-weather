@@ -15,9 +15,9 @@ import {
 import {WIDGET_TITLE, WIDGET_TITLE_CONFIG} from '@constants';
 
 export function* enterConfigModeSaga() {
-  const dashboardApi = yield getContext('dashboardApi');
   try {
     yield put(enterConfigModeStarted());
+    const dashboardApi = yield getContext('dashboardApi');
     yield call(dashboardApi.enterConfigMode);
     yield put(setTitle(WIDGET_TITLE_CONFIG));
     yield put(enterConfigModeFinished());
@@ -27,9 +27,9 @@ export function* enterConfigModeSaga() {
 }
 
 export function* exitConfigModeSaga() {
-  const dashboardApi = yield getContext('dashboardApi');
   try {
     yield put(exitConfigModeStarted());
+    const dashboardApi = yield getContext('dashboardApi');
     yield call(dashboardApi.exitConfigMode);
     yield put(setTitle(WIDGET_TITLE));
     yield put(exitConfigModeFinished());
