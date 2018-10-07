@@ -21,7 +21,7 @@ describe('ConfigurationSaga', () => {
     enterConfigMode: () => {},
     exitConfigMode: () => {},
   };
-  const errorMsg = "Type error: error description";
+  const error = new Error("Type error: error description");
 
   before(() => {
     sinon.stub(dashboardApi, 'enterConfigMode').resolves();
@@ -77,8 +77,8 @@ describe('ConfigurationSaga', () => {
       });
 
       it('should dispatch enterConfigModeFailed', () => {
-        const result = clone.throw(new Error(errorMsg)).value;
-        result.should.to.eql(put(enterConfigModeFailed(errorMsg)));
+        const result = clone.throw(error).value;
+        result.should.to.eql(put(enterConfigModeFailed(error.toString())));
       });
 
       it('performs no further work', () => {
@@ -137,8 +137,8 @@ describe('ConfigurationSaga', () => {
       });
 
       it('should dispatch exitConfigModeFailed', () => {
-        const result = clone.throw(new Error(errorMsg)).value;
-        result.should.to.eql(put(exitConfigModeFailed(errorMsg)));
+        const result = clone.throw(error).value;
+        result.should.to.eql(put(exitConfigModeFailed(error.toString())));
       });
 
       it('performs no further work', () => {

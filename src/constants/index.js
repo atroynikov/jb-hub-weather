@@ -17,3 +17,6 @@ export const DataSources = Object.freeze({
   DARK_SKY: 'ds',
   APIXU: 'apixu'
 });
+
+export const WIDGET_TITLE = 'JetBrains Hub weather widget';
+export const WIDGET_TITLE_CONFIG = 'JetBrains Hub weather widget configuration';
