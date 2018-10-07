@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import {cloneableGenerator} from 'redux-saga/utils';
-import {put, getContext, call} from 'redux-saga/effects';
+import {put, take, getContext, call} from 'redux-saga/effects';
 import {
   enterConfigModeSaga, exitConfigModeSaga,
   openConfigurationSaga, saveConfigurationSaga
@@ -12,11 +12,13 @@ import {
   saveConfiguration, saveConfigurationStarted, saveConfigurationFinished, saveConfigurationFailed
 } from '@actions/ConfigurationActions';
 import {
-  setTitle
+  storeConfig, storeConfigFinished, setTitle
 } from '@actions/DashboardApiActions';
+import {refreshWidget, refreshWidgetFinished} from '@actions/WidgetActions'
 import {WIDGET_TITLE, WIDGET_TITLE_CONFIG} from '@constants';
 
 describe('ConfigurationSaga', () => {
+  const config = {config: 123};
   const dashboardApi = {
     enterConfigMode: () => {},
     exitConfigMode: () => {},
@@ -145,6 +147,84 @@ describe('ConfigurationSaga', () => {
         const result = clone.next().done;
         result.should.to.equal(true);
       });
+    });
+  });
+
+  describe('openConfigurationSaga', () => {
+    const generator = cloneableGenerator(openConfigurationSaga)();
+
+    it('should dispatch openConfigurationStarted', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(openConfigurationStarted()));
+    });
+
+    it('should dispatch enterConfigMode', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(enterConfigMode()));
+    });
+
+    it('should wait enterConfigModeFinished', () => {
+      const result = generator.next().value;
+      result.should.to.eql(take(enterConfigModeFinished.getType()));
+    });
+
+    it('should dispatch openConfigurationFinished', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(openConfigurationFinished()));
+    });
+
+    it('performs no further work', () => {
+      const result = generator.next().done;
+      result.should.to.equal(true);
+    });
+  });
+
+  describe('saveConfigurationSaga', () => {
+    const generator = cloneableGenerator(saveConfigurationSaga)({payload:config});
+
+    it('should dispatch saveConfigurationStarted', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(saveConfigurationStarted()));
+    });
+
+    it('should dispatch storeConfig', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(storeConfig(config)));
+    });
+
+    it('should wait storeConfigFinished', () => {
+      const result = generator.next().value;
+      result.should.to.eql(take(storeConfigFinished.getType()));
+    });
+
+    it('should dispatch exitConfigMode', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(exitConfigMode()));
+    });
+
+    it('should wait exitConfigModeFinished', () => {
+      const result = generator.next().value;
+      result.should.to.eql(take(exitConfigModeFinished.getType()));
+    });
+
+    it('should dispatch refreshWidget', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(refreshWidget()));
+    });
+
+    it('should wait refreshWidgetFinished', () => {
+      const result = generator.next().value;
+      result.should.to.eql(take(refreshWidgetFinished.getType()));
+    });
+
+    it('should dispatch saveConfigurationFinished', () => {
+      const result = generator.next().value;
+      result.should.to.eql(put(saveConfigurationFinished()));
+    });
+
+    it('performs no further work', () => {
+      const result = generator.next().done;
+      result.should.to.equal(true);
     });
   });
 });
