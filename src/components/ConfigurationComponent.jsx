@@ -23,7 +23,7 @@ export const LocationSource = ({locSource, setLocSource}) => (
       <Radio value={locSource} onChange={(value) => setLocSource(value)}>
         <RadioItem value={LocationSources.GEO}>Geolocation</RadioItem>
         <RadioItem value={LocationSources.NAME}>Place name</RadioItem>
-        <RadioItem value={LocationSources.COORD}>Place coordinates</RadioItem>
+        <RadioItem value={LocationSources.COORD} disabled>Place coordinates</RadioItem>
       </Radio>
     </div>
   </div>
@@ -36,6 +36,7 @@ export const PlaceName = ({placeName, setPlaceName}) => (
       size={Size.FULL}
       value={placeName}
       onChange={ev => setPlaceName(ev.target.value)}
+      onClear={() => setPlaceName('')}
     />
   </div>
 );
