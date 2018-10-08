@@ -12,6 +12,10 @@
   flex-flow: row wrap;
   color: #AAA;
   padding: 20px;
+
+  @media (max-width:200px) {
+    padding: 5px;
+  }
 }
 
 .weatherCurrentInfo {
@@ -21,25 +25,49 @@
   flex-grow: 2;
 
   @media (max-width:200px) {
-    flex-flow: row wrap;
+    flex-flow: column wrap;
+    text-align: center;
+  }
+  @media (max-width:350px) {
+    text-align: center;
   }
 }
 
 .weatherCurrentInfoCity {
   font-size: 26px;
+
+  @media (max-width:200px) {
+    font-size: 16px;
+  }
 }
 
 .weatherCurrentInfoTemp {
   font-size: 56px;
   margin: 28px 0;
+
+  @media (max-width:200px) {
+    font-size:28px;
+    margin: 10px 0;
+    text-align: center;
+  }
 }
 
 .weatherCurrentInfoCityWind {
   font-size: 24px;
+
+  @media (max-width:200px) {
+    font-size:12px;
+    text-align: center;
+  }
 }
 
 .weatherCurrentIcon {
   text-align: center;
   font-size: 64px;
   flex-grow: 1;
+
+  @media (max-width:200px) {
+    font-size:32px;
+    margin-bottom: 10px;
+  }
 }

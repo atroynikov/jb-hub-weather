@@ -13,9 +13,10 @@
   flex-grow: 1;
   text-align: center;
   cursor: pointer;
+
   @media (max-width: 200px) {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
   }
 }
 
@@ -28,7 +29,7 @@
   text-transform: uppercase;
 
   @media (max-width: 200px) {
-
+    margin-left: 35px;
   }
 }
 
@@ -37,6 +38,9 @@
   font-size: 28px;
 
   @media (max-width: 200px) {
-
+    position: absolute;
+    right: 35px;
+    font-size: 20px;
+    margin-top: 10px;
   }
 }
