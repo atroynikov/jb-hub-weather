@@ -1,5 +1,13 @@
 import {UnitsFormats} from '@constants';
 
+export function getUnitsTitle(format) {
+  return ({
+    [UnitsFormats.METRIC]: 'Metric',
+    [UnitsFormats.IMPERIAL]: 'Imperial',
+    [UnitsFormats.STANDARD]: 'Standard',
+  })[format];
+}
+
 export function getTemperatureUnits(format) {
   return ({
     [UnitsFormats.METRIC]: 'C',

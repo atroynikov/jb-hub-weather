@@ -11,6 +11,7 @@ import RadioItem from '@jetbrains/ring-ui/components/radio/radio__item';
 import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
 
 import {LocationSources, DataSources, UnitsFormats} from '@constants';
+import * as Utils from '@utils';
 
 import '@jetbrains/ring-ui/components/form/form.scss';
 
@@ -50,9 +51,13 @@ export const UnitsFormat = ({unitsFormat, setUnitsFormat}) => (
     <div className="ring-form__label">Units format</div>
     <div className="ring-form__control">
       <Radio value={unitsFormat} onChange={(value) => setUnitsFormat(value)}>
-        <RadioItem value={UnitsFormats.METRIC}>Metric (&deg;C, meter/sec)</RadioItem>
-        <RadioItem value={UnitsFormats.STANDARD}>Standard (&deg;K, meter/sec)</RadioItem>
-        <RadioItem value={UnitsFormats.IMPERIAL}>Imperial (&deg;F, miles/hour)</RadioItem>
+        {[UnitsFormats.METRIC, UnitsFormats.STANDARD, UnitsFormats.IMPERIAL].map(
+          format => (
+            <RadioItem value={format}>
+              {Utils.getUnitsTitle(format)} (&deg;{Utils.getTemperatureUnits(format)}, {Utils.getWindUnits(format)})
+            </RadioItem>
+          )
+        )}
       </Radio>
     </div>
   </div>
