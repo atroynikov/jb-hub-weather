@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import {Grid, Row, Col} from '@jetbrains/ring-ui/components/grid/grid';
 import Panel from '@jetbrains/ring-ui/components/panel/panel';
 import Button from '@jetbrains/ring-ui/components/button/button';
+import ButtonSet from '@jetbrains/ring-ui/components/button-set/button-set';
 import Input, {Size, Theme} from '@jetbrains/ring-ui/components/input/input';
 import Radio from '@jetbrains/ring-ui/components/radio/radio';
 import RadioItem from '@jetbrains/ring-ui/components/radio/radio__item';
@@ -30,10 +31,12 @@ export const LocationSource = ({locSource, setLocSource}) => (
 
 export const PlaceName = ({placeName, setPlaceName}) => (
   <div className="ring-form__group">
-    <div className="ring-form__label">Place name</div>
-    <div className="ring-form__control">
-      <Input size={Size.FULL} value={placeName} onChange={ev => setPlaceName(ev.target.value)} borderless/>
-    </div>
+    <Input
+      label="Place name"
+      size={Size.FULL}
+      value={placeName}
+      onChange={ev => setPlaceName(ev.target.value)}
+    />
   </div>
 );
 
@@ -74,19 +77,23 @@ export const ShowForecast = ({showForecast, setShowForecast}) => (
 
 export const ForecastDays = ({forecastDays, setForecastDays}) => (
   <div className="ring-form__group">
-    <div className="ring-form__label">Forecast days</div>
-    <div className="ring-form__control">
-      <Input value={'' + forecastDays} onChange={ev => setForecastDays(ev.target.value)}/>
-    </div>
+    <Input
+      label="Forecast days"
+      size={Size.FULL}
+      value={'' + forecastDays}
+      onChange={ev => setForecastDays(ev.target.value)}
+    />
   </div>
 );
 
 export const UpdateInterval = ({updateInt, setUpdateInt}) => (
   <div className="ring-form__group">
-    <div className="ring-form__label">Update interval (sec)</div>
-    <div className="ring-form__control">
-      <Input value={'' + updateInt} onChange={ev => setUpdateInt(ev.target.value)}/>
-    </div>
+    <Input
+      label="Update interval (sec)"
+      size={Size.FULL}
+      value={'' + updateInt}
+      onChange={ev => setUpdateInt(ev.target.value)}
+    />
   </div>
 );
 
@@ -105,29 +112,25 @@ export const DataSource = ({dataSource, setDataSource}) => (
 
 export const OwmAppId = ({owmAppId, setOwmAppId}) => (
   <div className="ring-form__group">
-    <div className="ring-form__label">OWM APP ID</div>
-    <div className="ring-form__control">
-      <Input
-        size={Size.FULL}
-        value={owmAppId}
-        onChange={ev => setOwmAppId(ev.target.value)}
-        onClear={() => setOwmAppId('')}
-      />
-    </div>
+    <Input
+      label="OpenWeatherMap App ID"
+      size={Size.FULL}
+      value={owmAppId}
+      onChange={ev => setOwmAppId(ev.target.value)}
+      onClear={() => setOwmAppId('')}
+    />
   </div>
 );
 
 export const DsSecretKey = ({dsSecretKey, setDsSecretKey}) => (
   <div className="ring-form__group">
-    <div className="ring-form__label">Dark Sky secret key</div>
-    <div className="ring-form__control">
-      <Input
-        size={Size.FULL}
-        value={dsSecretKey}
-        onChange={ev => setDsSecretKey(ev.target.value)}
-        onClear={() => setDsSecretKey('')}
-      />
-    </div>
+    <Input
+      label="Dark Sky secret key"
+      size={Size.FULL}
+      value={dsSecretKey}
+      onChange={ev => setDsSecretKey(ev.target.value)}
+      onClear={() => setDsSecretKey('')}
+    />
   </div>
 );
 
@@ -136,7 +139,7 @@ const ConfigurationComponent = (props) => {
   return (
   <Grid>
     <Row>
-      <Col xs={12}>
+      <Col lg={12}>
         <form className="ring-form">
           <LocationSource {...props}/>
           {props.locSource === LocationSources.NAME && <PlaceName {...props}/>}
@@ -149,10 +152,10 @@ const ConfigurationComponent = (props) => {
           {props.dataSource === DataSources.OPEN_WEATHER_MAP && <OwmAppId {...props}/>}
           {props.dataSource === DataSources.DARK_SKY && <DsSecretKey {...props}/>}
           <div className="ring-form__footer">
-            <Panel>
+            <ButtonSet>
               <Button primary onClick={() => props.onSave()}>Save</Button>
               <Button onClick={() => props.onCancel()}>Cancel</Button>
-            </Panel>
+            </ButtonSet>
           </div>
         </form>
       </Col>
@@ -161,7 +164,7 @@ const ConfigurationComponent = (props) => {
 )};
 
 ConfigurationComponent.propTypes = {
-  UnitsFormat: PropTypes.string.isRequired,
+  unitsFormat: PropTypes.string.isRequired,
   setUnitsFormat: PropTypes.func.isRequired,
   placeName: PropTypes.string.isRequired,
   setPlaceName: PropTypes.func.isRequired,
