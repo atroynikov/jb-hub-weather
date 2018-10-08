@@ -18,6 +18,7 @@ const webpackConfig = () => ({
       "@reducers": path.resolve('./src/reducers'),
       "@sagas": path.resolve('./src/sagas'),
       "@selectors": path.resolve('./src/selectors'),
+      "@utils": path.resolve('./src/utils')
     }
   },
   output: {

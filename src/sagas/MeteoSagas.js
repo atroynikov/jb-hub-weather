@@ -113,7 +113,6 @@ export function* fetchForecastSaga() {
       forecast: forecast
     }));
 
-    console.log(forecast);
     yield put(fetchForecastFinished(forecast));
   } catch (error) {
     yield put(fetchForecastFailed(error.toString()));

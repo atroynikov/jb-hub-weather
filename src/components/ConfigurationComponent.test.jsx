@@ -6,18 +6,20 @@ import
   LocationSource, PlaceName, Scale
 } from '@components/ConfigurationComponent';
 import styles from '@components/ConfigurationComponent.css';
-import {DataSources, LocationSources} from '@constants';
+import {
+  DataSources, LocationSources, UnitsFormats
+} from '@constants';
 
 const props = {
   locSource: LocationSources.GEO,
   placeName: 'Sankt-Peterburg',
-  tempScale: 'C',
+  unitss: UnitsFormats.METRIC,
   showForecast: true,
   forecastDays: '5',
   updateInt: '300',
   dataSource: DataSources.OPEN_WEATHER_MAP,
-  owmAppId: '757dd97f4bcba5a5328ebb5395a61384',
-  dsSecretKey: 'c538faa3d9d27354adfbab12e2abd0c1'
+  owmAppId: 'abcdefgh',
+  dsSecretKey: 'abcdefgh'
 };
 
 describe('ConfigurationComponent', () => {

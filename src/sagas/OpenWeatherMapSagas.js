@@ -6,8 +6,9 @@ import {
   fetchOwmForecast, requestOwmForecast, receiveOwmForecast, requestOwmForecastFailed
 } from '@actions/OpenWeatherMapActions';
 import {getConfig} from '@selectors/DashboardApiSelectors';
+import {ApiBaseURL} from '@constants';
 
-const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+const BASE_URL = ApiBaseURL.OPEN_WEATHER_MAP;
 
 export function* fetchOwmWeatherSaga({payload}) {
   try {
@@ -15,9 +16,8 @@ export function* fetchOwmWeatherSaga({payload}) {
 
     yield put(requestOwmWeather());
     const {
-      placeName: name, tempScale: scale, owmAppId: appId
+      placeName: name, unitsFormat: units, owmAppId: appId
     } = yield select(getConfig);
-    const units = {C: 'metric', F: 'imperial', K: ''}[scale];
     if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
       url = `${BASE_URL}/weather?lat=${encodeURIComponent(payload.lat)}&lon=${encodeURIComponent(payload.lon)}&units=${units}&appid=${appId}`;
     } else if (payload.hasOwnProperty('name')) {
@@ -36,9 +36,8 @@ export function* fetchOwmForecastSaga({payload}) {
 
     yield put(requestOwmForecast());
     const {
-      placeName: name, forecastDays: days, tempScale: scale, owmAppId: appId
+      placeName: name, forecastDays: days, unitsFormat: units, owmAppId: appId
     } = yield select(getConfig);
-    const units = {C: 'metric', F: 'imperial', K: ''}[scale];
     const cnt = days * 8;
     if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
       const {lat, lon} = payload;

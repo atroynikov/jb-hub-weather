@@ -4,23 +4,25 @@ import {connect} from 'react-redux';
 import {ConfigurationComponent} from '@components';
 import {saveConfiguration, exitConfigMode} from '@actions/ConfigurationActions';
 import {getConfig} from '@selectors/DashboardApiSelectors';
-import {LocationSources, DataSources} from '@constants';
+import {
+  LocationSources, DataSources, UnitsFormats, ApiKeys
+} from '@constants';
 
 class ConfigurationContainer extends Component {
   constructor(props) {
     super(props);
 
     const {
-      locSource, placeName, tempScale, showForecast, forecastDays,
+      locSource, placeName, unitsFormat, showForecast, forecastDays,
       updateInt, dataSource, owmAppId, dsSecretKey
     } = props;
     this.state = {
-      locSource, placeName, tempScale, showForecast, forecastDays,
+      locSource, placeName, unitsFormat, showForecast, forecastDays,
       updateInt, dataSource, owmAppId, dsSecretKey
     };
     this.setLocSource = this.setLocSource.bind(this);
     this.setPlaceName = this.setPlaceName.bind(this);
-    this.setTempScale = this.setTempScale.bind(this);
+    this.setUnitsFormat = this.setUnitsFormat.bind(this);
     this.setShowForecast = this.setShowForecast.bind(this);
     this.setForecastDays = this.setForecastDays.bind(this);
     this.setUpdateInt = this.setUpdateInt.bind(this);
@@ -45,10 +47,10 @@ class ConfigurationContainer extends Component {
     }));
   }
 
-  setTempScale(value) {
+  setUnitsFormat(value) {
     this.setState(prevState => ({
       ...prevState,
-      tempScale: value
+      unitsFormat: value
     }));
   }
 
@@ -108,7 +110,7 @@ class ConfigurationContainer extends Component {
       ...this.state,
       setLocSource: this.setLocSource,
       setPlaceName: this.setPlaceName,
-      setTempScale: this.setTempScale,
+      setUnitsFormat: this.setUnitsFormat,
       setShowForecast: this.setShowForecast,
       setForecastDays: this.setForecastDays,
       setUpdateInt: this.setUpdateInt,
@@ -127,13 +129,13 @@ class ConfigurationContainer extends Component {
 ConfigurationContainer.defaultProps = {
   locSource: LocationSources.GEO,
   placeName: 'Sankt-Peterburg',
-  tempScale: 'C', //Change to System of Units
+  unitsFormat: UnitsFormats.METRIC,
   showForecast: true,
   forecastDays: '5',
   updateInt: '300',
   dataSource: DataSources.OPEN_WEATHER_MAP,
-  owmAppId: '757dd97f4bcba5a5328ebb5395a61384',
-  dsSecretKey: 'c538faa3d9d27354adfbab12e2abd0c1'
+  owmAppId: ApiKeys.OPEN_WEATHER_MAP,
+  dsSecretKey: ApiKeys.DARK_SKY
 };
 
 export default connect(

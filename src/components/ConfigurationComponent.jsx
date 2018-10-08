@@ -10,7 +10,7 @@ import Radio from '@jetbrains/ring-ui/components/radio/radio';
 import RadioItem from '@jetbrains/ring-ui/components/radio/radio__item';
 import Checkbox from '@jetbrains/ring-ui/components/checkbox/checkbox';
 
-import {LocationSources, DataSources} from '@constants';
+import {LocationSources, DataSources, UnitsFormats} from '@constants';
 
 import '@jetbrains/ring-ui/components/form/form.scss';
 
@@ -45,14 +45,14 @@ export const PlaceCoordinates = ({}) => (
   </div>
 );
 
-export const Scale = ({tempScale, setTempScale}) => (
+export const UnitsFormat = ({unitsFormat, setUnitsFormat}) => (
   <div className="ring-form__group">
-    <div className="ring-form__label">Scale</div>
+    <div className="ring-form__label">Units format</div>
     <div className="ring-form__control">
-      <Radio value={tempScale} onChange={(value) => setTempScale(value)}>
-        <RadioItem value="C">Celsius (&deg;C)</RadioItem>
-        <RadioItem value="F">Farenheit (&deg;F)</RadioItem>
-        <RadioItem value="K">Kelvin (&deg;K)</RadioItem>
+      <Radio value={unitsFormat} onChange={(value) => setUnitsFormat(value)}>
+        <RadioItem value={UnitsFormats.METRIC}>Metric (&deg;C, meter/sec)</RadioItem>
+        <RadioItem value={UnitsFormats.STANDARD}>Standard (&deg;K, meter/sec)</RadioItem>
+        <RadioItem value={UnitsFormats.IMPERIAL}>Imperial (&deg;F, miles/hour)</RadioItem>
       </Radio>
     </div>
   </div>
@@ -136,7 +136,7 @@ const ConfigurationComponent = (props) => {
           <LocationSource {...props}/>
           {props.locSource === LocationSources.NAME && <PlaceName {...props}/>}
           {props.locSource === LocationSources.COORD && <PlaceCoordinates {...props}/>}
-          <Scale {...props}/>
+          <UnitsFormat {...props}/>
           <ShowForecast {...props}/>
           {props.showForecast && <ForecastDays {...props}/>}
           <UpdateInterval {...props}/>
@@ -156,8 +156,8 @@ const ConfigurationComponent = (props) => {
 )};
 
 ConfigurationComponent.propTypes = {
-  tempScale: PropTypes.string.isRequired,
-  setTempScale: PropTypes.func.isRequired,
+  UnitsFormat: PropTypes.string.isRequired,
+  setUnitsFormat: PropTypes.func.isRequired,
   placeName: PropTypes.string.isRequired,
   setPlaceName: PropTypes.func.isRequired,
   locSource: PropTypes.string.isRequired,

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import WeatherIcons from 'react-weathericons';
 
+import * as Utils from '@utils';
 import styles from './WeatherComponent.css';
 
 const WeatherComponent = (
@@ -19,10 +20,10 @@ const WeatherComponent = (
         </div>
         <div className={styles.weatherCurrentInfoTemp}>
           {weather && weather.main ? weather.main.temp : '...'}
-          {weather && weather.main && <small>&deg;{config.tempScale}</small>}
+          {weather && weather.main && <small>&deg;{Utils.getTemperatureUnits(config.unitsFormat)}</small>}
         </div>
         <div className={styles.weatherCurrentInfoCityWind}>
-          {weather && weather.wind ? weather.wind.speed : '...'} m/sec
+          {weather && weather.wind ? weather.wind.speed : '...'} {Utils.getWindUnits(config.unitsFormat)}
         </div>
       </div>
       <div className={styles.weatherCurrentIcon}>

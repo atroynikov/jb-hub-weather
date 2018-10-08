@@ -5,9 +5,10 @@ import {
   fetchDsWeather, requestDsWeather, receiveDsWeather, requestDsWeatherFailed,
   fetchDsForecast, requestDsForecast, receiveDsForecast, requestDsForecastFailed
 } from '@actions/DarkSkyActions';
-import {alert} from "@actions/DashboardApiActions";
+import {alert} from '@actions/DashboardApiActions';
+import {ApiBaseURL} from '@constants';
 
-const BASE_URL = 'https://api.darksky.net/forecast';
+const BASE_URL = ApiBaseURL.DARK_SKY;
 
 export function* fetchDsWeatherSaga({payload}) {
   try {
@@ -16,9 +17,8 @@ export function* fetchDsWeatherSaga({payload}) {
 
     yield put(requestDsWeather());
     const {
-      placeName: name, tempScale: scale, dsSecretKey: key
+      placeName: name, unitsFormat: units, dsSecretKey: key
     } = yield select(state => state.dashboardApi.config.data);
-    const units = {C: 'metric', F: 'imperial', K: ''}[scale];
     if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
       const {lat, lon} = payload;
       url = `${BASE_URL}/${key}/${lat},${lon}?exclude=${encodeURIComponent(exclude)}`;
@@ -40,9 +40,8 @@ export function* fetchDsForecastSaga({payload}) {
 
     yield put(requestDsForecast());
     const {
-      placeName: name, forecastDays: days, tempScale: scale, dsSecretKey: key
+      placeName: name, forecastDays: days, unitsFormat: units, dsSecretKey: key
     } = yield select(state => state.dashboardApi.config.data);
-    const units = {C: 'metric', F: 'imperial', K: ''}[scale];
     const cnt = days * 8;
     if (payload.hasOwnProperty('lat') && payload.hasOwnProperty('lon')) {
       const {lat, lon} = payload;
