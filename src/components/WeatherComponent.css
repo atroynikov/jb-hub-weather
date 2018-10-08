@@ -19,6 +19,10 @@
   flex-flow: column wrap;
   justify-content: space-around;
   flex-grow: 2;
+
+  @media (max-width:200px) {
+    flex-flow: row wrap;
+  }
 }
 
 .weatherCurrentInfoCity {
@@ -38,28 +42,4 @@
   text-align: center;
   font-size: 64px;
   flex-grow: 1;
-}
-
-.weatherFuture {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.weatherFutureDay {
-  flex-grow: 1;
-  text-align: center;
-  cursor: pointer;
-}
-
-.weatherFutureDay:hover {
-  color: #fff;
-  background-color: #F68D2E;
-}
-
-.weatherFutureDayH3 {
-  text-transform: uppercase;
-}
-
-.weatherFutureDayP {
-  font-size: 28px;
 }

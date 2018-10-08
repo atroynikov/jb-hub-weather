@@ -2,12 +2,21 @@
   display: flex;
   flex-flow: row nowrap;
   height: 100px;
+
+  @media (max-width: 200px) {
+    flex-flow: column nowrap;
+    height: auto;
+  }
 }
 
 .day {
   flex-grow: 1;
   text-align: center;
   cursor: pointer;
+  @media (max-width: 200px) {
+    display: flex;
+    flex-flow: column nowrap;
+  }
 }
 
 .day:hover {
@@ -17,9 +26,17 @@
 
 .day h3 {
   text-transform: uppercase;
+
+  @media (max-width: 200px) {
+
+  }
 }
 
 .day p {
   margin: 0;
   font-size: 28px;
+
+  @media (max-width: 200px) {
+
+  }
 }
