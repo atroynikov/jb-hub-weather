@@ -6,6 +6,9 @@ const ringUiWebpackConfig = require('@jetbrains/ring-ui/webpack.config');
 
 const srcPath = path.join(__dirname, './src');
 
+const AWS_ACCESS_KEY_ID="AWS_ACCESS_KEY_ID"
+const AWS_SECRET_ACCESS_KEY="AWS_SECRET_ACCESS_KEY"
+
 const webpackConfig = () => ({
   entry: path.resolve('./src/index.js'),
   resolve: {
